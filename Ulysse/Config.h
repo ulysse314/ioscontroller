@@ -3,11 +3,11 @@
 @interface Config : NSObject
 
 @property(nonatomic) NSString *boatName;
-@property(nonatomic, readonly) NSArray<NSString*>* boatNameList;
+@property(nonatomic, readonly) NSArray<NSString*> *boatNameList;
+@property(nonatomic, readonly) NSDictionary *allValues;
 
 + (instancetype)sharedInstance;
 
-- (NSDictionary *)allValues;
 - (id)valueForKey:(NSString *)key;
 
 @end

@@ -1,13 +1,15 @@
 #import "Config.h"
 
-@interface Config () {
-  NSDictionary *_values;
-}
+@interface Config ()
+@property(nonatomic) NSArray<NSString*> *boatNameList;
+@property(nonatomic) NSDictionary *allValues;
 @end
 
 @implementation Config
 
+@synthesize allValues = _allValues;
 @synthesize boatName = _boatName;
+@synthesize boatNameList = _boatNameList;
 
 + (instancetype)sharedInstance {
   static dispatch_once_t p = 0;
@@ -24,26 +26,19 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"ulysse314" ofType:@"json"];
     NSData *JSONData = [NSData dataWithContentsOfFile:path];
     NSError *error = nil;
-    _values = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
-    _boatName = [_values[@"boats"] allKeys][0];
+    _allValues = [NSJSONSerialization JSONObjectWithData:JSONData options:0 error:&error];
+    _boatNameList = [[_allValues[@"boats"] allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    _boatName = [_allValues[@"boats"] allKeys][0];
   }
   return self;
 }
 
-- (NSDictionary *)allValues {
-  return _values;
-}
-
 - (id)valueForKey:(NSString *)key {
-  id value = _values[@"boats"][_boatName][key];
+  id value = self.allValues[@"boats"][_boatName][key];
   if (!value) {
-    value = _values[@"shared"][key];
+    value = self.allValues[@"shared"][key];
   }
   return value;
-}
-
-- (NSArray<NSString *>*)boatNameList {
-  return [_values[@"boats"] allKeys];
 }
 
 @end

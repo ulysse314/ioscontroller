@@ -13,7 +13,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  _boatNames = [[Config sharedInstance].boatNameList sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+  _boatNames = [Config sharedInstance].boatNameList;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -153,12 +153,20 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   _ulysse.motorCoef = motorCoef;
 }
 
+- (void)updateBoat {
+  [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+  NSInteger index = [_config.boatNameList indexOfObject:_config.boatName];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.gameController.playerIndex = index;
+  });
+}
+
 #pragma mark - NSKeyValueObserving
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
   if (object == _config) {
-    [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self updateBoat];
   }
 }
 
@@ -169,7 +177,6 @@ static NSString *kMotorCoefKey = @"MotorCoef";
     return;
   }
   self.gameController = notification.object;
-  self.gameController.playerIndex = GCControllerPlayerIndex1;
   self.gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
   };
   self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
@@ -184,6 +191,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   self.gameController.extendedGamepad.leftShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
     [_ulysse setValues: @{ @"led": @{ @"left%": pressed ? @(100) : @(0) }}];
   };
+  [self updateBoat];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:self.gameController];
 }
 
