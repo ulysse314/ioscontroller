@@ -1,0 +1,621 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
+		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
+		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
+		023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023BD9172044994000188A35 /* BoatChooserViewController.m */; };
+		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
+		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
+		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
+		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
+		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
+		029931151D3180FC00C03033 /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931141D3180FC00C03033 /* ControlViewController.m */; };
+		0299311B1D3180FC00C03033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 029931191D3180FC00C03033 /* Main.storyboard */; };
+		0299311D1D3180FC00C03033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0299311C1D3180FC00C03033 /* Assets.xcassets */; };
+		029931201D3180FC00C03033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */; };
+		0299312B1D3180FC00C03033 /* UlysseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299312A1D3180FC00C03033 /* UlysseTests.m */; };
+		029931361D3180FC00C03033 /* UlysseUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931351D3180FC00C03033 /* UlysseUITests.m */; };
+		029931451D3195DB00C03033 /* Ulysse.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931441D3195DB00C03033 /* Ulysse.m */; };
+		02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */; };
+		02F4008E20471DFD00016004 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02F4008D20471DFD00016004 /* Settings.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		029931271D3180FC00C03033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 029931021D3180FC00C03033 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 029931091D3180FC00C03033;
+			remoteInfo = Ulysse;
+		};
+		029931321D3180FC00C03033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 029931021D3180FC00C03033 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 029931091D3180FC00C03033;
+			remoteInfo = Ulysse;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
+		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		021E06E11D3717DD002A7BD3 /* Trackpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackpad.h; sourceTree = "<group>"; };
+		021E06E21D3717DD002A7BD3 /* Trackpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trackpad.m; sourceTree = "<group>"; };
+		021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ulysse-Bridging-Header.h"; sourceTree = "<group>"; };
+		023BD9162044994000188A35 /* BoatChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoatChooserViewController.h; sourceTree = "<group>"; };
+		023BD9172044994000188A35 /* BoatChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoatChooserViewController.m; sourceTree = "<group>"; };
+		0244BF28205458D100B1D6F5 /* MotorPowerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MotorPowerView.h; sourceTree = "<group>"; };
+		0244BF29205458D100B1D6F5 /* MotorPowerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MotorPowerView.m; sourceTree = "<group>"; };
+		0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
+		0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
+		0265709D2034CEFE006187A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		0299310A1D3180FC00C03033 /* Ulysse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulysse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0299310E1D3180FC00C03033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		029931101D3180FC00C03033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		029931111D3180FC00C03033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		029931131D3180FC00C03033 /* ControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlViewController.h; sourceTree = "<group>"; };
+		029931141D3180FC00C03033 /* ControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ControlViewController.m; sourceTree = "<group>"; };
+		0299311A1D3180FC00C03033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0299311C1D3180FC00C03033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0299311F1D3180FC00C03033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		029931211D3180FC00C03033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		029931261D3180FC00C03033 /* UlysseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UlysseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0299312A1D3180FC00C03033 /* UlysseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UlysseTests.m; sourceTree = "<group>"; };
+		0299312C1D3180FC00C03033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		029931311D3180FC00C03033 /* UlysseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UlysseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		029931351D3180FC00C03033 /* UlysseUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UlysseUITests.m; sourceTree = "<group>"; };
+		029931371D3180FC00C03033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		029931431D3195DB00C03033 /* Ulysse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ulysse.h; sourceTree = "<group>"; };
+		029931441D3195DB00C03033 /* Ulysse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ulysse.m; sourceTree = "<group>"; };
+		02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickaction_icon_location@2x.png"; sourceTree = "<group>"; };
+		02F4008D20471DFD00016004 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Settings.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		029931071D3180FC00C03033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		029931231D3180FC00C03033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0299312E1D3180FC00C03033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0244BF2B205458DE00B1D6F5 /* Custom View */ = {
+			isa = PBXGroup;
+			children = (
+				0244BF28205458D100B1D6F5 /* MotorPowerView.h */,
+				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
+			);
+			path = "Custom View";
+			sourceTree = "<group>";
+		};
+		029931011D3180FC00C03033 = {
+			isa = PBXGroup;
+			children = (
+				0299310C1D3180FC00C03033 /* Ulysse */,
+				029931291D3180FC00C03033 /* UlysseTests */,
+				029931341D3180FC00C03033 /* UlysseUITests */,
+				0299310B1D3180FC00C03033 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0299310B1D3180FC00C03033 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0299310A1D3180FC00C03033 /* Ulysse.app */,
+				029931261D3180FC00C03033 /* UlysseTests.xctest */,
+				029931311D3180FC00C03033 /* UlysseUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0299310C1D3180FC00C03033 /* Ulysse */ = {
+			isa = PBXGroup;
+			children = (
+				02F4008C204718CC00016004 /* Settings */,
+				029931101D3180FC00C03033 /* AppDelegate.h */,
+				029931111D3180FC00C03033 /* AppDelegate.m */,
+				029931431D3195DB00C03033 /* Ulysse.h */,
+				029931441D3195DB00C03033 /* Ulysse.m */,
+				029931131D3180FC00C03033 /* ControlViewController.h */,
+				029931141D3180FC00C03033 /* ControlViewController.m */,
+				021E06E11D3717DD002A7BD3 /* Trackpad.h */,
+				021E06E21D3717DD002A7BD3 /* Trackpad.m */,
+				021565FB1FF6EC3E00D9BC98 /* Config.h */,
+				021565FC1FF6EC3E00D9BC98 /* Config.m */,
+				029931191D3180FC00C03033 /* Main.storyboard */,
+				0299311C1D3180FC00C03033 /* Assets.xcassets */,
+				0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */,
+				029931211D3180FC00C03033 /* Info.plist */,
+				02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */,
+				0244BF2B205458DE00B1D6F5 /* Custom View */,
+				0299310D1D3180FC00C03033 /* Supporting Files */,
+				021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */,
+				020F333C1FE629FC0014A228 /* ulysse314.json */,
+				02F4008D20471DFD00016004 /* Settings.xcassets */,
+				0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */,
+				0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */,
+			);
+			path = Ulysse;
+			sourceTree = "<group>";
+		};
+		0299310D1D3180FC00C03033 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0299310E1D3180FC00C03033 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		029931291D3180FC00C03033 /* UlysseTests */ = {
+			isa = PBXGroup;
+			children = (
+				0299312A1D3180FC00C03033 /* UlysseTests.m */,
+				0299312C1D3180FC00C03033 /* Info.plist */,
+			);
+			path = UlysseTests;
+			sourceTree = "<group>";
+		};
+		029931341D3180FC00C03033 /* UlysseUITests */ = {
+			isa = PBXGroup;
+			children = (
+				029931351D3180FC00C03033 /* UlysseUITests.m */,
+				029931371D3180FC00C03033 /* Info.plist */,
+			);
+			path = UlysseUITests;
+			sourceTree = "<group>";
+		};
+		02F4008C204718CC00016004 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0265709D2034CEFE006187A8 /* SettingsTableViewController.h */,
+				0265709E2034CEFE006187A8 /* SettingsTableViewController.m */,
+				023BD9162044994000188A35 /* BoatChooserViewController.h */,
+				023BD9172044994000188A35 /* BoatChooserViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		029931091D3180FC00C03033 /* Ulysse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0299313A1D3180FC00C03033 /* Build configuration list for PBXNativeTarget "Ulysse" */;
+			buildPhases = (
+				029931061D3180FC00C03033 /* Sources */,
+				029931071D3180FC00C03033 /* Frameworks */,
+				029931081D3180FC00C03033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ulysse;
+			productName = Ulysse;
+			productReference = 0299310A1D3180FC00C03033 /* Ulysse.app */;
+			productType = "com.apple.product-type.application";
+		};
+		029931251D3180FC00C03033 /* UlysseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0299313D1D3180FC00C03033 /* Build configuration list for PBXNativeTarget "UlysseTests" */;
+			buildPhases = (
+				029931221D3180FC00C03033 /* Sources */,
+				029931231D3180FC00C03033 /* Frameworks */,
+				029931241D3180FC00C03033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				029931281D3180FC00C03033 /* PBXTargetDependency */,
+			);
+			name = UlysseTests;
+			productName = UlysseTests;
+			productReference = 029931261D3180FC00C03033 /* UlysseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		029931301D3180FC00C03033 /* UlysseUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 029931401D3180FC00C03033 /* Build configuration list for PBXNativeTarget "UlysseUITests" */;
+			buildPhases = (
+				0299312D1D3180FC00C03033 /* Sources */,
+				0299312E1D3180FC00C03033 /* Frameworks */,
+				0299312F1D3180FC00C03033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				029931331D3180FC00C03033 /* PBXTargetDependency */,
+			);
+			name = UlysseUITests;
+			productName = UlysseUITests;
+			productReference = 029931311D3180FC00C03033 /* UlysseUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		029931021D3180FC00C03033 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Ulysse 314 Boat";
+				TargetAttributes = {
+					029931091D3180FC00C03033 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = P44YMXCKGK;
+						ProvisioningStyle = Automatic;
+					};
+					029931251D3180FC00C03033 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = P44YMXCKGK;
+						TestTargetID = 029931091D3180FC00C03033;
+					};
+					029931301D3180FC00C03033 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = P44YMXCKGK;
+						TestTargetID = 029931091D3180FC00C03033;
+					};
+				};
+			};
+			buildConfigurationList = 029931051D3180FC00C03033 /* Build configuration list for PBXProject "Ulysse" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 029931011D3180FC00C03033;
+			productRefGroup = 0299310B1D3180FC00C03033 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				029931091D3180FC00C03033 /* Ulysse */,
+				029931251D3180FC00C03033 /* UlysseTests */,
+				029931301D3180FC00C03033 /* UlysseUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		029931081D3180FC00C03033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */,
+				029931201D3180FC00C03033 /* LaunchScreen.storyboard in Resources */,
+				02F4008E20471DFD00016004 /* Settings.xcassets in Resources */,
+				0299311D1D3180FC00C03033 /* Assets.xcassets in Resources */,
+				020F333D1FE629FC0014A228 /* ulysse314.json in Resources */,
+				0299311B1D3180FC00C03033 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		029931241D3180FC00C03033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0299312F1D3180FC00C03033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		029931061D3180FC00C03033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
+				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
+				023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */,
+				021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */,
+				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
+				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
+				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
+				0299310F1D3180FC00C03033 /* main.m in Sources */,
+				029931451D3195DB00C03033 /* Ulysse.m in Sources */,
+				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		029931221D3180FC00C03033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0299312B1D3180FC00C03033 /* UlysseTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0299312D1D3180FC00C03033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				029931361D3180FC00C03033 /* UlysseUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		029931281D3180FC00C03033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 029931091D3180FC00C03033 /* Ulysse */;
+			targetProxy = 029931271D3180FC00C03033 /* PBXContainerItemProxy */;
+		};
+		029931331D3180FC00C03033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 029931091D3180FC00C03033 /* Ulysse */;
+			targetProxy = 029931321D3180FC00C03033 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		029931191D3180FC00C03033 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0299311A1D3180FC00C03033 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0299311F1D3180FC00C03033 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		029931381D3180FC00C03033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		029931391D3180FC00C03033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0299313B1D3180FC00C03033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = Ulysse/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.Ulysse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Ulysse/Ulysse-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0299313C1D3180FC00C03033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = Ulysse/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.Ulysse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Ulysse/Ulysse-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		0299313E1D3180FC00C03033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = UlysseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.UlysseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ulysse.app/Ulysse";
+			};
+			name = Debug;
+		};
+		0299313F1D3180FC00C03033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = UlysseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.UlysseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ulysse.app/Ulysse";
+			};
+			name = Release;
+		};
+		029931411D3180FC00C03033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = UlysseUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.UlysseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Ulysse;
+			};
+			name = Debug;
+		};
+		029931421D3180FC00C03033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = P44YMXCKGK;
+				INFOPLIST_FILE = UlysseUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ulysseboat.UlysseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Ulysse;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		029931051D3180FC00C03033 /* Build configuration list for PBXProject "Ulysse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				029931381D3180FC00C03033 /* Debug */,
+				029931391D3180FC00C03033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0299313A1D3180FC00C03033 /* Build configuration list for PBXNativeTarget "Ulysse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0299313B1D3180FC00C03033 /* Debug */,
+				0299313C1D3180FC00C03033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0299313D1D3180FC00C03033 /* Build configuration list for PBXNativeTarget "UlysseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0299313E1D3180FC00C03033 /* Debug */,
+				0299313F1D3180FC00C03033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		029931401D3180FC00C03033 /* Build configuration list for PBXNativeTarget "UlysseUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				029931411D3180FC00C03033 /* Debug */,
+				029931421D3180FC00C03033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 029931021D3180FC00C03033 /* Project object */;
+}
