@@ -64,4 +64,9 @@
   CGContextStrokePath(context);
 }
 
+- (void)setValue:(NSInteger)value {
+  _value = value;
+  [self setNeedsDisplay];
+}
+
 @end
