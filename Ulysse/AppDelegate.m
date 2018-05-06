@@ -156,8 +156,13 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 - (void)updateBoat {
   [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
+  [self updatePlayerIndex];
+}
+
+- (void)updatePlayerIndex {
+  self.gameController.playerIndex = GCControllerPlayerIndexUnset;
   NSInteger index = [_config.boatNameList indexOfObject:_config.boatName];
-  dispatch_async(dispatch_get_main_queue(), ^{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     self.gameController.playerIndex = index;
   });
 }
@@ -177,7 +182,9 @@ static NSString *kMotorCoefKey = @"MotorCoef";
     return;
   }
   self.gameController = notification.object;
+  __weak __typeof(self) weakSelf = self;
   self.gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
+    [weakSelf updatePlayerIndex];
   };
   self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
     [self updateMotorWithXValue:xValue yValue:yValue];
