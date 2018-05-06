@@ -146,11 +146,6 @@ static NSString *networkName(NSInteger networkType) {
     return;
   }
   _gameController = notification.object;
-  _gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
-  };
-  _gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
-    NSLog(@"%f %f", xValue, yValue);
-  };
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:_gameController];
   UITabBarController *controller = (UITabBarController *)self.parentViewController;
 //  [controller setTabBarHidden:YES animated:YES];
