@@ -71,6 +71,53 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   return _config;
 }
 
+- (void)setMotorCoef:(float)motorCoef {
+  [NSUserDefaults.standardUserDefaults setFloat:motorCoef forKey:kMotorCoefKey];
+  [NSUserDefaults.standardUserDefaults synchronize];
+  [_ulysse setMotorCoef:motorCoef];
+}
+
+- (float)motorCoef {
+  return _ulysse.motorCoef;
+}
+
+- (void)addAlert:(Alert)alert {
+  _alert |= alert;
+}
+
+- (void)removeAlert:(Alert)alert {
+  alert &= ~alert;
+}
+
+#pragma mark - Private
+
+- (void)loadPreferences {
+  NSUserDefaults *standardUserDefaults = NSUserDefaults.standardUserDefaults;
+  NSString *boatName = [standardUserDefaults objectForKey:kBoatNameKey];
+  if (boatName) {
+    _config.boatName = boatName;
+  }
+  float motorCoef = [standardUserDefaults floatForKey:kMotorCoefKey];
+  if (motorCoef <= 0 || motorCoef > 1.0) {
+    motorCoef = 0.5;
+  }
+  _ulysse.motorCoef = motorCoef;
+}
+
+- (void)updateBoat {
+  [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+  [self updatePlayerIndex];
+}
+
+- (void)updatePlayerIndex {
+  self.gameController.playerIndex = GCControllerPlayerIndexUnset;
+  NSInteger index = [_config.boatNameList indexOfObject:_config.boatName];
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    self.gameController.playerIndex = index;
+  });
+}
+
 - (void)updateMotorWithGamepad {
   float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
   float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
@@ -124,53 +171,6 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   leftMotor *= power;
   rightMotor *= power;
   [_ulysse setLeftMotor:leftMotor rightMotor:rightMotor];
-}
-
-- (void)setMotorCoef:(float)motorCoef {
-  [NSUserDefaults.standardUserDefaults setFloat:motorCoef forKey:kMotorCoefKey];
-  [NSUserDefaults.standardUserDefaults synchronize];
-  [_ulysse setMotorCoef:motorCoef];
-}
-
-- (float)motorCoef {
-  return _ulysse.motorCoef;
-}
-
-- (void)addAlert:(Alert)alert {
-  _alert |= alert;
-}
-
-- (void)removeAlert:(Alert)alert {
-  alert &= ~alert;
-}
-
-#pragma mark - Private
-
-- (void)loadPreferences {
-  NSUserDefaults *standardUserDefaults = NSUserDefaults.standardUserDefaults;
-  NSString *boatName = [standardUserDefaults objectForKey:kBoatNameKey];
-  if (boatName) {
-    _config.boatName = boatName;
-  }
-  float motorCoef = [standardUserDefaults floatForKey:kMotorCoefKey];
-  if (motorCoef <= 0 || motorCoef > 1.0) {
-    motorCoef = 0.5;
-  }
-  _ulysse.motorCoef = motorCoef;
-}
-
-- (void)updateBoat {
-  [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-  [self updatePlayerIndex];
-}
-
-- (void)updatePlayerIndex {
-  self.gameController.playerIndex = GCControllerPlayerIndexUnset;
-  NSInteger index = [_config.boatNameList indexOfObject:_config.boatName];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    self.gameController.playerIndex = index;
-  });
 }
 
 #pragma mark - NSKeyValueObserving
