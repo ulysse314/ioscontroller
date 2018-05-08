@@ -130,9 +130,11 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)setLeftMotor:(float)leftMotor rightMotor:(float)rightMotor {
-  _leftMotor = leftMotor;
-  _rightMotor = rightMotor;
-  [self updateMotors];
+  if (_leftMotor != leftMotor || _rightMotor != rightMotor) {
+    _leftMotor = leftMotor;
+    _rightMotor = rightMotor;
+    [self updateMotors];
+  }
 }
 
 - (void)setMotorCoef:(float)motorCoef {
