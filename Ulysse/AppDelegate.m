@@ -206,6 +206,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   NSAssert(self.gameController == notification.object, @"Unknown game controller");
   [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
   self.gameController = nil;
+  [self updateMotorWithXValue:0 yValue:0];
 }
 
 @end
