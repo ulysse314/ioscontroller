@@ -4,8 +4,9 @@
 #import <GameController/GameController.h>
 #include <math.h>
 
-#import "Ulysse.h"
 #import "Config.h"
+#import "Ulysse.h"
+#import "GamepadController.h"
 
 static NSString *kBoatNameKey = @"BoatName";
 static NSString *kMotorCoefKey = @"MotorCoef";
@@ -19,6 +20,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 @implementation AppDelegate
 
 @synthesize config = _config;
+@synthesize gamepadController = _gamepadController;
 @synthesize ulysse = _ulysse;
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp {
@@ -45,10 +47,9 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   _alertView.alpha = 0;
   UIView *superview = self.window.rootViewController.view;
   [superview addSubview:_alertView];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(gameControllerDidConnect:)
-                                               name:GCControllerDidConnectNotification
-                                             object:nil];
+  self.gamepadController = [[GamepadController alloc] init];
+  self.gamepadController.ulysse = self.ulysse;
+  self.gamepadController.config = self.config;
   return YES;
 }
 
@@ -107,70 +108,6 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 - (void)updateBoat {
   [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
-  [self updatePlayerIndex];
-}
-
-- (void)updatePlayerIndex {
-  self.gameController.playerIndex = GCControllerPlayerIndexUnset;
-  NSInteger index = [_config.boatNameList indexOfObject:_config.boatName];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    self.gameController.playerIndex = index;
-  });
-}
-
-- (void)updateMotorWithGamepad {
-  float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
-  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
-  [self updateMotorWithXValue:xValue yValue:yValue];
-}
-
-- (void)updateMotorWithXValue:(float)xValue yValue:(float)yValue {
-  float angle = atan2f(yValue, xValue);
-  float power = sqrtf(xValue * xValue + yValue * yValue);
-  if (power > 1.0) {
-    power = 1.0;
-  }
-  float rightMotor = 0;
-  float leftMotor = 0;
-  const float pi = 3.14159265358979323846;
-  if (pi / 2.0 <= angle && angle <= pi * 3.0 / 4.0) {
-    // N / NE => 1 0 / 1
-    leftMotor = 1 - (angle - pi / 2.0) / (pi / 4.0);
-    rightMotor = 1;
-  } else if (pi * 3.0 / 4.0 <= angle) {
-    // NE / E => 0 -1 / 1
-    leftMotor = -(angle - 3.0 * pi / 4.0) / (pi / 4.0);
-    rightMotor = 1;
-  } else if (angle <= -pi * 3.0 / 4.0) {
-    // E / SE => -1 / 1 0
-    leftMotor = -1;
-    rightMotor = 1 - (angle + pi) / (pi / 4.0);
-  } else if (-pi * 3.0 / 4.0 <= angle && angle <= -pi / 2.0) {
-    // SE / S => -1 / 0 -1
-    leftMotor = -1;
-    rightMotor = - (angle + 3.0 * pi / 4.0) / (pi / 4.0);
-  } else if (-pi / 2.0 <= angle && angle <= -pi / 4.0) {
-    // S / SW => -1 0 / -1
-    leftMotor = -1 + (angle + pi / 2.0) / (pi / 4.0);
-    rightMotor = -1;
-  } else if (-pi / 4.0 <= angle && angle <= 0) {
-    // SW / W => 0 1 / -1
-    leftMotor = angle + pi / 4.0;
-    rightMotor = -1;
-  } else if (0 <= angle && angle <= pi / 4.0) {
-    // W / NW => 1 / -1 0
-    leftMotor = 1;
-    rightMotor = -1 + angle / (pi / 4.0);
-  } else if (pi / 4.0 <= angle && angle <= pi / 2.0) {
-    // NW / N => 1 / 0 -1
-    leftMotor = 1;
-    rightMotor = (angle - pi / 4.0) / (pi / 4.0);
-  } else {
-    DEBUGLOG(@"pourri");
-  }
-  leftMotor *= power;
-  rightMotor *= power;
-  [_ulysse setLeftMotor:leftMotor rightMotor:rightMotor];
 }
 
 #pragma mark - NSKeyValueObserving
@@ -179,41 +116,6 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   if (object == _config) {
     [self updateBoat];
   }
-}
-
-#pragma mark - Game controller notification
-
-- (void)gameControllerDidConnect:(NSNotification *)notification {
-  if (self.gameController) {
-    return;
-  }
-  self.gameController = notification.object;
-  __weak __typeof(self) weakSelf = self;
-  self.gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
-    [weakSelf updatePlayerIndex];
-  };
-  self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
-    [self updateMotorWithGamepad];
-  };
-  self.gameController.extendedGamepad.rightTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    _ulysse.extraMotorCoef = value;
-  };
-  self.gameController.extendedGamepad.rightShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    [_ulysse setValues: @{ @"led": @{ @"right%": pressed ? @(100) : @(0) }}];
-  };
-  self.gameController.extendedGamepad.leftShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    [_ulysse setValues: @{ @"led": @{ @"left%": pressed ? @(100) : @(0) }}];
-  };
-  [self updateBoat];
-  [self updateMotorWithGamepad];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:self.gameController];
-}
-
-- (void)gameControllerDidDisconnected:(NSNotification *)notification {
-  NSAssert(self.gameController == notification.object, @"Unknown game controller");
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
-  self.gameController = nil;
-  [self updateMotorWithXValue:0 yValue:0];
 }
 
 @end

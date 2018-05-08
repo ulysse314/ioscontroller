@@ -1,7 +1,6 @@
 #import "ControlViewController.h"
 
 #import <AudioToolbox/AudioToolbox.h>
-#import <GameController/GameController.h>
 #import <MapKit/MapKit.h>
 #include <math.h>
 #import <WebKit/WebKit.h>
@@ -100,7 +99,6 @@ static NSString *networkName(NSInteger networkType) {
   IBOutlet __weak UILabel *_temperatureLabel;
   IBOutlet __weak UIView *_squareView;
   IBOutlet __weak MKMapView *_mapView;
-  GCController *_gameController;
   WKWebView *_webView;
   BOOL _camStarted;
 }
@@ -131,34 +129,10 @@ static NSString *networkName(NSInteger networkType) {
   [_mapView setRegion:adjustedRegion animated:NO];
   [self ulysseValuesDidChange:nil];
   [self startCam];
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(gameControllerDidConnect:)
-                                               name:GCControllerDidConnectNotification
-                                             object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
   return NO;
-}
-
-- (void)gameControllerDidConnect:(NSNotification *)notification {
-  if (_gameController) {
-    return;
-  }
-  _gameController = notification.object;
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:_gameController];
-  UITabBarController *controller = (UITabBarController *)self.parentViewController;
-//  [controller setTabBarHidden:YES animated:YES];
-  NSLog(@"-------------------------- connected");
-}
-
-- (void)gameControllerDidDisconnected:(NSNotification *)notification {
-  NSAssert(_gameController == notification.object, @"Unknown game controller");
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
-  _gameController = nil;
-  UITabBarController *controller = (UITabBarController *)self.parentViewController;
-//  [controller setTabBarHidden:NO animated:YES];
-  NSLog(@"-------------------------- disconnected");
 }
 
 - (void)viewDidUnload {
@@ -289,10 +263,6 @@ static NSString *networkName(NSInteger networkType) {
 //  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
 //  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
 //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[webview]-0-|" options:0 metrics:nil views:@{ @"webview": _webView }]];
-}
-
-- (void)setupGameController:(GCController *)gameController {
-  NSLog(@"test");
 }
 
 #pragma mark - TrackpadDelegate

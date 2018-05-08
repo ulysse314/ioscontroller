@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 
 @class Config;
-@class GCController;
 @class Ulysse;
+@class GamepadController;
 
 typedef NS_OPTIONS(NSUInteger, Alert) {
   WaterAlert = 1 << 0,
@@ -31,9 +31,9 @@ typedef NS_ENUM(NSUInteger, AlertLevel) {
 @property(nonatomic) Config *config;
 @property(nonatomic) Ulysse *ulysse;
 @property(nonatomic) UIWindow *window;
-@property(nonatomic) GCController *gameController;
 @property(nonatomic) float motorCoef;
 @property(nonatomic, readonly) Alert alert;
+@property(nonatomic, strong) GamepadController *gamepadController;
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp;
 + (NSString *)stringWithDate:(NSDate *)date;
