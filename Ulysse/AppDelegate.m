@@ -71,6 +71,12 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   return _config;
 }
 
+- (void)updateMotorWithGamepad {
+  float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
+  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value
+  [self updateMotorWithXValue:xValue yValue:yValue];
+}
+
 - (void)updateMotorWithXValue:(float)xValue yValue:(float)yValue {
   float angle = atan2f(yValue, xValue);
   float power = sqrtf(xValue * xValue + yValue * yValue);
@@ -187,7 +193,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
     [weakSelf updatePlayerIndex];
   };
   self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
-    [self updateMotorWithXValue:xValue yValue:yValue];
+    [self updateMotorWithGamepad];
   };
   self.gameController.extendedGamepad.rightTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
     _ulysse.extraMotorCoef = value;
@@ -199,6 +205,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
     [_ulysse setValues: @{ @"led": @{ @"left%": pressed ? @(100) : @(0) }}];
   };
   [self updateBoat];
+  [self updateMotorWithGamepad];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:self.gameController];
 }
 
