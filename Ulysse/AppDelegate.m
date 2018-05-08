@@ -73,7 +73,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 
 - (void)updateMotorWithGamepad {
   float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
-  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value
+  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
   [self updateMotorWithXValue:xValue yValue:yValue];
 }
 
