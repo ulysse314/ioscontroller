@@ -5,7 +5,7 @@
 #import "Ulysse.h"
 
 @interface CommandViewController () {
-  NSArray *_commands;
+  NSArray *_commandsAndSections;
 }
 
 @end
@@ -14,11 +14,19 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  _commands = @[
-    @{ @"name": @"Reboot", @"command": @"reboot"},
-    @{ @"name": @"Shutdown", @"command": @"shutdown"},
-    @{ @"name": @"Update arduino", @"command": @"arduino_update"},
-    @{ @"name": @"Arduino Info", @"command": @"arduino_info"},
+  _commandsAndSections = @[
+    @{
+      @"commands": @[
+        @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
+        @{ @"name": @"Update Arduino", @"command": @"arduino_update"},
+      ],
+    },
+    @{
+      @"commands": @[
+        @{ @"name": @"Reboot", @"command": @"reboot"},
+        @{ @"name": @"Shutdown", @"command": @"shutdown", @"alert": @YES},
+      ],
+    },
   ];
 }
 
@@ -31,16 +39,18 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
+  return _commandsAndSections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return _commands.count;
+  NSDictionary *commands = _commandsAndSections[section];
+  return [commands[@"commands"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Command" forIndexPath:indexPath];
-  NSDictionary *command = _commands[indexPath.row];
+  NSArray *commands = [_commandsAndSections[indexPath.section] objectForKey:@"commands"];
+  NSDictionary *command = commands[indexPath.row];
   cell.textLabel.text = command[@"name"];
   return cell;
 }
@@ -51,9 +61,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   AppDelegate *appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-  NSDictionary *command = _commands[indexPath.row];
-  [appDelegate.ulysse sendCommand:command[@"command"]];
-  [self.navigationController popViewControllerAnimated:YES];
+  NSArray *commands = [_commandsAndSections[indexPath.section] objectForKey:@"commands"];
+  NSDictionary *command = commands[indexPath.row];
+  dispatch_block_t executeCommand = ^{
+    [appDelegate.ulysse sendCommand:command[@"command"]];
+    [self.navigationController popViewControllerAnimated:YES];
+  };
+  if (![command[@"alert"] boolValue]) {
+    executeCommand();
+  } else {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Shutdown?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:command[@"name"] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+      executeCommand();
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+  }
 }
 
 @end
