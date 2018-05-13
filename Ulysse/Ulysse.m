@@ -83,6 +83,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 @synthesize allValues = _allValues;
 @synthesize motorCoef = _motorCoef;
 @synthesize extraMotorCoef = _extraMotorCoef;
+@synthesize arduinoInfo = _arduinoInfo;
 
 - (instancetype)initWithConfig:(Config *)config {
   self = [super init];
@@ -149,6 +150,10 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 
 - (float)extraMotorCoef {
   return _extraMotorCoef;
+}
+
+- (void)sendCommand:(NSString *)command {
+  [self setValues:@{@"command": command}];
 }
 
 #pragma mark - Private
@@ -221,15 +226,20 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
     }
     if (error) {
       DEBUGLOG(@"Error decoding %@", error);
-    } else {
-//      DEBUGLOG(@"Received data: %@", objects);
-      if (objects) {
-        _allValues = [objects mutableCopy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
-        [self resetWaitingCount];
-      }
+    } else if (objects) {
+      [self newValues:objects];
     }
   }
+}
+
+- (void)newValues:(NSDictionary *)values {
+  _allValues = [values mutableCopy];
+  if (_allValues[@"arduino"]) {
+    _arduinoInfo = _allValues[@"arduino"];
+    NSLog(@"%@", _arduinoInfo);
+  }
+  [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
+  [self resetWaitingCount];
 }
 
 - (void)outputStreamHandleEvent:(NSStreamEvent)eventCode {

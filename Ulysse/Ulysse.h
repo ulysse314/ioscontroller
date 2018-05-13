@@ -14,6 +14,7 @@ extern NSString *UlysseWaitedTooLong;
 @interface Ulysse : NSObject
 
 @property(nonatomic, readonly) NSDictionary<NSString *, id> *allValues;
+@property(nonatomic, readonly) NSDictionary<NSString *, id> *arduinoInfo;
 @property(nonatomic, readonly) BOOL waitingTooLong;
 @property(nonatomic) float motorCoef;
 @property(nonatomic) float extraMotorCoef;
@@ -25,5 +26,6 @@ extern NSString *UlysseWaitedTooLong;
 
 - (void)setValues:(id)values;
 - (void)setLeftMotor:(float)leftMotor rightMotor:(float)rightMotor;
+- (void)sendCommand:(NSString *)command;
 
 @end

@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
   RecordTripBoatCellIndex,
   MotorCoefBoatCellIndex,
   BootBoatCellIndex,
+  CommandBoatCellIndex,
   EndBoatCellIndex,
 } BoatCellIndex;
 
@@ -75,6 +76,8 @@ typedef enum : NSUInteger {
           return @"RightDetailCell";
         case MotorCoefBoatCellIndex:
           return @"MotorCoefCell";
+        case CommandBoatCellIndex:
+          return @"DisclosureIndicatorCell";
         case EndBoatCellIndex:
           break;
       }
@@ -127,6 +130,9 @@ typedef enum : NSUInteger {
       cell.textLabel.text = @"Motor Coef";
       [(UISlider *)cell.accessoryView addTarget:self action:@selector(motorCoefAction:) forControlEvents:UIControlEventTouchUpInside];
       [(UISlider *)cell.accessoryView setValue:_ulysse.motorCoef];
+      break;
+    case CommandBoatCellIndex:
+      cell.textLabel.text = @"Commands";
       break;
     case EndBoatCellIndex:
       break;
@@ -186,6 +192,7 @@ typedef enum : NSUInteger {
     case BoatSection:
       switch ((BoatCellIndex)indexPath.row) {
         case ChooserBoatCellIndex:
+        case CommandBoatCellIndex:
           return YES;
         case RightLedBoatCellIndex:
         case LeftLedBoatCellIndex:
@@ -271,6 +278,25 @@ typedef enum : NSUInteger {
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
   return NO;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  switch ((BoatCellIndex)indexPath.row) {
+    case ChooserBoatCellIndex:
+      [self performSegueWithIdentifier:@"BoatChooser" sender:self];
+      break;
+    case CommandBoatCellIndex:
+      [self performSegueWithIdentifier:@"Command" sender:self];
+      break;
+    case RightLedBoatCellIndex:
+    case LeftLedBoatCellIndex:
+    case CameraBoatCellIndex:
+    case RecordTripBoatCellIndex:
+    case BootBoatCellIndex:
+    case MotorCoefBoatCellIndex:
+    case EndBoatCellIndex:
+      break;
+  }
 }
 
 @end

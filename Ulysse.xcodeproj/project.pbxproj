@@ -26,6 +26,7 @@
 		02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */; };
 		02F4008E20471DFD00016004 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02F4008D20471DFD00016004 /* Settings.xcassets */; };
 		02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0120A1BE680002CB00 /* GamepadController.m */; };
+		02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0420A6C2A50002CB00 /* CommandViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,8 @@
 		02F4008D20471DFD00016004 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Settings.xcassets; sourceTree = "<group>"; };
 		02FA6B0020A1BE680002CB00 /* GamepadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamepadController.h; sourceTree = "<group>"; };
 		02FA6B0120A1BE680002CB00 /* GamepadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamepadController.m; sourceTree = "<group>"; };
+		02FA6B0320A6C2A40002CB00 /* CommandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandViewController.h; sourceTree = "<group>"; };
+		02FA6B0420A6C2A50002CB00 /* CommandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +206,8 @@
 				0265709E2034CEFE006187A8 /* SettingsTableViewController.m */,
 				023BD9162044994000188A35 /* BoatChooserViewController.h */,
 				023BD9172044994000188A35 /* BoatChooserViewController.m */,
+				02FA6B0320A6C2A40002CB00 /* CommandViewController.h */,
+				02FA6B0420A6C2A50002CB00 /* CommandViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
 				023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */,
