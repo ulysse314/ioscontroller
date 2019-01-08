@@ -7,7 +7,6 @@
 
 #import "AppDelegate.h"
 #import "MotorPowerView.h"
-#import "Trackpad.h"
 #import "UITabBarController+HideTabBar.h"
 #import "Ulysse.h"
 
@@ -89,7 +88,7 @@ static NSString *networkName(NSInteger networkType) {
   }
 }
 
-@interface ControlViewController ()<MKAnnotation, WKNavigationDelegate, TrackpadDelegate, MKMapViewDelegate> {
+@interface ControlViewController ()<MKAnnotation, WKNavigationDelegate, MKMapViewDelegate> {
   Ulysse *_ulysse;
   __weak AppDelegate *_appDelegate;
   IBOutlet __weak MotorPowerView *_rightMotorPowerView;
@@ -263,51 +262,6 @@ static NSString *networkName(NSInteger networkType) {
 //  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
 //  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
 //  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[webview]-0-|" options:0 metrics:nil views:@{ @"webview": _webView }]];
-}
-
-#pragma mark - TrackpadDelegate
-
-- (void)trackpadDidUpdate:(Trackpad *)trackpad {
-    CGFloat rightMotor = 0;
-    CGFloat leftMotor = 0;
-    if (trackpad.position.y >= 0 && trackpad.position.x >= 0 && trackpad.position.x <= trackpad.position.y) {
-        // N / NE
-        rightMotor = trackpad.position.y - trackpad.position.x;
-        leftMotor = trackpad.position.y;
-    } else if (trackpad.position.y >= 0 && trackpad.position.x >= trackpad.position.y) {
-        // NE / E
-        rightMotor = trackpad.position.y - trackpad.position.x;
-        leftMotor = trackpad.position.x;
-    } else if (trackpad.position.x >= 0 && trackpad.position.y >= -trackpad.position.x) {
-        // E / SE
-        rightMotor = -trackpad.position.x;
-        leftMotor = trackpad.position.x + trackpad.position.y;
-    } else if (trackpad.position.x >= 0 && trackpad.position.y <= -trackpad.position.x) {
-        // SE / S
-        rightMotor = trackpad.position.y;
-        leftMotor = trackpad.position.y + trackpad.position.x;
-    } else if (trackpad.position.x <= 0 && trackpad.position.y <= trackpad.position.x) {
-        // S / SW
-        rightMotor = trackpad.position.y - trackpad.position.x;
-        leftMotor = trackpad.position.y;
-    } else if (trackpad.position.x <= 0 && trackpad.position.y <= 0 && trackpad.position.y >= trackpad.position.x) {
-        // SW / W
-        rightMotor = trackpad.position.y - trackpad.position.x;
-        leftMotor = trackpad.position.x;
-    } else if (trackpad.position.x <= 0 && trackpad.position.y >= 0 && trackpad.position.y <= -trackpad.position.x) {
-        // W / NW
-        rightMotor = -trackpad.position.x;
-        leftMotor = trackpad.position.y + trackpad.position.x;
-    } else if (trackpad.position.x <= 0 && trackpad.position.y >= -trackpad.position.x) {
-        // NW / N
-        rightMotor = trackpad.position.y;
-        leftMotor = trackpad.position.y + trackpad.position.x;
-    } else {
-        DEBUGLOG(@"pourri");
-    }
-    rightMotor = (int)(rightMotor * 100.0);
-    leftMotor = (int)(leftMotor * 100.0);
-    [_ulysse setValues:@{ @"motor": @{@"right%": @((int)(rightMotor * _ulysse.motorCoef)), @"left%": @((int)(leftMotor * _ulysse.motorCoef)) }}];
 }
 
 #pragma mark - WKNavigationDelegate
