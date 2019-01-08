@@ -54,7 +54,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
-  return UIInterfaceOrientationMaskAll;
+  return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
 }
 
 - (void)ulysseWaitingCount:(NSNotification *)notification {
