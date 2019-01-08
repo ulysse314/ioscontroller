@@ -131,6 +131,8 @@
 		0244BF2B205458DE00B1D6F5 /* Custom View */ = {
 			isa = PBXGroup;
 			children = (
+				021E06E11D3717DD002A7BD3 /* Trackpad.h */,
+				021E06E21D3717DD002A7BD3 /* Trackpad.m */,
 				0244BF28205458D100B1D6F5 /* MotorPowerView.h */,
 				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
 			);
@@ -169,8 +171,6 @@
 				02FA6B0120A1BE680002CB00 /* GamepadController.m */,
 				029931131D3180FC00C03033 /* ControlViewController.h */,
 				029931141D3180FC00C03033 /* ControlViewController.m */,
-				021E06E11D3717DD002A7BD3 /* Trackpad.h */,
-				021E06E21D3717DD002A7BD3 /* Trackpad.m */,
 				021565FB1FF6EC3E00D9BC98 /* Config.h */,
 				021565FC1FF6EC3E00D9BC98 /* Config.m */,
 				029931191D3180FC00C03033 /* Main.storyboard */,
