@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02083FBA21E54A8E00808DC9 /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = 02083FB921E54A8E00808DC9 /* Module.m */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
 		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02083FB821E54A8E00808DC9 /* Module.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
+		02083FB921E54A8E00808DC9 /* Module.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
@@ -112,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02083FB721E54A4500808DC9 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				02083FB821E54A8E00808DC9 /* Module.h */,
+				02083FB921E54A8E00808DC9 /* Module.m */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		023961B92168EF320086D511 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +175,7 @@
 		0299310C1D3180FC00C03033 /* Ulysse */ = {
 			isa = PBXGroup;
 			children = (
+				02083FB721E54A4500808DC9 /* Modules */,
 				023961BC2168F05B0086D511 /* Communication */,
 				02F4008C204718CC00016004 /* Settings */,
 				029931101D3180FC00C03033 /* AppDelegate.h */,
@@ -370,6 +383,7 @@
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
 				023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */,
 				021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */,
+				02083FBA21E54A8E00808DC9 /* Module.m in Sources */,
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
