@@ -10,6 +10,7 @@ extern NSString *UlysseValuesDidUpdate;
 extern NSString *UlysseWaitedTooLong;
 
 @class Config;
+@class Modules;
 
 @interface Ulysse : NSObject
 
@@ -19,7 +20,7 @@ extern NSString *UlysseWaitedTooLong;
 @property(nonatomic) float motorCoef;
 @property(nonatomic) float extraMotorCoef;
 
-- (instancetype)initWithConfig:(Config *)config;
+- (instancetype)initWithConfig:(Config *)config modules:(Modules*)modules;
 
 - (void)open;
 - (void)close;

@@ -8,14 +8,10 @@
 #import "Ulysse.h"
 #import "GamepadController.h"
 
+#import "Ulysse-Swift.h"
+
 static NSString *kBoatNameKey = @"BoatName";
 static NSString *kMotorCoefKey = @"MotorCoef";
-
-@interface AppDelegate () {
-  UIView *_alertView;
-}
-
-@end
 
 @implementation AppDelegate
 
@@ -37,16 +33,12 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   _config = [Config sharedInstance];
   [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
-  self.ulysse = [[Ulysse alloc] initWithConfig:_config];
+  self.modules = [[Modules alloc] init];
+  self.ulysse = [[Ulysse alloc] initWithConfig:_config modules:self.modules];
   [self loadPreferences];
+  // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;
-  [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(ulysseWaitingCount:) name:UlysseWaitedTooLong object:_ulysse];
   [self.ulysse open];
-  _alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-  _alertView.backgroundColor = UIColor.redColor;
-  _alertView.alpha = 0;
-  UIView *superview = self.window.rootViewController.view;
-  [superview addSubview:_alertView];
   self.gamepadController = [[GamepadController alloc] init];
   self.gamepadController.ulysse = self.ulysse;
   self.gamepadController.config = self.config;
@@ -55,17 +47,6 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
   return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
-}
-
-- (void)ulysseWaitingCount:(NSNotification *)notification {
-  if (self.ulysse.waitingTooLong) {
-    if (_alertView.alpha == 0) {
-//      AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-      _alertView.alpha = 0.4;
-    }
-  } else {
-    _alertView.alpha = 0;
-  }
 }
 
 - (Config *)config {

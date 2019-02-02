@@ -6,9 +6,11 @@
 #import <WebKit/WebKit.h>
 
 #import "AppDelegate.h"
-#import "MotorPowerView.h"
+#import "SettingsTableViewController.h"
 #import "UITabBarController+HideTabBar.h"
 #import "Ulysse.h"
+
+#import "Ulysse-Swift.h"
 
 static NSString *networkName(NSInteger networkType) {
   switch (networkType) {
@@ -88,11 +90,19 @@ static NSString *networkName(NSInteger networkType) {
   }
 }
 
-@interface ControlViewController ()<MKAnnotation, WKNavigationDelegate, MKMapViewDelegate> {
+typedef NS_ENUM(NSInteger, ButtonTag) {
+  BatteryButtonTag,
+  Connection4GButtonTag,
+  GPSButtonTag,
+  MotorsButtonTag,
+  BoatButtonTag,
+  ArduinoButtonTag,
+  RaspberryPiButtonTag,
+  SettingsButtonTag,
+};
+
+@interface ControlViewController ()<MKAnnotation, ModuleListViewDelegate, WKNavigationDelegate, MKMapViewDelegate> {
   Ulysse *_ulysse;
-  __weak AppDelegate *_appDelegate;
-  IBOutlet __weak MotorPowerView *_rightMotorPowerView;
-  IBOutlet __weak MotorPowerView *_leftMotorPowerView;
   IBOutlet __weak UILabel *_powerLabel;
   IBOutlet __weak UILabel *_networkLabel;
   IBOutlet __weak UILabel *_temperatureLabel;
@@ -102,7 +112,13 @@ static NSString *networkName(NSInteger networkType) {
   BOOL _camStarted;
 }
 
-@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
+@property (nonatomic, strong) ModuleListView *moduleListView;
+
+@property (nonatomic, strong) Modules *modules;
+
+@property (nonatomic, weak) AppDelegate *appDelegate;
 
 @end
 
@@ -110,9 +126,10 @@ static NSString *networkName(NSInteger networkType) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  _appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-  [_appDelegate addObserver:self forKeyPath:@"gameControlleur" options:NSKeyValueObservingOptionNew context:nil];
-  _ulysse = _appDelegate.ulysse;
+  self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
+  self.modules = self.appDelegate.modules;
+  [self.appDelegate addObserver:self forKeyPath:@"gameControlleur" options:NSKeyValueObservingOptionNew context:nil];
+  _ulysse = self.appDelegate.ulysse;
   self.view.autoresizesSubviews = NO;
   // Do any additional setup after loading the view, typically from a nib.
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ulysseValuesDidChange:) name:UlysseValuesDidUpdate object:_ulysse];
@@ -128,6 +145,22 @@ static NSString *networkName(NSInteger networkType) {
   [_mapView setRegion:adjustedRegion animated:NO];
   [self ulysseValuesDidChange:nil];
   [self startCam];
+  self.moduleListView = [[ModuleListView alloc] initWithFrame:CGRectZero];
+  self.moduleListView.delegate = self;
+  self.moduleListView.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.view addSubview:self.moduleListView];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.moduleListView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:0],
+    [self.moduleListView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
+  ]];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"battery"] buttonTag:BatteryButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"antenna"] buttonTag:Connection4GButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"satellite"] buttonTag:GPSButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"motor"] buttonTag:MotorsButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"boat"] buttonTag:BoatButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"arduino"] buttonTag:ArduinoButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"raspberrypi"] buttonTag:RaspberryPiButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"settings"] buttonTag:SettingsButtonTag];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -141,9 +174,6 @@ static NSString *networkName(NSInteger networkType) {
 - (void)ulysseValuesDidChange:(NSNotification *)notification {
   Ulysse *ulysse = _ulysse;
   NSDictionary *allValues = ulysse.allValues;
-  NSDictionary *motorValues = ulysse.allValues[@"motor"];
-  _rightMotorPowerView.value = [motorValues[@"right%"] integerValue];
-  _leftMotorPowerView.value = [motorValues[@"left%"] integerValue];
   [self updateGPSValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self stopCam];
@@ -250,18 +280,38 @@ static NSString *networkName(NSInteger networkType) {
     _camStarted = NO;
 }
 
-#pragma mark - Private
-
-- (void)createCameraView {
-//  WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
-//  _webView = [[WKWebView alloc] initWithFrame:_trackpadView.frame configuration:theConfiguration];
-//  _webView.navigationDelegate = self;
-//  _webView.translatesAutoresizingMaskIntoConstraints = NO;
-//  //  [self.view addSubview:_webView];
-//  [_trackpadView.superview insertSubview:_webView atIndex:0];
-//  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-//  [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_trackpadView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_webView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-//  [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[webview]-0-|" options:0 metrics:nil views:@{ @"webview": _webView }]];
+- (UIViewController*)viewControllerForButtonTag:(ButtonTag)buttonTag {
+  UIViewController *viewController = nil;
+  switch (buttonTag) {
+    case BatteryButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.batteryModule];
+      break;
+    case Connection4GButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.cellularModule];
+      break;
+    case GPSButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.gpsModule];
+      break;
+    case MotorsButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.motorsModule];
+      break;
+    case BoatButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.boatModule];
+      break;
+    case ArduinoButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.arduinoModule];
+      break;
+    case RaspberryPiButtonTag:
+      viewController = [[ModuleViewController alloc] initWithModule:self.modules.raspberryPiModule];
+      break;
+    case SettingsButtonTag: {
+      UIStoryboard * storyBoard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+      viewController = [storyBoard instantiateInitialViewController];
+      viewController.title = @"Settings";
+      break;
+    }
+  }
+  return viewController;
 }
 
 #pragma mark - WKNavigationDelegate
@@ -291,5 +341,34 @@ static NSString *networkName(NSInteger networkType) {
   return pinView;
 }
 
+#pragma mark - ModuleListViewDelegate
+
+- (void)moduleButtonWasSelectedWithButton:(ModuleButton*)button {
+  if (!self.viewControllerPresenterViewController) {
+    self.viewControllerPresenterViewController = [[ViewControllerPresenterViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:self.viewControllerPresenterViewController];
+    self.viewControllerPresenterViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.viewControllerPresenterViewController.view];
+    [NSLayoutConstraint activateConstraints:@[
+      [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
+      [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],
+      [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-32],
+      [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-16],
+    ]];
+  }
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
+  self.viewControllerPresenterViewController.viewController = navigationController;
+  UIViewController *viewController = [self viewControllerForButtonTag:button.tag];
+  [navigationController pushViewController:viewController animated:NO];
+  CGPoint point = CGPointMake(button.bounds.origin.x + button.bounds.size.width / 2, button.bounds.origin.y + button.bounds.size.height / 2);
+  point = [button convertPoint:point toView:nil];
+  [self.viewControllerPresenterViewController openViewControllerWithVPosition:point.y];
+}
+
+- (void)moduleButtonWasUnselectedWithButton:(ModuleButton*)button {
+  [self.viewControllerPresenterViewController.view removeFromSuperview];
+  [self.viewControllerPresenterViewController removeFromParentViewController];
+  self.viewControllerPresenterViewController = nil;
+}
 
 @end

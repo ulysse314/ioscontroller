@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02083FBA21E54A8E00808DC9 /* Module.m in Sources */ = {isa = PBXBuildFile; fileRef = 02083FB921E54A8E00808DC9 /* Module.m */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
 		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
+		022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */; };
+		022BAD5721FDDF7900624EFA /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Module.swift */; };
+		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
+		022BAD5C2201121C00624EFA /* ModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5B2201121C00624EFA /* ModuleViewController.m */; };
+		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
+		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
+		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
 		023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023BD9172044994000188A35 /* BoatChooserViewController.m */; };
 		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
 		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
 		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
+		026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ModuleButton.swift */; };
+		026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */; };
 		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
 		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
 		029931151D3180FC00C03033 /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931141D3180FC00C03033 /* ControlViewController.m */; };
@@ -25,7 +33,6 @@
 		029931361D3180FC00C03033 /* UlysseUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931351D3180FC00C03033 /* UlysseUITests.m */; };
 		029931451D3195DB00C03033 /* Ulysse.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931441D3195DB00C03033 /* Ulysse.m */; };
 		02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */; };
-		02F4008E20471DFD00016004 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02F4008D20471DFD00016004 /* Settings.xcassets */; };
 		02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0120A1BE680002CB00 /* GamepadController.m */; };
 		02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0420A6C2A50002CB00 /* CommandViewController.m */; };
 /* End PBXBuildFile section */
@@ -48,14 +55,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02083FB821E54A8E00808DC9 /* Module.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
-		02083FB921E54A8E00808DC9 /* Module.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Module.m; sourceTree = "<group>"; };
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		021E06E11D3717DD002A7BD3 /* Trackpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackpad.h; sourceTree = "<group>"; };
 		021E06E21D3717DD002A7BD3 /* Trackpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trackpad.m; sourceTree = "<group>"; };
 		021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ulysse-Bridging-Header.h"; sourceTree = "<group>"; };
+		022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterView.swift; sourceTree = "<group>"; };
+		022BAD5621FDDF7900624EFA /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
+		022BAD5A2201121C00624EFA /* ModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleViewController.h; sourceTree = "<group>"; };
+		022BAD5B2201121C00624EFA /* ModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleViewController.m; sourceTree = "<group>"; };
+		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
+		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
 		023BD9162044994000188A35 /* BoatChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoatChooserViewController.h; sourceTree = "<group>"; };
 		023BD9172044994000188A35 /* BoatChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoatChooserViewController.m; sourceTree = "<group>"; };
 		0244BF28205458D100B1D6F5 /* MotorPowerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MotorPowerView.h; sourceTree = "<group>"; };
@@ -64,6 +77,8 @@
 		0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
 		0265709D2034CEFE006187A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		026DD12A21FCA383006B18B7 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
+		026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleListView.swift; sourceTree = "<group>"; };
 		0299310A1D3180FC00C03033 /* Ulysse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulysse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0299310E1D3180FC00C03033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		029931101D3180FC00C03033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -83,7 +98,6 @@
 		029931431D3195DB00C03033 /* Ulysse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ulysse.h; sourceTree = "<group>"; };
 		029931441D3195DB00C03033 /* Ulysse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ulysse.m; sourceTree = "<group>"; };
 		02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickaction_icon_location@2x.png"; sourceTree = "<group>"; };
-		02F4008D20471DFD00016004 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Settings.xcassets; sourceTree = "<group>"; };
 		02FA6B0020A1BE680002CB00 /* GamepadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamepadController.h; sourceTree = "<group>"; };
 		02FA6B0120A1BE680002CB00 /* GamepadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamepadController.m; sourceTree = "<group>"; };
 		02FA6B0320A6C2A40002CB00 /* CommandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandViewController.h; sourceTree = "<group>"; };
@@ -118,10 +132,17 @@
 		02083FB721E54A4500808DC9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				02083FB821E54A8E00808DC9 /* Module.h */,
-				02083FB921E54A8E00808DC9 /* Module.m */,
+				022BAD5621FDDF7900624EFA /* Module.swift */,
+				0234CC3F22061ED200738CC0 /* Modules.swift */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		02083FBE21F2FCA800808DC9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		023961B92168EF320086D511 /* Frameworks */ = {
@@ -147,6 +168,13 @@
 				021E06E21D3717DD002A7BD3 /* Trackpad.m */,
 				0244BF28205458D100B1D6F5 /* MotorPowerView.h */,
 				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
+				026DD12A21FCA383006B18B7 /* ModuleButton.swift */,
+				026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */,
+				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
+				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
+				022BAD5A2201121C00624EFA /* ModuleViewController.h */,
+				022BAD5B2201121C00624EFA /* ModuleViewController.m */,
+				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
 			);
 			path = "Custom View";
 			sourceTree = "<group>";
@@ -175,6 +203,7 @@
 		0299310C1D3180FC00C03033 /* Ulysse */ = {
 			isa = PBXGroup;
 			children = (
+				02083FBE21F2FCA800808DC9 /* Controllers */,
 				02083FB721E54A4500808DC9 /* Modules */,
 				023961BC2168F05B0086D511 /* Communication */,
 				02F4008C204718CC00016004 /* Settings */,
@@ -187,6 +216,7 @@
 				021565FB1FF6EC3E00D9BC98 /* Config.h */,
 				021565FC1FF6EC3E00D9BC98 /* Config.m */,
 				029931191D3180FC00C03033 /* Main.storyboard */,
+				0234CC382202F32300738CC0 /* Settings.storyboard */,
 				0299311C1D3180FC00C03033 /* Assets.xcassets */,
 				0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */,
 				029931211D3180FC00C03033 /* Info.plist */,
@@ -195,7 +225,6 @@
 				0299310D1D3180FC00C03033 /* Supporting Files */,
 				021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */,
 				020F333C1FE629FC0014A228 /* ulysse314.json */,
-				02F4008D20471DFD00016004 /* Settings.xcassets */,
 				0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */,
 				0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */,
 			);
@@ -350,8 +379,8 @@
 			files = (
 				02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */,
 				029931201D3180FC00C03033 /* LaunchScreen.storyboard in Resources */,
-				02F4008E20471DFD00016004 /* Settings.xcassets in Resources */,
 				0299311D1D3180FC00C03033 /* Assets.xcassets in Resources */,
+				0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */,
 				020F333D1FE629FC0014A228 /* ulysse314.json in Resources */,
 				0299311B1D3180FC00C03033 /* Main.storyboard in Resources */,
 			);
@@ -379,18 +408,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */,
+				022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */,
+				022BAD5C2201121C00624EFA /* ModuleViewController.m in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
+				0234CC4022061ED200738CC0 /* Modules.swift in Sources */,
+				022BAD5721FDDF7900624EFA /* Module.swift in Sources */,
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
+				0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */,
 				023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */,
 				021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */,
-				02083FBA21E54A8E00808DC9 /* Module.m in Sources */,
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
+				026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				029931451D3195DB00C03033 /* Ulysse.m in Sources */,
+				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,
 				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
 				02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */,
+				026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +462,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0234CC382202F32300738CC0 /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0234CC392202F32300738CC0 /* Base */,
+			);
+			name = Settings.storyboard;
+			sourceTree = "<group>";
+		};
 		029931191D3180FC00C03033 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -466,6 +510,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -486,6 +531,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -511,6 +557,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -524,6 +571,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -571,6 +619,7 @@
 		0299313E1D3180FC00C03033 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = P44YMXCKGK;
 				INFOPLIST_FILE = UlysseTests/Info.plist;
@@ -584,6 +633,7 @@
 		0299313F1D3180FC00C03033 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = P44YMXCKGK;
 				INFOPLIST_FILE = UlysseTests/Info.plist;
@@ -597,6 +647,7 @@
 		029931411D3180FC00C03033 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = P44YMXCKGK;
 				INFOPLIST_FILE = UlysseUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -609,6 +660,7 @@
 		029931421D3180FC00C03033 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = P44YMXCKGK;
 				INFOPLIST_FILE = UlysseUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

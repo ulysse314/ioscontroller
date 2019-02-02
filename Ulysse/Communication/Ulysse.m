@@ -5,6 +5,8 @@
 #import "AppDelegate.h"
 #import "Config.h"
 
+#import "Ulysse-Swift.h"
+
 #define DelayTrigger 4
 #define BUFFER_SIZE 2048
 
@@ -76,6 +78,8 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   uint8_t *_tmpBuffer;
 }
 
+@property(nonatomic, strong) Modules *modules;
+
 @end
 
 @implementation Ulysse
@@ -85,13 +89,14 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 @synthesize extraMotorCoef = _extraMotorCoef;
 @synthesize arduinoInfo = _arduinoInfo;
 
-- (instancetype)initWithConfig:(Config *)config {
+- (instancetype)initWithConfig:(Config *)config modules:(Modules*)modules {
   self = [super init];
   if (self) {
     _config = config;
     [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
     _motorCoef = 0.5;
     _tmpBuffer = malloc(BUFFER_SIZE);
+    self.modules = modules;
   }
   return self;
 }
@@ -115,7 +120,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)setValues:(NSDictionary *)values {
-//  DEBUGLOG(@"%@", values);
+  DEBUGLOG(@"%@", values);
   if (!_valuesToSend) {
     _valuesToSend = [NSMutableDictionary dictionary];
   }
@@ -236,7 +241,14 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   _allValues = [values mutableCopy];
   if (_allValues[@"arduino"]) {
     _arduinoInfo = _allValues[@"arduino"];
-    NSLog(@"%@", _arduinoInfo);
+    self.modules.arduinoModule.values = _allValues[@"arduino"];
+  }
+  if (_allValues[@"gps"]) {
+    self.modules.gpsModule.values = _allValues[@"gps"];
+  }
+  if (_allValues[@"cellular"]) {
+    self.modules.cellularModule.values = _allValues[@"cellular"];
+    NSLog(@"%@", _allValues[@"cellular"]);
   }
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
