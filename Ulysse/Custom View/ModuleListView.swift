@@ -36,9 +36,7 @@ class ModuleListView: UIView {
   @objc func addModuleButton(image: UIImage, buttonTag: Int) {
     weak var weakSelf = self
     let myCallback: (_ button: ModuleButton) ->() =  { (button) -> Void in
-      if (weakSelf != nil) {
-        weakSelf!.wasSelectedButton(button: button)
-      }
+      weakSelf?.wasSelectedButton(button: button)
     }
     let button: ModuleButton = ModuleButton(image: image, callback: myCallback)
     self.moduleButtons.append(button)
