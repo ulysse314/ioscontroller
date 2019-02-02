@@ -248,7 +248,6 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   }
   if (_allValues[@"cellular"]) {
     self.modules.cellularModule.values = _allValues[@"cellular"];
-    NSLog(@"%@", _allValues[@"cellular"]);
   }
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
