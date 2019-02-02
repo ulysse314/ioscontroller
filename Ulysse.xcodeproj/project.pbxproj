@@ -13,7 +13,6 @@
 		022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */; };
 		022BAD5721FDDF7900624EFA /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Module.swift */; };
 		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
-		022BAD5C2201121C00624EFA /* ModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5B2201121C00624EFA /* ModuleViewController.m */; };
 		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
 		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
@@ -64,8 +63,6 @@
 		022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterView.swift; sourceTree = "<group>"; };
 		022BAD5621FDDF7900624EFA /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
-		022BAD5A2201121C00624EFA /* ModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleViewController.h; sourceTree = "<group>"; };
-		022BAD5B2201121C00624EFA /* ModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleViewController.m; sourceTree = "<group>"; };
 		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
@@ -172,8 +169,6 @@
 				026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */,
 				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
 				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
-				022BAD5A2201121C00624EFA /* ModuleViewController.h */,
-				022BAD5B2201121C00624EFA /* ModuleViewController.m */,
 				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
 			);
 			path = "Custom View";
@@ -409,7 +404,6 @@
 			files = (
 				02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */,
 				022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */,
-				022BAD5C2201121C00624EFA /* ModuleViewController.m in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
 				0234CC4022061ED200738CC0 /* Modules.swift in Sources */,
 				022BAD5721FDDF7900624EFA /* Module.swift in Sources */,
