@@ -138,6 +138,10 @@
 		02083FBE21F2FCA800808DC9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
+				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
+				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
+				02F4008C204718CC00016004 /* Settings */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -167,9 +171,6 @@
 				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
 				026DD12A21FCA383006B18B7 /* ModuleButton.swift */,
 				026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */,
-				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
-				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
-				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
 			);
 			path = "Custom View";
 			sourceTree = "<group>";
@@ -201,7 +202,6 @@
 				02083FBE21F2FCA800808DC9 /* Controllers */,
 				02083FB721E54A4500808DC9 /* Modules */,
 				023961BC2168F05B0086D511 /* Communication */,
-				02F4008C204718CC00016004 /* Settings */,
 				029931101D3180FC00C03033 /* AppDelegate.h */,
 				029931111D3180FC00C03033 /* AppDelegate.m */,
 				02FA6B0020A1BE680002CB00 /* GamepadController.h */,
