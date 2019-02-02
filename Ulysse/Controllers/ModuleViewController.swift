@@ -15,6 +15,7 @@ class ModuleViewController: UITableViewController {
     self.module = module
     super.init(nibName: nil, bundle: nil)
     self.module.addObserver(self, forKeyPath: "values", options: [.new], context: nil)
+    self.module.addObserver(self, forKeyPath: "errorMessages", options: [.new], context: nil)
     self.title = module.name
   }
 
@@ -28,33 +29,50 @@ class ModuleViewController: UITableViewController {
   
   deinit {
     module.removeObserver(self, forKeyPath: "values")
+    module.removeObserver(self, forKeyPath: "errorMessages")
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
+    return self.module.errorMessages == nil ? 1 : 2
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.module.keys.count
+    if (section == 1 || self.module.errorMessages == nil) {
+      return self.module.keys.count
+    } else {
+      return self.module.errorMessages!.count
+    }
   }
   
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if (section == 1 || self.module.errorMessages == nil) {
+      return "Values"
+    } else {
+      return "Errors"
+    }
+  }
+
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-    let key = self.module.keys[indexPath.row]
-    cell.textLabel?.text = key
-    let value = self.module.values[key]
-    if value is Int {
-      cell.detailTextLabel?.text = String(value as! Int)
-    } else if value is Float {
-      cell.detailTextLabel?.text = String(value as! Float)
-    } else if value is NSNumber {
-      cell.detailTextLabel?.text = (value as! NSNumber).stringValue
-    } else if value is NSNull {
-      cell.detailTextLabel?.text = "<null>"
-    } else if value is String {
-      cell.detailTextLabel?.text = value as? String
+    if (indexPath.section == 1 || self.module.errorMessages == nil) {
+      let key = self.module.keys[indexPath.row]
+      cell.textLabel?.text = key
+      let value = self.module.values[key]
+      if value is Int {
+        cell.detailTextLabel?.text = String(value as! Int)
+      } else if value is Float {
+        cell.detailTextLabel?.text = String(value as! Float)
+      } else if value is NSNumber {
+        cell.detailTextLabel?.text = (value as! NSNumber).stringValue
+      } else if value is NSNull {
+        cell.detailTextLabel?.text = "<null>"
+      } else if value is String {
+        cell.detailTextLabel?.text = value as? String
+      } else {
+        cell.detailTextLabel?.text = "-"
+      }
     } else {
-      cell.detailTextLabel?.text = "-"
+      cell.textLabel?.text = self.module.errorMessages![indexPath.row]
     }
     return cell
   }

@@ -16,6 +16,7 @@
 		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
 		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
+		0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC4122064B5D00738CC0 /* ModuleError.swift */; };
 		023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023BD9172044994000188A35 /* BoatChooserViewController.m */; };
 		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
 		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
@@ -66,6 +67,7 @@
 		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
+		0234CC4122064B5D00738CC0 /* ModuleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleError.swift; sourceTree = "<group>"; };
 		023BD9162044994000188A35 /* BoatChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoatChooserViewController.h; sourceTree = "<group>"; };
 		023BD9172044994000188A35 /* BoatChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoatChooserViewController.m; sourceTree = "<group>"; };
 		0244BF28205458D100B1D6F5 /* MotorPowerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MotorPowerView.h; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				022BAD5621FDDF7900624EFA /* Module.swift */,
 				0234CC3F22061ED200738CC0 /* Modules.swift */,
+				0234CC4122064B5D00738CC0 /* ModuleError.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
 				026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
+				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
 				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				029931451D3195DB00C03033 /* Ulysse.m in Sources */,

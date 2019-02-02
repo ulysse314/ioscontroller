@@ -242,12 +242,18 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   if (_allValues[@"arduino"]) {
     _arduinoInfo = _allValues[@"arduino"];
     self.modules.arduinoModule.values = _allValues[@"arduino"];
+  } else {
+    self.modules.arduinoModule.values = @{};
   }
   if (_allValues[@"gps"]) {
     self.modules.gpsModule.values = _allValues[@"gps"];
+  } else {
+    self.modules.gpsModule.values = @{};
   }
   if (_allValues[@"cellular"]) {
     self.modules.cellularModule.values = _allValues[@"cellular"];
+  } else {
+    self.modules.cellularModule.values = @{};
   }
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
