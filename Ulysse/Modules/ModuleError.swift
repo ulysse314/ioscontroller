@@ -63,7 +63,7 @@ class ModuleError: NSObject {
   class func errorMessage(error: Array<Int>) -> String {
     let domain: Domain? = Domain(rawValue: error[0])
     if domain == nil {
-      "Unknown domain"
+      return "Unknown domain"
     }
     let errorCode: Int = error[1]
     switch domain! {
@@ -125,7 +125,7 @@ class ModuleError: NSObject {
       return "Loop cycle low warning"
     case .loopCycleLowCritical:
       return "Loop cycle low critical"
-    case .notStarted
+    case .notStarted:
       return "Not started"
     }
   }
