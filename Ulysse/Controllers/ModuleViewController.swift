@@ -14,7 +14,7 @@ class ModuleViewController: UITableViewController {
   @objc required public init(module: Module) {
     self.module = module
     super.init(nibName: nil, bundle: nil)
-    module.addObserver(self, forKeyPath: "values", options: [.new], context: nil)
+    self.module.addObserver(self, forKeyPath: "values", options: [.new], context: nil)
     self.title = module.name
   }
 
@@ -24,6 +24,10 @@ class ModuleViewController: UITableViewController {
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  deinit {
+    module.removeObserver(self, forKeyPath: "values")
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
