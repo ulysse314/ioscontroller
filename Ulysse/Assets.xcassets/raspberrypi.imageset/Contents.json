@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "raspberry-pi-7-669549.png",
+      "filename" : "raspberry-pi-32.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "raspberry-pi-7-669548.png",
+      "filename" : "raspberry-pi-64.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "raspberry-pi-7-669547.png",
+      "filename" : "raspberry-pi-96.png",
       "scale" : "3x"
     }
   ],
