@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "microcontroller-514.png",
+      "filename" : "microcontroller-32.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "microcontroller-513.png",
+      "filename" : "microcontroller-64.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "microcontroller-512.png",
+      "filename" : "microcontroller-96.png",
       "scale" : "3x"
     }
   ],
