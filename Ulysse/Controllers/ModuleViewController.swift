@@ -31,7 +31,9 @@ class ModuleViewController: UITableViewController {
     module.removeObserver(self, forKeyPath: "values")
     module.removeObserver(self, forKeyPath: "errorMessages")
   }
-  
+
+  // MARK: - TableView
+
   override func numberOfSections(in tableView: UITableView) -> Int {
     return self.module.errorMessages == nil ? 1 : 2
   }
@@ -77,6 +79,12 @@ class ModuleViewController: UITableViewController {
     return cell
   }
   
+  override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    return false
+  }
+
+  // MARK: - Observer
+
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     self.tableView.reloadData()
   }
