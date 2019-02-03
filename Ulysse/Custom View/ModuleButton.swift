@@ -36,39 +36,43 @@ class ModuleButton: UIControl {
     self.imageView = UIImageView(frame: CGRect.zero)
     self.imageView.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabelContainer = UIView(frame: CGRect.zero)
+    self.errorLabelContainer.isUserInteractionEnabled = false
     self.errorLabelContainer.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabelContainer.backgroundColor = UIColor.red
     self.errorLabelContainer.isHidden = true
-    self.errorLabelContainer.layer.cornerRadius = 8
+    self.errorLabelContainer.layer.cornerRadius = 7
     self.errorLabelContainer.layer.masksToBounds = true
     self.errorLabel = UILabel(frame: CGRect.zero)
+    self.errorLabel.isUserInteractionEnabled = false
     self.errorLabel.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabel.textColor = UIColor.white
     self.errorLabel.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
     self.errorLabel.layoutMargins = UIEdgeInsets.init(top: 0, left: 50, bottom: 0, right: 50)
     self.imageView.image = image
+    self.imageView.layer.borderWidth = 1
+    self.imageView.layer.borderColor = UIColor.black.cgColor
+    self.imageView.contentMode = .center
     self.callback = callback
     self.errorNumber = 0
     super.init(frame: CGRect.zero)
+    self.layoutMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
     self.addSubview(self.imageView)
     self.addSubview(self.errorLabelContainer)
     self.errorLabelContainer.addSubview(self.errorLabel)
     NSLayoutConstraint.activate([
-      self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 1),
-      self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 1),
-      self.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 1),
-      self.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 1),
-      self.imageView.widthAnchor.constraint(equalToConstant: 32),
-      self.imageView.heightAnchor.constraint(equalToConstant: 32),
-      self.errorLabelContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -1),
-      self.errorLabelContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: 1),
+      self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+      self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+      self.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 0),
+      self.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 0),
+      self.imageView.widthAnchor.constraint(equalToConstant: 34),
+      self.imageView.heightAnchor.constraint(equalToConstant: 34),
+      self.errorLabelContainer.centerXAnchor.constraint(equalTo: self.trailingAnchor),
+      self.errorLabelContainer.centerYAnchor.constraint(equalTo: self.topAnchor),
       self.errorLabel.leadingAnchor.constraint(equalTo: self.errorLabelContainer.leadingAnchor, constant: 5),
       self.errorLabel.trailingAnchor.constraint(equalTo: self.errorLabelContainer.trailingAnchor, constant: -5),
       self.errorLabel.topAnchor.constraint(equalTo: self.errorLabelContainer.topAnchor, constant: 0),
       self.errorLabel.bottomAnchor.constraint(equalTo: self.errorLabelContainer.bottomAnchor, constant: 0),
     ])
-    self.layer.borderWidth = 1
-    self.layer.borderColor = UIColor.black.cgColor
   }
   
   required init?(frame: NSCoder) {
