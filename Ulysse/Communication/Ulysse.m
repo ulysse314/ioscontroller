@@ -255,6 +255,11 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   } else {
     self.modules.cellularModule.values = @{};
   }
+  if (_allValues[@"pi"]) {
+    self.modules.raspberryPiModule.values = _allValues[@"pi"];
+  } else {
+    self.modules.raspberryPiModule.values = @{};
+  }
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
 }
