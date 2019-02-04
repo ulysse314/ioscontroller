@@ -55,7 +55,7 @@ class ModuleViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
     if (indexPath.section == 1 || self.module.errorMessages == nil) {
       let key = self.module.keys[indexPath.row]
       cell.textLabel?.text = key
