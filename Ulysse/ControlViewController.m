@@ -92,7 +92,7 @@ static NSString *networkName(NSInteger networkType) {
 
 typedef NS_ENUM(NSInteger, ButtonTag) {
   BatteryButtonTag,
-  Connection4GButtonTag,
+  CellularButtonTag,
   GPSButtonTag,
   MotorsButtonTag,
   BoatButtonTag,
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     [self.moduleListView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
   ]];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"battery"] buttonTag:BatteryButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"antenna"] buttonTag:Connection4GButtonTag];
+  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"cellular"] buttonTag:CellularButtonTag];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"satellite"] buttonTag:GPSButtonTag];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"motor"] buttonTag:MotorsButtonTag];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"boat"] buttonTag:BoatButtonTag];
@@ -286,7 +286,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     case BatteryButtonTag:
       viewController = [[ModuleViewController alloc] initWithModule:self.modules.batteryModule];
       break;
-    case Connection4GButtonTag:
+    case CellularButtonTag:
       viewController = [[ModuleViewController alloc] initWithModule:self.modules.cellularModule];
       break;
     case GPSButtonTag:
