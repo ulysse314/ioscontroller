@@ -25,7 +25,7 @@ class ModuleButton: UIControl {
   override var isSelected: Bool {
     didSet {
       if (self.isSelected) {
-        self.imageView.layer.backgroundColor = UIColor.blue.cgColor
+        self.imageView.layer.backgroundColor = UIColor.init(red: 0, green: 0.5, blue: 1, alpha: 1).cgColor
       } else {
         self.imageView.layer.backgroundColor = nil
       }
