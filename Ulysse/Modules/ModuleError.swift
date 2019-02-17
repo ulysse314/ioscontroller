@@ -13,6 +13,7 @@ class ModuleError: NSObject {
     case arduino = 1
     case gps = 2
     case motor = 3
+    case battery = 4
   }
 
   enum ArduinoError : Int {
@@ -28,7 +29,7 @@ class ModuleError: NSObject {
     case infoMemory = 9
     case lowMemory = 10
     case veryLowMemory = 11
-    case arduinoCodeUnknown = 12
+    case codeUnknown = 12
     case gpsValueIndex = 13
     case gpsCodeUnknown = 14
     case addingValueWithSameName = 15
@@ -60,6 +61,22 @@ class ModuleError: NSObject {
     case pwmNotAvailable = 5
   }
 
+  enum BatteryError : Int {
+    case noError = 0
+    case codeUnknown = 1
+    case INA219NotFound = 2
+    case voltageInfo = 3
+    case voltageWarning = 4
+    case voltageCritical = 5
+    case ampereInfo = 6
+    case ampereWarning = 7
+    case ampereCritical = 8
+    case temperatureUnknown = 9
+    case temperatureInfo = 10
+    case temperatureWarning = 11
+    case temperatureCritical = 12
+  }
+
   class func errorMessage(error: Array<Int>) -> String {
     let domain: Domain? = Domain(rawValue: error[0])
     if domain == nil {
@@ -75,6 +92,8 @@ class ModuleError: NSObject {
       return gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
     case .motor:
       return motorErrorMessage(errorCode: MotorError(rawValue: errorCode))
+    case .battery:
+      return batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
     }
   }
 
@@ -107,8 +126,8 @@ class ModuleError: NSObject {
       return "Low memory"
     case .veryLowMemory:
       return "Very low memory"
-    case .arduinoCodeUnknown:
-      return "Arduino code unknown"
+    case .codeUnknown:
+      return "Code unknown"
     case .gpsValueIndex:
       return "GPS value index"
     case .gpsCodeUnknown:
@@ -171,6 +190,40 @@ class ModuleError: NSObject {
       return "Temperature critical"
     case .pwmNotAvailable:
       return "PWM not available"
+    }
+  }
+
+  class func batteryErrorMessage(errorCode: BatteryError?) -> String {
+    if errorCode == nil {
+      return "Unknown motor error code"
+    }
+    switch errorCode! {
+    case .noError:
+      return "No error"
+    case .codeUnknown:
+      return "Code unknown"
+    case .INA219NotFound:
+      return "INA219 not found"
+    case .voltageInfo:
+      return "Voltage info"
+    case .voltageWarning:
+      return "Voltage warning"
+    case .voltageCritical:
+      return "Voltage critical"
+    case .ampereInfo:
+      return "Ampere info"
+    case .ampereWarning:
+      return "Ampere warning"
+    case .ampereCritical:
+      return "Ampere critical"
+    case .temperatureUnknown:
+      return "Temperature unknown"
+    case .temperatureInfo:
+      return "Temperture info"
+    case .temperatureWarning:
+      return "Temperature warning"
+    case .temperatureCritical:
+      return "Temperature critical"
     }
   }
 }

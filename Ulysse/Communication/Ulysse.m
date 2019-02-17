@@ -245,6 +245,11 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   } else {
     self.modules.arduinoModule.values = @{};
   }
+  if (_allValues[@"battery"]) {
+    self.modules.batteryModule.values = _allValues[@"battery"];
+  } else {
+    self.modules.batteryModule.values = @{};
+  }
   if (_allValues[@"gps"]) {
     self.modules.gpsModule.values = _allValues[@"gps"];
   } else {
