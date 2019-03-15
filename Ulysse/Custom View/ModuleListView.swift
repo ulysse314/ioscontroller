@@ -83,7 +83,7 @@ class ModuleListView: UIView {
     }
   }
 
-  func moduleButton(buttonTag: Int) -> ModuleButton? {
+  @objc func moduleButton(buttonTag: Int) -> ModuleButton? {
     for button in self.moduleButtons {
       if button.tag == buttonTag {
         return button

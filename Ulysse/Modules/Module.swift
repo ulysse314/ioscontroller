@@ -11,7 +11,7 @@ class Module: NSObject {
       self.keys = newKeys.filter { $0 != "errors" }
     }
   }
-  var errors: Array<Array<Int>>? {
+  @objc dynamic var errors: Array<Array<Int>>? {
     didSet {
       if self.errors != nil {
         self.errorMessages = []

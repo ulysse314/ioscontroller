@@ -27,4 +27,17 @@ class Modules: NSObject {
     self.raspberryPiModule = Module(name: "Raspberry PI")
     super.init()
   }
+
+  @objc func list() -> Array<Module> {
+    return [
+      self.batteryModule,
+      self.cellularModule,
+      self.gpsModule,
+      self.motorsModule,
+      self.boatModule,
+      self.arduinoModule,
+      self.raspberryPiModule,
+    ]
+  }
+
 }

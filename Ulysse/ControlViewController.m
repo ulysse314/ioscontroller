@@ -129,6 +129,9 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [super viewDidLoad];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
+  for (Module *module in self.modules.list) {
+    [module addObserver:self forKeyPath:@"errors" options:NSKeyValueObservingOptionNew context:nil];
+  }
   [self.appDelegate addObserver:self forKeyPath:@"gameControlleur" options:NSKeyValueObservingOptionNew context:nil];
   _ulysse = self.appDelegate.ulysse;
   self.view.autoresizesSubviews = NO;
@@ -315,6 +318,25 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   return viewController;
 }
 
+- (ButtonTag)buttonTagWithModule:(Module*)module {
+  if (module == self.modules.batteryModule) {
+    return BatteryButtonTag;
+  } else if (module == self.modules.cellularModule) {
+    return CellularButtonTag;
+  } else if (module == self.modules.gpsModule) {
+    return GPSButtonTag;
+  } else if (module == self.modules.motorsModule) {
+    return MotorsButtonTag;
+  } else if (module == self.modules.boatModule) {
+    return BoatButtonTag;
+  } else if (module == self.modules.arduinoModule) {
+    return ArduinoButtonTag;
+  } else if (module == self.modules.raspberryPiModule) {
+    return RaspberryPiButtonTag;
+  }
+  return (ButtonTag)-1;
+}
+
 - (void)removePresentedViewController {
   [self.viewControllerPresenterViewController.view removeFromSuperview];
   [self.viewControllerPresenterViewController removeFromParentViewController];
@@ -325,6 +347,15 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)bacckgroundExitButtonAction:(id)sender {
   [self.moduleListView unselectCurrentButton];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+  ButtonTag buttonTag = [self buttonTagWithModule:object];
+  ModuleButton *moduleButton = [self.moduleListView moduleButtonWithButtonTag:buttonTag];
+  NSInteger errorCount = [object errors].count;
+  if (moduleButton.errorNumber != errorCount) {
+    moduleButton.errorNumber = [object errors].count;
+  }
 }
 
 #pragma mark - WKNavigationDelegate
