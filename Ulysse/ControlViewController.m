@@ -345,7 +345,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.backgroundExitButton = nil;
 }
 
-- (void)bacckgroundExitButtonAction:(id)sender {
+- (void)backgroundExitButtonAction:(id)sender {
   [self.moduleListView unselectCurrentButton];
 }
 
@@ -391,7 +391,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   if (!self.viewControllerPresenterViewController) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.backgroundExitButton addTarget:self action:@selector(bacckgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backgroundExitButton addTarget:self action:@selector(backgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view insertSubview:self.backgroundExitButton belowSubview:self.moduleListView];
     [NSLayoutConstraint activateConstraints:@[
       [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
