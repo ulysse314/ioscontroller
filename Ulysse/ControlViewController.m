@@ -406,8 +406,8 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     [NSLayoutConstraint activateConstraints:@[
       [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
       [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],
-      [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-32],
-      [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-16],
+      [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32],
+      [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
     ]];
   }
   UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
