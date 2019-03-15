@@ -40,6 +40,7 @@ class ViewControllerPresenterViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.layer.backgroundColor = UIColor.clear.cgColor
+    self.view.isUserInteractionEnabled = false
     self.view.addSubview(self.contentView)
     NSLayoutConstraint.activate([
       self.contentView.topAnchor.constraint(equalTo: self.view.topAnchor),

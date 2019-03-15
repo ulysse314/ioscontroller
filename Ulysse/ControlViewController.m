@@ -115,6 +115,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) ModuleListView *moduleListView;
+@property (nonatomic, strong) UIButton *backgroundExitButton;
 
 @property (nonatomic, strong) Modules *modules;
 
@@ -314,6 +315,18 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   return viewController;
 }
 
+- (void)removePresentedViewController {
+  [self.viewControllerPresenterViewController.view removeFromSuperview];
+  [self.viewControllerPresenterViewController removeFromParentViewController];
+  self.viewControllerPresenterViewController = nil;
+  [self.backgroundExitButton removeFromSuperview];
+  self.backgroundExitButton = nil;
+}
+
+- (void)bacckgroundExitButtonAction:(id)sender {
+  [self.moduleListView unselectCurrentButton];
+}
+
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
@@ -345,6 +358,16 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)moduleButtonWasSelectedWithButton:(ModuleButton*)button {
   if (!self.viewControllerPresenterViewController) {
+    self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.backgroundExitButton addTarget:self action:@selector(bacckgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:self.backgroundExitButton belowSubview:self.moduleListView];
+    [NSLayoutConstraint activateConstraints:@[
+      [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+      [self.backgroundExitButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+      [self.backgroundExitButton.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+      [self.backgroundExitButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+    ]];
     self.viewControllerPresenterViewController = [[ViewControllerPresenterViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:self.viewControllerPresenterViewController];
     self.viewControllerPresenterViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -366,9 +389,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 }
 
 - (void)moduleButtonWasUnselectedWithButton:(ModuleButton*)button {
-  [self.viewControllerPresenterViewController.view removeFromSuperview];
-  [self.viewControllerPresenterViewController removeFromParentViewController];
-  self.viewControllerPresenterViewController = nil;
+  [self removePresentedViewController];
 }
 
 @end

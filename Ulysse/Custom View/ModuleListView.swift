@@ -63,6 +63,15 @@ class ModuleListView: UIView {
 //    let focusedButton: ModuleButton = self.stackView.arrangedSubviews[0] as! ModuleButton
   }
 
+  @objc func unselectCurrentButton() {
+    if (self.selectedButton != nil) {
+      let selectedButton = self.selectedButton!
+      self.selectedButton!.isSelected = false
+      self.selectedButton = nil
+      self.delegate?.moduleButtonWasUnselected(button: selectedButton)
+    }
+  }
+
   func wasSelectedButton(button: ModuleButton) {
     self.selectedButton?.isSelected = false
     if self.selectedButton != button {
@@ -70,9 +79,7 @@ class ModuleListView: UIView {
       self.selectedButton = button
       self.delegate?.moduleButtonWasSelected(button: button)
     } else {
-      button.isSelected = false
-      self.selectedButton = nil
-      self.delegate?.moduleButtonWasUnselected(button: button)
+      self.unselectCurrentButton()
     }
   }
 
