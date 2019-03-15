@@ -371,7 +371,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     self.viewControllerPresenterViewController = [[ViewControllerPresenterViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:self.viewControllerPresenterViewController];
     self.viewControllerPresenterViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.viewControllerPresenterViewController.view];
+    [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
     [NSLayoutConstraint activateConstraints:@[
       [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
       [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],

@@ -29,7 +29,6 @@ class ViewControllerPresenterViewController: UIViewController {
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     self.contentView = ModulePresenterView(frame: CGRect.zero)
-    self.contentView.translatesAutoresizingMaskIntoConstraints = false
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
   
@@ -37,17 +36,9 @@ class ViewControllerPresenterViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func loadView() {
+    self.view = self.contentView
     self.view.layer.backgroundColor = UIColor.clear.cgColor
-    self.view.isUserInteractionEnabled = false
-    self.view.addSubview(self.contentView)
-    NSLayoutConstraint.activate([
-      self.contentView.topAnchor.constraint(equalTo: self.view.topAnchor),
-      self.contentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-      self.contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-      self.contentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-      ])
     self.view.isOpaque = false
   }
   
