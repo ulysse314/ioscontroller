@@ -53,14 +53,10 @@ class ModuleListView: UIView {
     if (self.focusedButtonIndex == nil) {
       self.focusedButtonIndex = 0
     } else {
-//      let previousFocusedButton: ModuleButton = self.stackView.arrangedSubviews[0] as! ModuleButton
-//      previousFocusedButton.state = .normal
-//      self.focusedButtonIndex += 1
       if (self.focusedButtonIndex == self.stackView.arrangedSubviews.count) {
         self.focusedButtonIndex = 0
       }
     }
-//    let focusedButton: ModuleButton = self.stackView.arrangedSubviews[0] as! ModuleButton
   }
 
   @objc func unselectCurrentButton() {
