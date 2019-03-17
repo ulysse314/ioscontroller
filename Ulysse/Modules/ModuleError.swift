@@ -91,6 +91,9 @@ class ModuleError: NSObject {
     case statusURLFailed = 4
     case trafficStatURLFailed = 5
     case NotConnected = 6
+    case LowSignal = 7
+    case VeryLowSignal = 8
+    case SimLocked = 9
   }
 
   class func errorMessage(error: Array<Any>) -> String {
@@ -264,6 +267,12 @@ class ModuleError: NSObject {
       return "Traffic statistic URL failed" + (message != nil ? (", " + message!) : "")
     case .NotConnected:
       return "Not connected" + (message != nil ? (", " + message!) : "")
+    case .LowSignal:
+      return "Low signal" + (message != nil ? (", " + message!) : "")
+    case .VeryLowSignal:
+      return "Very low signal" + (message != nil ? (", " + message!) : "")
+    case .SimLocked:
+      return "Sim locked" + (message != nil ? (", " + message!) : "")
     }
   }
 
