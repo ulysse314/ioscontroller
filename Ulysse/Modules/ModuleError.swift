@@ -14,8 +14,10 @@ class ModuleError: NSObject {
     case gps = 2
     case motor = 3
     case battery = 4
+    case cellular = 5
   }
 
+  // Arduino domain 1
   enum ArduinoError : Int {
     case noError = 0
     case setValueWithWrongType = 1
@@ -41,6 +43,7 @@ class ModuleError: NSObject {
     case notStarted = 21
   }
 
+  // GPS domain 2
   enum GPSError : Int {
     case noError = 0
     case unknownAntenna = 1
@@ -52,6 +55,7 @@ class ModuleError: NSObject {
     case usedSatellitesLow = 7
   }
 
+  // Motor domain 3
   enum MotorError : Int {
     case noError = 0
     case temperatureUnknown = 1
@@ -61,6 +65,7 @@ class ModuleError: NSObject {
     case pwmNotAvailable = 5
   }
 
+  // Battery domain 4
   enum BatteryError : Int {
     case noError = 0
     case codeUnknown = 1
@@ -77,12 +82,22 @@ class ModuleError: NSObject {
     case temperatureCritical = 12
   }
 
-  class func errorMessage(error: Array<Int>) -> String {
-    let domain: Domain? = Domain(rawValue: error[0])
+  // Cellular domain 5
+  enum CellularError : Int {
+    case noError = 0
+    case genericError = 1
+    case noInterface = 2
+    case signalURLFailed = 3
+    case statusURLFailed = 4
+    case trafficStatURLFailed = 5
+  }
+
+  class func errorMessage(error: Array<Any>) -> String {
+    let domain: Domain? = Domain(rawValue: error[0] as! Int)
     if domain == nil {
       return "Unknown domain"
     }
-    let errorCode: Int = error[1]
+    let errorCode: Int = error[1] as! Int
     switch domain! {
     case .none:
       return "No domain"
@@ -94,6 +109,8 @@ class ModuleError: NSObject {
       return motorErrorMessage(errorCode: MotorError(rawValue: errorCode))
     case .battery:
       return batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
+    case .cellular:
+      return "Test"
     }
   }
 
@@ -224,6 +241,62 @@ class ModuleError: NSObject {
       return "Temperature warning"
     case .temperatureCritical:
       return "Temperature critical"
+    }
+  }
+
+  class func cellularErrorMessage(errorCode: CellularError?, message: String?) -> String {
+    if errorCode == nil {
+      return "Unknown motor error code"
+    }
+    switch errorCode! {
+    case .noError:
+      return "No error" + (message != nil ? (", " + message!) : "")
+    case .genericError:
+      return "Generic error" + (message != nil ? (", " + message!) : "")
+    case .noInterface:
+      return "No interface" + (message != nil ? (", " + message!) : "")
+    case .signalURLFailed:
+      return "Signal URL failed" + (message != nil ? (", " + message!) : "")
+    case .statusURLFailed:
+      return "Status URL failed" + (message != nil ? (", " + message!) : "")
+    case .trafficStatURLFailed:
+      return "Traffic statistic URL failed" + (message != nil ? (", " + message!) : "")
+    }
+  }
+
+  var domain: Domain
+  var errorCode: Int
+  var message: String
+
+  class func createError(domainValue: Any, codeValue: Any, messageValue: Any?) -> ModuleError? {
+    var domain: Domain?
+    if domainValue is Int {
+      domain = Domain(rawValue: domainValue as! Int)
+    }
+    let code: Int? = codeValue as? Int
+    let message: String? = messageValue as? String
+    if domain != nil && code != nil {
+      return ModuleError(domain: domain!, errorCode: code!, message: message)
+    }
+    return nil
+  }
+
+  init(domain: Domain, errorCode: Int, message: String?) {
+    self.domain = domain
+    self.errorCode = errorCode
+    switch self.domain {
+    case .none:
+      self.message = "No domain"
+    case .arduino:
+      self.message = ModuleError.arduinoErrorMessage(errorCode: ArduinoError(rawValue: errorCode))
+    case .gps:
+      self.message = ModuleError.gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
+    case .motor:
+      self.message = ModuleError.motorErrorMessage(errorCode: MotorError(rawValue: errorCode))
+    case .battery:
+      self.message = ModuleError.batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
+    case .cellular:
+      self.message = ModuleError.cellularErrorMessage(errorCode: CellularError(rawValue: errorCode), message: message)
     }
   }
 }

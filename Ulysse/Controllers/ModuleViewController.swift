@@ -35,19 +35,19 @@ class ModuleViewController: UITableViewController {
   // MARK: - TableView
 
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return self.module.errorMessages == nil ? 1 : 2
+    return self.module.errors == nil ? 1 : 2
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if (section == 1 || self.module.errorMessages == nil) {
+    if (section == 1 || self.module.errors == nil) {
       return self.module.keys.count
     } else {
-      return self.module.errorMessages!.count
+      return self.module.errors!.count
     }
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    if (section == 1 || self.module.errorMessages == nil) {
+    if (section == 1 || self.module.errors == nil) {
       return "Values"
     } else {
       return "Errors"
@@ -56,10 +56,10 @@ class ModuleViewController: UITableViewController {
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-    if (indexPath.section == 1 || self.module.errorMessages == nil) {
+    if (indexPath.section == 1 || self.module.errors == nil) {
       let key = self.module.keys[indexPath.row]
       cell.textLabel?.text = key
-      let value = self.module.values[key]
+      let value = self.module.moduleValue(forKey:key)
       if value is Int {
         cell.detailTextLabel?.text = String(value as! Int)
       } else if value is Float {
@@ -74,7 +74,7 @@ class ModuleViewController: UITableViewController {
         cell.detailTextLabel?.text = "-"
       }
     } else {
-      cell.textLabel?.text = self.module.errorMessages![indexPath.row]
+      cell.textLabel?.text = self.module.errors![indexPath.row].message
     }
     return cell
   }

@@ -19,7 +19,7 @@ class Modules: NSObject {
 
   override init() {
     self.batteryModule = Module(name: "Battery")
-    self.cellularModule = Module(name: "4G Connection")
+    self.cellularModule = CellularModule(name: "4G Connection")
     self.gpsModule = Module(name: "GPS")
     self.motorsModule = Module(name: "Motors")
     self.boatModule = Module(name: "Boat")
