@@ -15,6 +15,7 @@ class ModuleError: NSObject {
     case motor = 3
     case battery = 4
     case cellular = 5
+    case pi = 6
   }
 
   // Arduino domain 1
@@ -41,6 +42,8 @@ class ModuleError: NSObject {
     case loopCycleLowWarning = 19
     case loopCycleLowCritical = 20
     case notStarted = 21
+    case devNotFound = 100
+    case connectionError = 101
   }
 
   // GPS domain 2
@@ -96,6 +99,23 @@ class ModuleError: NSObject {
     case SimLocked = 9
   }
 
+  // Pi domain 6
+  enum PiError : Int {
+    case noError = 0
+    case temperatureInfo = 1
+    case temperatureWarning = 2
+    case temperatureCritical = 3
+    case memoryInfo = 4
+    case memoryWarning = 5
+    case memoryCritical = 6
+    case diskInfo = 7
+    case diskWarning = 8
+    case diskCritical = 9
+    case cpuInfo = 10
+    case cpuWarning = 11
+    case cpuCritical = 12
+  }
+
   class func errorMessage(error: Array<Any>) -> String {
     let domain: Domain? = Domain(rawValue: error[0] as! Int)
     if domain == nil {
@@ -115,6 +135,8 @@ class ModuleError: NSObject {
       return batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
     case .cellular:
       return "Test"
+    case .pi:
+      return "test"
     }
   }
 
@@ -167,6 +189,10 @@ class ModuleError: NSObject {
       return "Loop cycle low critical"
     case .notStarted:
       return "Not started"
+    case .devNotFound:
+      return "Dev not found"
+    case .connectionError:
+      return "Connection error"
     }
   }
 
@@ -276,6 +302,40 @@ class ModuleError: NSObject {
     }
   }
 
+  class func piErrorMessage(errorCode: PiError?, message: String?) -> String {
+    if errorCode == nil {
+      return "Unknown pi error code"
+    }
+    switch errorCode! {
+    case .noError:
+      return "No error" + (message != nil ? (", " + message!) : "")
+    case .temperatureInfo:
+      return "Temperature info" + (message != nil ? (", " + message!) : "")
+    case .temperatureWarning:
+      return "Temperature warning" + (message != nil ? (", " + message!) : "")
+    case .temperatureCritical:
+      return "Temperature critical" + (message != nil ? (", " + message!) : "")
+    case .memoryInfo:
+      return "Memory info" + (message != nil ? (", " + message!) : "")
+    case .memoryWarning:
+      return "Memory warning" + (message != nil ? (", " + message!) : "")
+    case .memoryCritical:
+      return "Memory critical" + (message != nil ? (", " + message!) : "")
+    case .diskInfo:
+      return "Disk info" + (message != nil ? (", " + message!) : "")
+    case .diskWarning:
+      return "Disk warning" + (message != nil ? (", " + message!) : "")
+    case .diskCritical:
+      return "Disk critical" + (message != nil ? (", " + message!) : "")
+    case .cpuInfo:
+      return "CPU info" + (message != nil ? (", " + message!) : "")
+    case .cpuWarning:
+      return "CPU warning" + (message != nil ? (", " + message!) : "")
+    case .cpuCritical:
+      return "CPU critical" + (message != nil ? (", " + message!) : "")
+    }
+}
+
   var domain: Domain
   var errorCode: Int
   var message: String
@@ -309,6 +369,8 @@ class ModuleError: NSObject {
       self.message = ModuleError.batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
     case .cellular:
       self.message = ModuleError.cellularErrorMessage(errorCode: CellularError(rawValue: errorCode), message: message)
+    case .pi:
+      self.message = ModuleError.piErrorMessage(errorCode: PiError(rawValue: errorCode), message: message)
     }
   }
 }
