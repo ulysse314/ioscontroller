@@ -116,30 +116,6 @@ class ModuleError: NSObject {
     case cpuCritical = 12
   }
 
-  class func errorMessage(error: Array<Any>) -> String {
-    let domain: Domain? = Domain(rawValue: error[0] as! Int)
-    if domain == nil {
-      return "Unknown domain"
-    }
-    let errorCode: Int = error[1] as! Int
-    switch domain! {
-    case .none:
-      return "No domain"
-    case .arduino:
-      return arduinoErrorMessage(errorCode: ArduinoError(rawValue: errorCode))
-    case .gps:
-      return gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
-    case .motor:
-      return motorErrorMessage(errorCode: MotorError(rawValue: errorCode))
-    case .battery:
-      return batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
-    case .cellular:
-      return "Test"
-    case .pi:
-      return "test"
-    }
-  }
-
   class func arduinoErrorMessage(errorCode: ArduinoError?) -> String {
     if errorCode == nil {
       return "Unknown arduino error code"
