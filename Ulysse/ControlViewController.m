@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.moduleListView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.moduleListView];
   [NSLayoutConstraint activateConstraints:@[
-    [self.moduleListView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:0],
+    [self.moduleListView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:-10],
     [self.moduleListView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
   ]];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"battery"] buttonTag:BatteryButtonTag];
