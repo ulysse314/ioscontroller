@@ -154,8 +154,10 @@
   }
   self.gameController = notification.object;
   __weak __typeof(self) weakSelf = self;
-  self.gameController.controllerPausedHandler = ^(GCController * _Nonnull controller) {
-    [weakSelf smallPlayerIndexFlash];
+  self.gameController.extendedGamepad.buttonMenu.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
+    if (pressed) {
+      [weakSelf smallPlayerIndexFlash];
+    }
   };
   self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
     [self updateMotorWithGamepad];
