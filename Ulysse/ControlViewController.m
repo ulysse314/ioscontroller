@@ -113,6 +113,9 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 }
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) float heading;
+@property (nonatomic, assign) BOOL needsMapViewUpdate;
+@property (nonatomic, assign) BOOL isMapViewUpdating;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) ModuleListView *moduleListView;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
@@ -221,16 +224,23 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     coordinate.latitude = [[gpsValues objectForKey:@"lat"] floatValue];
     coordinate.longitude = [[gpsValues objectForKey:@"lon"] floatValue];
     self.coordinate = coordinate;
+    NSDictionary<NSString *, NSNumber *> *dof = _ulysse.allValues[@"dof"];
+    self.heading = dof[@"heading"].floatValue;
     if (_mapView.annotations.count == 0) {
       [_mapView addAnnotation:self];
       [_mapView setCenterCoordinate:coordinate animated:NO];
+    } else if (!self.isMapViewUpdating) {
+      [self updateMapView];
     } else {
-      [_mapView setCenterCoordinate:coordinate animated:YES];
+      self.needsMapViewUpdate = YES;
     }
-    NSDictionary<NSString *, NSNumber *> *dof = _ulysse.allValues[@"dof"];
-    float heading = dof[@"heading"].floatValue;
-    _mapView.camera.heading = heading;
   }
+}
+
+- (void)updateMapView {
+  self.needsMapViewUpdate = NO;
+  _mapView.camera.heading = self.heading;
+  [_mapView setCenterCoordinate:self.coordinate animated:YES];
 }
 
 - (void)updateNetworkValues {
@@ -383,6 +393,17 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   pinView.canShowCallout = NO;
   pinView.image = [UIImage imageNamed:@"quickaction_icon_location"];
   return pinView;
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+  self.isMapViewUpdating = YES;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+  self.isMapViewUpdating = NO;
+  if (self.needsMapViewUpdate) {
+    [self updateMapView];
+  }
 }
 
 #pragma mark - ModuleListViewDelegate
