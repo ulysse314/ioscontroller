@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
-    <device id="retina5_9" orientation="landscape">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+    <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Control-->
+        <!--Control View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="ControlViewController" sceneMemberID="viewController">
@@ -43,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4B-JD-S5u">
-                                <rect key="frame" x="744" y="371" width="4" height="4"/>
+                                <rect key="frame" x="748" y="371" width="4" height="4"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="YBM-TI-ugK"/>
@@ -70,7 +67,6 @@
                             <constraint firstItem="eyV-9f-HBd" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="jfw-Wd-aCY"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Control" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="_mapView" destination="eyV-9f-HBd" id="fsP-he-CJC"/>
                         <outlet property="_networkLabel" destination="aCy-qB-7td" id="b5k-IZ-GrH"/>
@@ -85,7 +81,4 @@
             <point key="canvasLocation" x="802.39999999999998" y="-339.58020989505252"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="first" width="30" height="30"/>
-    </resources>
 </document>
