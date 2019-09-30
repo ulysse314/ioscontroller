@@ -113,6 +113,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 }
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) MapViewController *mapViewController;
 @property (nonatomic, assign) float heading;
 @property (nonatomic, assign) BOOL needsMapViewUpdate;
 @property (nonatomic, assign) BOOL isMapViewUpdating;
@@ -130,6 +131,12 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.mapViewController = [[MapViewController alloc] init];
+  [self addChildViewController:self.mapViewController];
+  self.mapViewController.view.frame = self.view.bounds;
+  [self.view insertSubview:self.mapViewController.view atIndex:0];
+  [self.mapViewController didMoveToParentViewController:self];
+
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
   for (Module *module in self.modules.list) {
@@ -181,6 +188,8 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 - (void)ulysseValuesDidChange:(NSNotification *)notification {
   Ulysse *ulysse = _ulysse;
   NSDictionary *allValues = ulysse.allValues;
+  [self.mapViewController updateWithValues:_ulysse.allValues];
+//  [self.mapViewController updateWithValues:@{@"gps":@{ @"lon":@(0)}}];
   [self updateGPSValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self stopCam];

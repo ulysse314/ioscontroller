@@ -20,6 +20,7 @@
 		023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023BD9172044994000188A35 /* BoatChooserViewController.m */; };
 		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
 		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
+		0244F5B7234169D700440189 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F5B6234169D700440189 /* MapViewController.swift */; };
 		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
 		026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ModuleButton.swift */; };
 		026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */; };
@@ -75,6 +76,7 @@
 		0244BF29205458D100B1D6F5 /* MotorPowerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MotorPowerView.m; sourceTree = "<group>"; };
 		0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
 		0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
+		0244F5B6234169D700440189 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0265709D2034CEFE006187A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		026DD12A21FCA383006B18B7 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
 				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
 				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
+				0244F5B6234169D700440189 /* MapViewController.swift */,
 				02F4008C204718CC00016004 /* Settings */,
 			);
 			path = Controllers;
@@ -420,6 +423,7 @@
 				021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */,
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
 				02E549F0223EF0940080B353 /* CellularModule.swift in Sources */,
+				0244F5B7234169D700440189 /* MapViewController.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
