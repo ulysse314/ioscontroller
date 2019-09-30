@@ -101,22 +101,17 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   SettingsButtonTag,
 };
 
-@interface ControlViewController ()<MKAnnotation, ModuleListViewDelegate, WKNavigationDelegate, MKMapViewDelegate> {
+@interface ControlViewController ()<ModuleListViewDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UILabel *_powerLabel;
   IBOutlet __weak UILabel *_networkLabel;
   IBOutlet __weak UILabel *_temperatureLabel;
   IBOutlet __weak UIView *_squareView;
-  IBOutlet __weak MKMapView *_mapView;
   WKWebView *_webView;
   BOOL _camStarted;
 }
 
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) MapViewController *mapViewController;
-@property (nonatomic, assign) float heading;
-@property (nonatomic, assign) BOOL needsMapViewUpdate;
-@property (nonatomic, assign) BOOL isMapViewUpdating;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) ModuleListView *moduleListView;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
@@ -151,12 +146,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   _networkLabel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
   _powerLabel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
   
-  _mapView.delegate = self;
-  _mapView.showsCompass = NO;
-  CLLocationCoordinate2D noLocation = {0, 0};
-  MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 100, 100);
-  MKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
-  [_mapView setRegion:adjustedRegion animated:NO];
   [self ulysseValuesDidChange:nil];
   [self startCam];
   self.moduleListView = [[ModuleListView alloc] initWithFrame:CGRectZero];
@@ -189,8 +178,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   Ulysse *ulysse = _ulysse;
   NSDictionary *allValues = ulysse.allValues;
   [self.mapViewController updateWithValues:_ulysse.allValues];
-//  [self.mapViewController updateWithValues:@{@"gps":@{ @"lon":@(0)}}];
-  [self updateGPSValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self stopCam];
   } else if (!_camStarted && [[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
@@ -224,32 +211,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   } else {
     _powerLabel.textColor = [UIColor blackColor];
   }
-}
-
-- (void)updateGPSValues {
-  NSDictionary *gpsValues = _ulysse.allValues[@"gps"];
-  if (gpsValues && gpsValues[@"lat"] && gpsValues[@"lon"]) {
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = [[gpsValues objectForKey:@"lat"] floatValue];
-    coordinate.longitude = [[gpsValues objectForKey:@"lon"] floatValue];
-    self.coordinate = coordinate;
-    NSDictionary<NSString *, NSNumber *> *dof = _ulysse.allValues[@"dof"];
-    self.heading = dof[@"heading"].floatValue;
-    if (_mapView.annotations.count == 0) {
-      [_mapView addAnnotation:self];
-      [_mapView setCenterCoordinate:coordinate animated:NO];
-    } else if (!self.isMapViewUpdating) {
-      [self updateMapView];
-    } else {
-      self.needsMapViewUpdate = YES;
-    }
-  }
-}
-
-- (void)updateMapView {
-  self.needsMapViewUpdate = NO;
-  _mapView.camera.heading = self.heading;
-  [_mapView setCenterCoordinate:self.coordinate animated:YES];
 }
 
 - (void)updateNetworkValues {
@@ -393,26 +354,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
   DEBUGLOG(@"webViewWebContentProcessDidTerminate");
-}
-
-#pragma mark - MKMapViewDelegate
-
-- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id<MKAnnotation>)annotation {
-  MKAnnotationView *pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"boat"];
-  pinView.canShowCallout = NO;
-  pinView.image = [UIImage imageNamed:@"quickaction_icon_location"];
-  return pinView;
-}
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-  self.isMapViewUpdating = YES;
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-  self.isMapViewUpdating = NO;
-  if (self.needsMapViewUpdate) {
-    [self updateMapView];
-  }
 }
 
 #pragma mark - ModuleListViewDelegate
