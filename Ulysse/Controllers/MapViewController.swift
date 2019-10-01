@@ -18,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
 
   var mapView: MKMapView
   var coordinate: CLLocationCoordinate2D
+  var needsAnimation: Bool
   var needsMapViewUpdate: Bool
   var isMapViewUpdating: Bool
   var heading: Double
@@ -28,6 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
     self.needsMapViewUpdate = false
     self.isMapViewUpdating = false
     self.heading = 0
+    self.needsAnimation = false
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
 
@@ -54,6 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
     if ((gpsValues != nil) && (gpsValues?["lat"] != nil) && (gpsValues?["lon"] != nil)) {
       let latitude: Double = getDouble(value: gpsValues!["lat"])
       let longitude: Double = getDouble(value: gpsValues!["lon"])
+      self.needsAnimation = self.coordinate.latitude != 0 || self.coordinate.longitude != 0
       self.willChangeValue(forKey: "coordinate")
       self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
       self.didChangeValue(forKey: "coordinate")
@@ -64,20 +67,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
       self.heading = getDouble(value: dof!["heading"])
       self.needsMapViewUpdate = true
     }
-    if (self.mapView.annotations.count == 0) {
-      self.mapView.setCenter(self.coordinate, animated: false)
-    } else if (!self.isMapViewUpdating) {
-      self.updateMapView()
-    } else {
-      self.needsMapViewUpdate = true
+    if (self.needsMapViewUpdate) {
+      if (!self.isMapViewUpdating) {
+        self.updateMapView()
+      } else {
+        self.needsMapViewUpdate = true
+      }
     }
   }
 
   func updateMapView() {
     self.needsMapViewUpdate = false;
     self.mapView.camera.heading = self.heading;
-    let animated = self.mapView.centerCoordinate.latitude != 0 || self.mapView.centerCoordinate.longitude != 0
-    self.mapView.setCenter(self.coordinate, animated: animated)
+    self.mapView.setCenter(self.coordinate, animated:self.needsAnimation)
   }
 
 // MARK: - MKMapViewDelegate
