@@ -76,7 +76,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
   func updateMapView() {
     self.needsMapViewUpdate = false;
     self.mapView.camera.heading = self.heading;
-    self.mapView.setCenter(self.coordinate, animated: true)
+    let animated = self.mapView.centerCoordinate.latitude != 0 || self.mapView.centerCoordinate.longitude != 0
+    self.mapView.setCenter(self.coordinate, animated: animated)
   }
 
 // MARK: - MKMapViewDelegate
