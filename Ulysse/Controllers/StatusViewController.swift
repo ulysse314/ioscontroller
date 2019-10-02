@@ -86,6 +86,7 @@ class StatusViewController: UIViewController {
   var piLabel: UILabel = UILabel()
   var motorTempLabel: UILabel = UILabel()
   var generalLabel: UILabel = UILabel()
+  var phoneBatteryLabel: UILabel = UILabel()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -140,6 +141,14 @@ class StatusViewController: UIViewController {
     self.generalLabel.leadingAnchor.constraint(equalTo: self.motorTempLabel.trailingAnchor, constant: 10).isActive = true
     self.generalLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
     self.generalLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    
+    self.phoneBatteryLabel.font = UIFont(name: "Menlo-Regular", size: 10)
+    self.phoneBatteryLabel.translatesAutoresizingMaskIntoConstraints = false
+    self.phoneBatteryLabel.numberOfLines = 0
+    self.view.addSubview(self.phoneBatteryLabel)
+    self.view.trailingAnchor.constraint(equalTo: self.phoneBatteryLabel.trailingAnchor, constant: 10).isActive = true
+    self.phoneBatteryLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    self.phoneBatteryLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
   }
 
   @objc func update(values: Dictionary<String, Any>) {
@@ -171,6 +180,22 @@ class StatusViewController: UIViewController {
 
     let batteryTemp: Double = getDouble(value: batteryValues?["temp"])
     self.generalLabel.text = "\(batteryTemp)C"
+    
+    var batteryStatus = ""
+    switch UIDevice.current.batteryState {
+    case .unknown:
+      batteryStatus = "Unknown"
+    case .unplugged:
+      batteryStatus = "Unplugged"
+    case .charging:
+      batteryStatus = "Charging"
+    case .full:
+      batteryStatus = "Full"
+    @unknown default:
+      batteryStatus = "--"
+    }
+    let batteryLevel: Int = Int(UIDevice.current.batteryLevel * 100)
+    self.phoneBatteryLabel.text = "\(batteryLevel)%\n\(batteryStatus)"
   }
 
 }

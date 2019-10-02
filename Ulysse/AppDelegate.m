@@ -31,6 +31,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  [UIDevice currentDevice].batteryMonitoringEnabled = YES;
   _config = [Config sharedInstance];
   [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
   self.modules = [[Modules alloc] init];
