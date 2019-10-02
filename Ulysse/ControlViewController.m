@@ -12,84 +12,6 @@
 
 #import "Ulysse-Swift.h"
 
-static NSString *networkName(NSInteger networkType) {
-  switch (networkType) {
-  case 0:
-    return @"No Service";
-    case 1:
-      // 2G
-    return @"GSM";
-    case 2:
-      // 2G
-    return @"GPRS";
-    case 3:
-      // 2G
-    return @"EDGE";
-    case 4:
-      // 3G
-    return @"WCDMA";
-    case 5:
-      // 3G
-    return @"HSDPA";
-    case 6:
-      // 3G
-    return @"HSUPA";
-    case 7:
-      // 3G
-    return @"HSPA";
-    case 8:
-      // 3G
-    return @"TD-SCDMA";
-    case 9:
-      // 4G
-    return @"HSPA+)";
-    case 10:
-    return @"EV-DO rev. 0";
-    case 11:
-    return @"EV-DO rev. A";
-    case 12:
-    return @"EV-DO rev. B";
-    case 13:
-    return @"1xRTT";
-    case 14:
-    return @"UMB";
-    case 15:
-    return @"1xEVDV";
-    case 16:
-    return @"3xRTT";
-    case 17:
-    return @"HSPA+ 64QAM";
-    case 18:
-    return @"HSPA+ MIMO";
-    case 19:
-      // 4G
-    return @"LTE";
-    case 41:
-      // 3G
-    return @"UMTS";
-    case 44:
-      // 3G
-    return @"HSPA";
-    case 45:
-      // 3G
-    return @"HSPA+";
-    case 46:
-      // 3G
-    return @"DC-HSPA+";
-    case 64:
-      // 3G
-    return @"HSPA";
-  case 65:
-      // 3G
-    return @"HSPA+";
-  case 101:
-      // 4G
-    return @"LTE";
-  default:
-    return @"n/a";
-  }
-}
-
 typedef NS_ENUM(NSInteger, ButtonTag) {
   BatteryButtonTag,
   CellularButtonTag,
@@ -103,15 +25,13 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 @interface ControlViewController ()<ModuleListViewDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
-  IBOutlet __weak UILabel *_powerLabel;
-  IBOutlet __weak UILabel *_networkLabel;
-  IBOutlet __weak UILabel *_temperatureLabel;
   IBOutlet __weak UIView *_squareView;
   WKWebView *_webView;
   BOOL _camStarted;
 }
 
 @property (nonatomic, strong) MapViewController *mapViewController;
+@property (nonatomic, strong) StatusViewController *statusViewController;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) ModuleListView *moduleListView;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
@@ -142,10 +62,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.view.autoresizesSubviews = NO;
   // Do any additional setup after loading the view, typically from a nib.
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ulysseValuesDidChange:) name:UlysseValuesDidUpdate object:_ulysse];
-  _temperatureLabel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
-  _networkLabel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
-  _powerLabel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
-  
+
   [self ulysseValuesDidChange:nil];
   [self startCam];
   self.moduleListView = [[ModuleListView alloc] initWithFrame:CGRectZero];
@@ -164,6 +81,16 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"arduino"] buttonTag:ArduinoButtonTag];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"raspberrypi"] buttonTag:RaspberryPiButtonTag];
   [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"settings"] buttonTag:SettingsButtonTag];
+  
+  self.statusViewController = [[StatusViewController alloc] init];
+  [self addChildViewController:self.statusViewController];
+  [self.view addSubview:self.statusViewController.view];
+  self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.statusViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:10].active = YES;
+  [self.view.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
+  [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
+  [self.statusViewController.view.heightAnchor constraintEqualToConstant:34].active = YES;
+  [self.statusViewController didMoveToParentViewController:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -178,74 +105,16 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   Ulysse *ulysse = _ulysse;
   NSDictionary *allValues = ulysse.allValues;
   [self.mapViewController updateWithValues:_ulysse.allValues];
+  [self.statusViewController updateWithValues:_ulysse.allValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self stopCam];
   } else if (!_camStarted && [[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self startCam];
   }
-  [self updatePowerValues];
-  [self updateNetworkValues];
-  [self updateTemperatureValues];
   if (_squareView.backgroundColor == [UIColor blackColor]) {
     _squareView.backgroundColor = [UIColor whiteColor];
   } else {
     _squareView.backgroundColor = [UIColor blackColor];
-  }
-}
-
-- (void)updatePowerValues {
-  NSDictionary *allValues = _ulysse.allValues;
-  NSDictionary *gpsValues = allValues[@"gps"];
-  NSDictionary *battery = allValues[@"battery"];
-  float volt = [battery[@"volt"] floatValue];
-  float ampere = [battery[@"ampere"] floatValue];
-  bool water = [[allValues[@"water"] objectForKey:@"detected"] boolValue];
-  NSString *waterWarning = @"";
-  if (water) {
-    waterWarning = [NSString stringWithFormat:@", WATER: %ld", [[allValues[@"water"] objectForKey:@"raw"] integerValue]];
-  }
-  _powerLabel.text = [NSString stringWithFormat:@"%.2fV, %.2fA%@ %.2fm/s", volt, ampere, waterWarning, [gpsValues[@"speed"] floatValue]];
-  if (water) {
-    _powerLabel.textColor = [UIColor redColor];
-//    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-  } else {
-    _powerLabel.textColor = [UIColor blackColor];
-  }
-}
-
-- (void)updateNetworkValues {
-//  DEBUGLOG(@"ulysse %@", _ulysse);
-//  DEBUGLOG(@"values %@", _ulysse.allValues);
-  NSDictionary *cellularValues = _ulysse.allValues[@"cellular"];
-  NSDictionary *gpsValues = _ulysse.allValues[@"gps"];
-  NSInteger signalStrength = [cellularValues[@"SignalIcon"] integerValue];
-  NSInteger satCount = [gpsValues[@"sat"] integerValue];
-  NSInteger trackCount = [gpsValues[@"tracked"] integerValue];
-  _networkLabel.text = [NSString stringWithFormat:@"Signal: %ld/%@, RSSI: %@, RSRQ: %@, Sat: %ld/%ld", signalStrength, networkName([cellularValues[@"CurrentNetworkType"] integerValue]), cellularValues[@"rssi"], cellularValues[@"rsrq"], trackCount, satCount];
-  if (signalStrength < 2 || !gpsValues[@"lon"] || !gpsValues[@"lat"]) {
-    _networkLabel.textColor = [UIColor redColor];
-//    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-  } else {
-    _networkLabel.textColor = [UIColor blackColor];
-  }
-}
-
-- (void)updateTemperatureValues {
-  NSDictionary *allValues = _ulysse.allValues;
-  NSDictionary<NSString *, NSNumber*>*battery = allValues[@"battery"];
-  NSDictionary<NSString *, NSNumber*>*motor = allValues[@"motor"];
-  float gt = battery[@"temp"].floatValue;
-  float lmt = motor[@"lefttemp"].floatValue;
-  float rmt = motor[@"righttemp"].floatValue;
-  NSDictionary *pi = allValues[@"pi"];
-  float cput = [pi[@"temp"] floatValue];
-  float cpuUsage = [pi[@"cpu%"] floatValue];
-  _temperatureLabel.text = [NSString stringWithFormat:@"General: %.1f°C, Left: %.1f°C, Right: %.1f°C, CPU: %.1f°C/%.1f%%", gt, lmt, rmt, cput, cpuUsage];
-  if (gt > 65 || lmt > 65 || rmt > 65 || cput > 65) {
-    _temperatureLabel.textColor = [UIColor redColor];
-//    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-  } else {
-    _temperatureLabel.textColor = [UIColor blackColor];
   }
 }
 
@@ -363,7 +232,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addTarget:self action:@selector(backgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:self.backgroundExitButton belowSubview:self.moduleListView];
+    [self.view addSubview:self.backgroundExitButton];
     [NSLayoutConstraint activateConstraints:@[
       [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
       [self.backgroundExitButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],

@@ -21,6 +21,7 @@
 		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
 		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
 		0244F5B7234169D700440189 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F5B6234169D700440189 /* MapViewController.swift */; };
+		0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F5B82342ADC200440189 /* StatusViewController.swift */; };
 		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
 		026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ModuleButton.swift */; };
 		026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */; };
@@ -77,6 +78,7 @@
 		0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
 		0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
 		0244F5B6234169D700440189 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		0244F5B82342ADC200440189 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		0265709D2034CEFE006187A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		026DD12A21FCA383006B18B7 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
 				0234CC3622025FC100738CC0 /* ModuleViewController.swift */,
 				0244F5B6234169D700440189 /* MapViewController.swift */,
+				0244F5B82342ADC200440189 /* StatusViewController.swift */,
 				02F4008C204718CC00016004 /* Settings */,
 			);
 			path = Controllers;
@@ -430,6 +433,7 @@
 				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				029931451D3195DB00C03033 /* Ulysse.m in Sources */,
+				0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */,
 				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,
 				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
 				02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */,
