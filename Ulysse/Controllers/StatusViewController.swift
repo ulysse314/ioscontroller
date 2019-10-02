@@ -184,15 +184,15 @@ class StatusViewController: UIViewController {
     var batteryStatus = ""
     switch UIDevice.current.batteryState {
     case .unknown:
-      batteryStatus = "Unknown"
+      batteryStatus = "Unkn."
     case .unplugged:
-      batteryStatus = "Unplugged"
+      batteryStatus = "Unpl."
     case .charging:
-      batteryStatus = "Charging"
+      batteryStatus = "Char."
     case .full:
       batteryStatus = "Full"
     @unknown default:
-      batteryStatus = "--"
+      batteryStatus = " -- "
     }
     let batteryLevel: Int = Int(UIDevice.current.batteryLevel * 100)
     self.phoneBatteryLabel.text = "\(batteryLevel)%\n\(batteryStatus)"
