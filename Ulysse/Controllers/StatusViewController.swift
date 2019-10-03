@@ -102,27 +102,27 @@ class StatusViewController: UIViewController {
     self.batteryLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
     self.batteryLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     
-    self.gpsLabel.font = UIFont(name: "Menlo-Regular", size: 10)
-    self.gpsLabel.translatesAutoresizingMaskIntoConstraints = false
-    self.gpsLabel.numberOfLines = 0
-    self.view.addSubview(self.gpsLabel)
-    self.gpsLabel.leadingAnchor.constraint(equalTo: self.batteryLabel.trailingAnchor, constant: 10).isActive = true
-    self.gpsLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-    self.gpsLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-    
     self.cellularLabel.font = UIFont(name: "Menlo-Regular", size: 10)
     self.cellularLabel.translatesAutoresizingMaskIntoConstraints = false
     self.cellularLabel.numberOfLines = 0
     self.view.addSubview(self.cellularLabel)
-    self.cellularLabel.leadingAnchor.constraint(equalTo: self.gpsLabel.trailingAnchor, constant: 10).isActive = true
+    self.cellularLabel.leadingAnchor.constraint(equalTo: self.batteryLabel.trailingAnchor, constant: 10).isActive = true
     self.cellularLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
     self.cellularLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+
+    self.gpsLabel.font = UIFont(name: "Menlo-Regular", size: 10)
+    self.gpsLabel.translatesAutoresizingMaskIntoConstraints = false
+    self.gpsLabel.numberOfLines = 0
+    self.view.addSubview(self.gpsLabel)
+    self.gpsLabel.leadingAnchor.constraint(equalTo: self.cellularLabel.trailingAnchor, constant: 10).isActive = true
+    self.gpsLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    self.gpsLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     
     self.piLabel.font = UIFont(name: "Menlo-Regular", size: 10)
     self.piLabel.translatesAutoresizingMaskIntoConstraints = false
     self.piLabel.numberOfLines = 0
     self.view.addSubview(self.piLabel)
-    self.piLabel.leadingAnchor.constraint(equalTo: self.cellularLabel.trailingAnchor, constant: 10).isActive = true
+    self.piLabel.leadingAnchor.constraint(equalTo: self.gpsLabel.trailingAnchor, constant: 10).isActive = true
     self.piLabel.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
     self.piLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     
@@ -153,8 +153,8 @@ class StatusViewController: UIViewController {
 
   @objc func update(values: Dictionary<String, Any>) {
     let batteryValues: Dictionary<String, Any>? = values["battery"] as? Dictionary
-    let volt: Double = getDouble(value: batteryValues?["volt"])
-    let ampere: Double = getDouble(value: batteryValues?["ampere"])
+    let volt: String = String(format: "%.1f", getDouble(value: batteryValues?["volt"]))
+    let ampere: String = String(format: "%.1f", getDouble(value: batteryValues?["amp"]))
     self.batteryLabel.text = " \(volt)V \n \(ampere)A "
     
     let gpsValues: Dictionary<String, Any>? = values["gps"] as? Dictionary
@@ -168,17 +168,17 @@ class StatusViewController: UIViewController {
     self.cellularLabel.text = "\(signalStrength)\n\(network)"
     
     let piValues: Dictionary<String, Any>? = values["pi"] as? Dictionary
-    let cpuTemp: Double = getDouble(value: piValues?["temp"])
-    let cpuActivity: Double = getDouble(value: piValues?["cpu%"])
+    let cpuTemp: Int = Int(getDouble(value: piValues?["temp"]))
+    let cpuActivity: Int = Int(getDouble(value: piValues?["cpu%"]))
     self.piLabel.text = "\(cpuTemp)C\n\(cpuActivity)%"
 
     let leftMotorValues: Dictionary<String, Any>? = values["lm"] as? Dictionary
-    let leftTemp: Double = getDouble(value: leftMotorValues?["temp"])
+    let leftTemp: Int = Int(getDouble(value: leftMotorValues?["temp"]))
     let rightMotorValues: Dictionary<String, Any>? = values["rm"] as? Dictionary
-    let rightTemp: Double = getDouble(value: rightMotorValues?["temp"])
+    let rightTemp: Int = Int(getDouble(value: rightMotorValues?["temp"]))
     self.motorTempLabel.text = "\(leftTemp)C\n\(rightTemp)C"
 
-    let batteryTemp: Double = getDouble(value: batteryValues?["temp"])
+    let batteryTemp: Int = Int(getDouble(value: batteryValues?["temp"]))
     self.generalLabel.text = "\(batteryTemp)C"
     
     var batteryStatus = ""
