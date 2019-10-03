@@ -12,6 +12,11 @@ class ModuleListView: UIView {
   var selectedButton: ModuleButton?
   var focusedButtonIndex: Int?
   @objc weak var delegate: ModuleListViewDelegate?
+  @objc var isVertical = false {
+    didSet {
+      self.stackView.axis = isVertical ? .vertical : .horizontal
+    }
+  }
 
   override init(frame: CGRect) {
     self.moduleButtons = [ModuleButton]()
@@ -19,7 +24,7 @@ class ModuleListView: UIView {
     super.init(frame: frame)
     self.addSubview(self.stackView)
     self.stackView.translatesAutoresizingMaskIntoConstraints = false
-    self.stackView.axis = .vertical
+    self.stackView.axis = isVertical ? .vertical : .horizontal
     self.stackView.spacing = 8
     NSLayoutConstraint.activate([
       self.stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

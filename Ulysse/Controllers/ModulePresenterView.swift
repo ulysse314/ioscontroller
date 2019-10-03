@@ -1,9 +1,12 @@
 import UIKit
 
 let myBackgroundColor: UIColor = UIColor.lightGray
-let leftMargin: CGFloat = 20
+let margin: CGFloat = 20
 
 class ModulePresenterView: UIView {
+  @objc var isVertical: Bool = true
+  var verticalConstraints: Array<NSLayoutConstraint> = Array()
+  var horizontalConstraints: Array<NSLayoutConstraint> = Array()
   var insideView: UIView
   var contentView: UIView? {
     willSet {
@@ -24,7 +27,7 @@ class ModulePresenterView: UIView {
       }
     }
   }
-  @objc var vPosition: CGFloat = 0
+  @objc var position: CGFloat = 0
 
   override init(frame: CGRect) {
     self.insideView = UIView(frame: CGRect.zero)
@@ -35,11 +38,17 @@ class ModulePresenterView: UIView {
     self.layer.backgroundColor = UIColor.clear.cgColor
     self.addSubview(self.insideView)
     NSLayoutConstraint.activate([
-      self.insideView.topAnchor.constraint(equalTo: self.topAnchor),
-      self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: leftMargin),
       self.insideView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       self.insideView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
     ])
+    self.verticalConstraints = [
+      self.insideView.topAnchor.constraint(equalTo: self.topAnchor),
+      self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: margin),
+    ]
+    self.horizontalConstraints = [
+      self.insideView.topAnchor.constraint(equalTo: self.topAnchor, constant: margin),
+      self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+    ]
     self.isOpaque = false
   }
   
@@ -50,17 +59,36 @@ class ModulePresenterView: UIView {
   override func draw(_ rect: CGRect) {
     super.draw(rect)
     guard let context = UIGraphicsGetCurrentContext() else { return }
-    
-    var point = CGPoint.init(x: 0, y: self.vPosition)
-    point = self.convert(point, from: nil)
     context.beginPath()
-    context.move(to: CGPoint(x: leftMargin, y: point.y - leftMargin / 2))
-    context.addLine(to: CGPoint(x: 0, y: point.y))
-    context.addLine(to: CGPoint(x: leftMargin, y: point.y + leftMargin / 2))
+
+    if self.isVertical {
+      var point = CGPoint.init(x: 0, y: self.position)
+      point = self.convert(point, from: nil)
+      context.move(to: CGPoint(x: margin, y: point.y - margin / 2))
+      context.addLine(to: CGPoint(x: 0, y: point.y))
+      context.addLine(to: CGPoint(x: margin, y: point.y + margin / 2))
+    } else {
+      var point = CGPoint.init(x: self.position, y: 0)
+      point = self.convert(point, from: nil)
+      context.move(to: CGPoint(x: point.x - margin / 2, y: margin))
+      context.addLine(to: CGPoint(x: point.x, y: 0))
+      context.addLine(to: CGPoint(x: point.x + margin / 2, y: margin))
+    }
+
     context.closePath()
-    
     context.setFillColor(myBackgroundColor.cgColor)
     context.fillPath()
+  }
+  
+  override func updateConstraints() {
+    if self.isVertical {
+      NSLayoutConstraint.deactivate(self.horizontalConstraints)
+      NSLayoutConstraint.activate(self.verticalConstraints)
+    } else {
+      NSLayoutConstraint.deactivate(self.verticalConstraints)
+      NSLayoutConstraint.activate(self.horizontalConstraints)
+    }
+    super.updateConstraints()
   }
 
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

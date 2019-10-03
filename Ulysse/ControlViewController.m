@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) ModuleListView *moduleListView;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
+@property (nonatomic, assign) BOOL isVertical;
 
 @property (nonatomic, strong) Modules *modules;
 
@@ -46,6 +47,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.isVertical = NO;
   self.mapViewController = [[MapViewController alloc] init];
   [self addChildViewController:self.mapViewController];
   self.mapViewController.view.frame = self.view.bounds;
@@ -66,6 +68,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [self ulysseValuesDidChange:nil];
   [self startCam];
   self.moduleListView = [[ModuleListView alloc] initWithFrame:CGRectZero];
+  self.moduleListView.isVertical = self.isVertical;
   self.moduleListView.delegate = self;
   self.moduleListView.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.moduleListView];
@@ -240,15 +243,25 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
       [self.backgroundExitButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
     self.viewControllerPresenterViewController = [[ViewControllerPresenterViewController alloc] initWithNibName:nil bundle:nil];
+    self.viewControllerPresenterViewController.isVertical = self.isVertical;
     [self addChildViewController:self.viewControllerPresenterViewController];
     self.viewControllerPresenterViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
-    [NSLayoutConstraint activateConstraints:@[
-      [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
-      [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],
-      [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32],
-      [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
-    ]];
+    if (self.isVertical) {
+      [NSLayoutConstraint activateConstraints:@[
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],
+        [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32],
+        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
+      ]];
+    } else {
+      [NSLayoutConstraint activateConstraints:@[
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.bottomAnchor constant:8],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant: 10],
+        [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10],
+        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10],
+      ]];
+    }
   }
   UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
   self.viewControllerPresenterViewController.viewController = navigationController;
@@ -256,7 +269,13 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [navigationController pushViewController:viewController animated:NO];
   CGPoint point = CGPointMake(button.bounds.origin.x + button.bounds.size.width / 2, button.bounds.origin.y + button.bounds.size.height / 2);
   point = [button convertPoint:point toView:nil];
-  [self.viewControllerPresenterViewController openViewControllerWithVPosition:point.y];
+  CGFloat position = 0;
+  if (self.isVertical) {
+    position = point.y;
+  } else {
+    position = point.x;
+  }
+  [self.viewControllerPresenterViewController openViewControllerWithPosition:position];
 }
 
 - (void)moduleButtonWasUnselectedWithButton:(ModuleButton*)button {

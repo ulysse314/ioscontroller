@@ -1,7 +1,12 @@
 import UIKit
 
 class ViewControllerPresenterViewController: UIViewController {
-  var contentView: ModulePresenterView
+  var contentView: ModulePresenterView = ModulePresenterView(frame: CGRect.zero)
+  @objc var isVertical: Bool = false {
+    didSet {
+      self.contentView.isVertical = self.isVertical
+    }
+  }
 
   @objc var viewController: UIViewController? {
     willSet {
@@ -26,15 +31,6 @@ class ViewControllerPresenterViewController: UIViewController {
       }
     }
   }
-
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    self.contentView = ModulePresenterView(frame: CGRect.zero)
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
   
   override func loadView() {
     self.view = self.contentView
@@ -42,8 +38,8 @@ class ViewControllerPresenterViewController: UIViewController {
     self.view.isOpaque = false
   }
   
-  @objc func openViewController(vPosition: CGFloat) {
-    self.contentView.vPosition = vPosition
+  @objc func openViewController(position: CGFloat) {
+    self.contentView.position = position
     self.contentView.setNeedsDisplay()
   }
 }
