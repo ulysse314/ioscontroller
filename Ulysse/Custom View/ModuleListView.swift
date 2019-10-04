@@ -7,8 +7,8 @@ import UIKit
 
 class ModuleListView: UIView {
 
-  var stackView: UIStackView
-  var moduleButtons: Array<ModuleButton>
+  var stackView: UIStackView = UIStackView()
+  var moduleButtons: Array<ModuleButton> = [ModuleButton]()
   var selectedButton: ModuleButton?
   var focusedButtonIndex: Int?
   @objc weak var delegate: ModuleListViewDelegate?
@@ -19,8 +19,6 @@ class ModuleListView: UIView {
   }
 
   override init(frame: CGRect) {
-    self.moduleButtons = [ModuleButton]()
-    self.stackView = UIStackView(frame: frame)
     super.init(frame: frame)
     self.addSubview(self.stackView)
     self.stackView.translatesAutoresizingMaskIntoConstraints = false

@@ -2,26 +2,18 @@ import UIKit
 
 class ModuleButton: UIControl {
 
-  var imageView: UIImageView
-  var errorLabelContainer: UIView
-  var errorLabel: UILabel
-  var callback: ((_ button: ModuleButton)->())?
-  @objc var errorNumber: Int {
+  var imageView: UIImageView = UIImageView(frame: CGRect.zero)
+  var errorLabelContainer: UIView = UIImageView(frame: CGRect.zero)
+  var errorLabel: UILabel = UILabel(frame: CGRect.zero)
+  @objc var errorNumber: Int = 0 {
     didSet {
       self.errorLabelContainer.isHidden = self.errorNumber == 0
       self.errorLabel.isHidden = self.errorNumber == 0
       self.errorLabel.text = String(self.errorNumber)
     }
   }
-//  override var isHighlighted: Bool {
-//    didSet {
-//      if (self.isHighlighted) {
-//        self.imageView.layer.backgroundColor = UIColor.lightGray.cgColor
-//      } else {
-//        self.imageView.layer.backgroundColor = nil
-//      }
-//    }
-//  }
+  var callback: ((_ button: ModuleButton)->())?
+
   override var isSelected: Bool {
     didSet {
       if (self.isSelected) {
@@ -33,16 +25,14 @@ class ModuleButton: UIControl {
   }
 
   init(image: UIImage?, callback: ((_ button: ModuleButton)->())?) {
-    self.imageView = UIImageView(frame: CGRect.zero)
+    super.init(frame: CGRect.zero)
     self.imageView.translatesAutoresizingMaskIntoConstraints = false
-    self.errorLabelContainer = UIView(frame: CGRect.zero)
     self.errorLabelContainer.isUserInteractionEnabled = false
     self.errorLabelContainer.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabelContainer.backgroundColor = UIColor.red
     self.errorLabelContainer.isHidden = true
     self.errorLabelContainer.layer.cornerRadius = 7
     self.errorLabelContainer.layer.masksToBounds = true
-    self.errorLabel = UILabel(frame: CGRect.zero)
     self.errorLabel.isUserInteractionEnabled = false
     self.errorLabel.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabel.textColor = UIColor.white
@@ -53,8 +43,6 @@ class ModuleButton: UIControl {
     self.imageView.layer.borderColor = UIColor.black.cgColor
     self.imageView.contentMode = .center
     self.callback = callback
-    self.errorNumber = 0
-    super.init(frame: CGRect.zero)
     self.layoutMargins = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
     self.addSubview(self.imageView)
     self.addSubview(self.errorLabelContainer)
