@@ -14,6 +14,7 @@
 		022BAD5721FDDF7900624EFA /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Module.swift */; };
 		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
 		022C0E2C2346AB5100F4DAA6 /* ModuleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E2B2346AB5100F4DAA6 /* ModuleListViewController.swift */; };
+		022C0E302347E0C800F4DAA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 022C0E2F2347E0C800F4DAA6 /* Settings.bundle */; };
 		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
 		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
@@ -69,6 +70,7 @@
 		022BAD5621FDDF7900624EFA /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
 		022C0E2B2346AB5100F4DAA6 /* ModuleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleListViewController.swift; sourceTree = "<group>"; };
+		022C0E2F2347E0C800F4DAA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				020F333C1FE629FC0014A228 /* ulysse314.json */,
 				0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */,
 				0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */,
+				022C0E2F2347E0C800F4DAA6 /* Settings.bundle */,
 			);
 			path = Ulysse;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */,
 				020F333D1FE629FC0014A228 /* ulysse314.json in Resources */,
 				0299311B1D3180FC00C03033 /* Main.storyboard in Resources */,
+				022C0E302347E0C800F4DAA6 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

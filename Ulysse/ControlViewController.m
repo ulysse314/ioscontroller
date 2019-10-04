@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.isVertical = NO;
+  self.isVertical = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
 
