@@ -1,8 +1,20 @@
 import Foundation
 
+@objc enum ModuleIdentifier: Int {
+  case Battery
+  case Cellular
+  case GPS
+  case Motors
+  case Boat
+  case Arduino
+  case RaspberryPi
+  case Settings
+}
+
 class Module: NSObject {
 
   @objc private(set) var name: String
+  @objc let identifier: ModuleIdentifier
   @objc dynamic var values: Dictionary<String, Any> {
     didSet {
       var newErrors: Array<ModuleError> = []
@@ -30,10 +42,11 @@ class Module: NSObject {
   @objc dynamic var errors: Array<ModuleError>?
   private(set) var keys: Array<String>
 
-  @objc init(name: String) {
+  @objc init(name: String, identifier: ModuleIdentifier) {
     self.name = name
     self.keys = [String]()
     self.values = [String: Any]()
+    self.identifier = identifier
     super.init()
   }
 

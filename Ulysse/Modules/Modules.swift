@@ -16,15 +16,17 @@ class Modules: NSObject {
   @objc var boatModule: Module
   @objc var arduinoModule: Module
   @objc var raspberryPiModule: Module
+  @objc var settings: Module
 
   override init() {
-    self.batteryModule = Module(name: "Battery")
-    self.cellularModule = CellularModule(name: "4G Connection")
-    self.gpsModule = Module(name: "GPS")
-    self.motorsModule = Module(name: "Motors")
-    self.boatModule = Module(name: "Boat")
-    self.arduinoModule = Module(name: "Arduino")
-    self.raspberryPiModule = Module(name: "Raspberry PI")
+    self.batteryModule = Module(name: "Battery", identifier: .Battery)
+    self.cellularModule = CellularModule(name: "4G Connection", identifier: .Cellular)
+    self.gpsModule = Module(name: "GPS", identifier: .GPS)
+    self.motorsModule = Module(name: "Motors", identifier: .Motors)
+    self.boatModule = Module(name: "Boat", identifier: .Boat)
+    self.arduinoModule = Module(name: "Arduino", identifier: .Arduino)
+    self.raspberryPiModule = Module(name: "Raspberry PI", identifier: .RaspberryPi)
+    self.settings = Module(name: "Settings", identifier: .Settings)
     super.init()
   }
 
@@ -37,6 +39,7 @@ class Modules: NSObject {
       self.boatModule,
       self.arduinoModule,
       self.raspberryPiModule,
+      self.settings,
     ]
   }
 

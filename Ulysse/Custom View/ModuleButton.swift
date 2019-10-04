@@ -32,7 +32,7 @@ class ModuleButton: UIControl {
     }
   }
 
-  init(image: UIImage, callback: ((_ button: ModuleButton)->())?) {
+  init(image: UIImage?, callback: ((_ button: ModuleButton)->())?) {
     self.imageView = UIImageView(frame: CGRect.zero)
     self.imageView.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabelContainer = UIView(frame: CGRect.zero)

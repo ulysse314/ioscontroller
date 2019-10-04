@@ -176,7 +176,7 @@ class StatusViewController: UIViewController {
     let leftTemp: Int = Int(getDouble(value: leftMotorValues?["temp"]))
     let rightMotorValues: Dictionary<String, Any>? = values["rm"] as? Dictionary
     let rightTemp: Int = Int(getDouble(value: rightMotorValues?["temp"]))
-    self.motorTempLabel.text = "\(leftTemp)C\n\(rightTemp)C"
+    self.motorTempLabel.text = "\(leftTemp)C\n\(rightTemp)C\n\(rightTemp)C"
 
     let batteryTemp: Int = Int(getDouble(value: batteryValues?["temp"]))
     self.generalLabel.text = "\(batteryTemp)C"

@@ -38,7 +38,7 @@ class ModuleListView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @objc func addModuleButton(image: UIImage, buttonTag: Int) {
+  @objc func addModuleButton(image: UIImage?, buttonTag: Int) {
     weak var weakSelf = self
     let myCallback: (_ button: ModuleButton) ->() =  { (button) -> Void in
       weakSelf?.wasSelectedButton(button: button)

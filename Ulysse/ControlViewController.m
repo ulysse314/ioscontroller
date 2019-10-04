@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   SettingsButtonTag,
 };
 
-@interface ControlViewController ()<ModuleListViewDelegate, WKNavigationDelegate> {
+@interface ControlViewController ()<ModuleListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
   WKWebView *_webView;
@@ -32,8 +32,8 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 @property (nonatomic, strong) MapViewController *mapViewController;
 @property (nonatomic, strong) StatusViewController *statusViewController;
+@property (nonatomic, strong) ModuleListViewController *moduleListViewController;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
-@property (nonatomic, strong) ModuleListView *moduleListView;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
 @property (nonatomic, assign) BOOL isVertical;
 
@@ -48,17 +48,43 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.isVertical = NO;
+  self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
+  self.modules = self.appDelegate.modules;
+
+  // Add view controllers.
   self.mapViewController = [[MapViewController alloc] init];
   [self addChildViewController:self.mapViewController];
-  self.mapViewController.view.frame = self.view.bounds;
   [self.view insertSubview:self.mapViewController.view atIndex:0];
   [self.mapViewController didMoveToParentViewController:self];
 
-  self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-  self.modules = self.appDelegate.modules;
-  for (Module *module in self.modules.list) {
-    [module addObserver:self forKeyPath:@"errors" options:NSKeyValueObservingOptionNew context:nil];
-  }
+  self.statusViewController = [[StatusViewController alloc] init];
+  [self addChildViewController:self.statusViewController];
+  [self.view addSubview:self.statusViewController.view];
+  [self.statusViewController didMoveToParentViewController:self];
+
+  self.moduleListViewController = [[ModuleListViewController alloc] initWithModules:self.modules];
+  [self addChildViewController:self.moduleListViewController];
+  [self.view addSubview:self.moduleListViewController.view];
+  [self.moduleListViewController didMoveToParentViewController:self];
+  
+  self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [self.statusViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor constant:10].active = YES;
+  [self.view.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
+  [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
+  [self.statusViewController.view.heightAnchor constraintEqualToConstant:34].active = YES;
+
+  // Configure views.
+  self.mapViewController.view.frame = self.view.bounds;
+
+  self.moduleListViewController.delegate = self;
+  self.moduleListViewController.isVertical = self.isVertical;
+  self.moduleListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [NSLayoutConstraint activateConstraints:@[
+    [self.moduleListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:-10],
+    [self.moduleListViewController.view.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
+  ]];
+
+  // Rest of config.
   [self.appDelegate addObserver:self forKeyPath:@"gameControlleur" options:NSKeyValueObservingOptionNew context:nil];
   _ulysse = self.appDelegate.ulysse;
   self.view.autoresizesSubviews = NO;
@@ -67,33 +93,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
   [self ulysseValuesDidChange:nil];
   [self startCam];
-  self.moduleListView = [[ModuleListView alloc] initWithFrame:CGRectZero];
-  self.moduleListView.isVertical = self.isVertical;
-  self.moduleListView.delegate = self;
-  self.moduleListView.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view addSubview:self.moduleListView];
-  [NSLayoutConstraint activateConstraints:@[
-    [self.moduleListView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:-10],
-    [self.moduleListView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
-  ]];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"battery"] buttonTag:BatteryButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"cellular"] buttonTag:CellularButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"satellite"] buttonTag:GPSButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"motor"] buttonTag:MotorsButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"boat"] buttonTag:BoatButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"arduino"] buttonTag:ArduinoButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"raspberrypi"] buttonTag:RaspberryPiButtonTag];
-  [self.moduleListView addModuleButtonWithImage:[UIImage imageNamed:@"settings"] buttonTag:SettingsButtonTag];
-  
-  self.statusViewController = [[StatusViewController alloc] init];
-  [self addChildViewController:self.statusViewController];
-  [self.view addSubview:self.statusViewController.view];
-  self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.statusViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:10].active = YES;
-  [self.view.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
-  [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
-  [self.statusViewController.view.heightAnchor constraintEqualToConstant:34].active = YES;
-  [self.statusViewController didMoveToParentViewController:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -136,59 +135,6 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     _camStarted = NO;
 }
 
-- (UIViewController*)viewControllerForButtonTag:(ButtonTag)buttonTag {
-  UIViewController *viewController = nil;
-  switch (buttonTag) {
-    case BatteryButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.batteryModule];
-      break;
-    case CellularButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.cellularModule];
-      break;
-    case GPSButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.gpsModule];
-      break;
-    case MotorsButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.motorsModule];
-      break;
-    case BoatButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.boatModule];
-      break;
-    case ArduinoButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.arduinoModule];
-      break;
-    case RaspberryPiButtonTag:
-      viewController = [[ModuleViewController alloc] initWithModule:self.modules.raspberryPiModule];
-      break;
-    case SettingsButtonTag: {
-      UIStoryboard * storyBoard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
-      viewController = [storyBoard instantiateInitialViewController];
-      viewController.title = @"Settings";
-      break;
-    }
-  }
-  return viewController;
-}
-
-- (ButtonTag)buttonTagWithModule:(Module*)module {
-  if (module == self.modules.batteryModule) {
-    return BatteryButtonTag;
-  } else if (module == self.modules.cellularModule) {
-    return CellularButtonTag;
-  } else if (module == self.modules.gpsModule) {
-    return GPSButtonTag;
-  } else if (module == self.modules.motorsModule) {
-    return MotorsButtonTag;
-  } else if (module == self.modules.boatModule) {
-    return BoatButtonTag;
-  } else if (module == self.modules.arduinoModule) {
-    return ArduinoButtonTag;
-  } else if (module == self.modules.raspberryPiModule) {
-    return RaspberryPiButtonTag;
-  }
-  return (ButtonTag)-1;
-}
-
 - (void)removePresentedViewController {
   [self.viewControllerPresenterViewController.view removeFromSuperview];
   [self.viewControllerPresenterViewController removeFromParentViewController];
@@ -198,16 +144,17 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 }
 
 - (void)backgroundExitButtonAction:(id)sender {
-  [self.moduleListView unselectCurrentButton];
+  [self.moduleListViewController unselectCurrentButton];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  ButtonTag buttonTag = [self buttonTagWithModule:object];
-  ModuleButton *moduleButton = [self.moduleListView moduleButtonWithButtonTag:buttonTag];
-  NSInteger errorCount = [object errors].count;
-  if (moduleButton.errorNumber != errorCount) {
-    moduleButton.errorNumber = [object errors].count;
+- (UIViewController *)viewControllerWithModule:(Module *)module {
+  if (module.identifier == ModuleIdentifierSettings) {
+    UIStoryboard * storyBoard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    UIViewController *viewController = [storyBoard instantiateInitialViewController];
+    viewController.title = module.name;
+    return viewController;
   }
+  return [[ModuleViewController alloc] initWithModule:module];
 }
 
 #pragma mark - WKNavigationDelegate
@@ -228,14 +175,14 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   DEBUGLOG(@"webViewWebContentProcessDidTerminate");
 }
 
-#pragma mark - ModuleListViewDelegate
+#pragma mark - ModuleListViewControllerDelegate
 
-- (void)moduleButtonWasSelectedWithButton:(ModuleButton*)button {
+- (void)moduleButtonWasSelectedWithModule:(Module * _Nonnull)module position:(CGFloat)position {
   if (!self.viewControllerPresenterViewController) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addTarget:self action:@selector(backgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.backgroundExitButton];
+    [self.view insertSubview:self.backgroundExitButton belowSubview:self.moduleListViewController.view];
     [NSLayoutConstraint activateConstraints:@[
       [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
       [self.backgroundExitButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
@@ -249,14 +196,14 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
     if (self.isVertical) {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.topAnchor],
-        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListView.trailingAnchor constant:8],
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.topAnchor],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor constant:8],
         [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32],
         [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
       ]];
     } else {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListView.bottomAnchor constant:8],
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.bottomAnchor constant:8],
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant: 10],
         [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10],
         [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10],
@@ -265,20 +212,12 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   }
   UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
   self.viewControllerPresenterViewController.viewController = navigationController;
-  UIViewController *viewController = [self viewControllerForButtonTag:button.tag];
+  UIViewController *viewController = [self viewControllerWithModule:module];
   [navigationController pushViewController:viewController animated:NO];
-  CGPoint point = CGPointMake(button.bounds.origin.x + button.bounds.size.width / 2, button.bounds.origin.y + button.bounds.size.height / 2);
-  point = [button convertPoint:point toView:nil];
-  CGFloat position = 0;
-  if (self.isVertical) {
-    position = point.y;
-  } else {
-    position = point.x;
-  }
   [self.viewControllerPresenterViewController openViewControllerWithPosition:position];
 }
 
-- (void)moduleButtonWasUnselectedWithButton:(ModuleButton*)button {
+- (void)moduleButtonWasUnselectedWithModule:(Module* _Nonnull)module {
   [self removePresentedViewController];
 }
 
