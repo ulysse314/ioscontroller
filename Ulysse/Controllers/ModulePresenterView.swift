@@ -1,7 +1,8 @@
 import UIKit
 
 let myBackgroundColor: UIColor = UIColor.lightGray
-let margin: CGFloat = 20
+let horizontalMargin: CGFloat = 20
+let verticalMargin: CGFloat = 10
 
 class ModulePresenterView: UIView {
   @objc var verticalButtons: Bool = true
@@ -43,10 +44,10 @@ class ModulePresenterView: UIView {
     ])
     self.verticalConstraints = [
       self.insideView.topAnchor.constraint(equalTo: self.topAnchor),
-      self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: margin),
+      self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalMargin),
     ]
     self.horizontalConstraints = [
-      self.insideView.topAnchor.constraint(equalTo: self.topAnchor, constant: margin),
+      self.insideView.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalMargin),
       self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
     ]
     self.isOpaque = false
@@ -64,15 +65,15 @@ class ModulePresenterView: UIView {
     if self.verticalButtons {
       var point = CGPoint.init(x: 0, y: self.position)
       point = self.convert(point, from: nil)
-      context.move(to: CGPoint(x: margin, y: point.y - margin / 2))
+      context.move(to: CGPoint(x: horizontalMargin, y: point.y - horizontalMargin / 2))
       context.addLine(to: CGPoint(x: 0, y: point.y))
-      context.addLine(to: CGPoint(x: margin, y: point.y + margin / 2))
+      context.addLine(to: CGPoint(x: horizontalMargin, y: point.y + horizontalMargin / 2))
     } else {
       var point = CGPoint.init(x: self.position, y: 0)
       point = self.convert(point, from: nil)
-      context.move(to: CGPoint(x: point.x - margin / 2, y: margin))
+      context.move(to: CGPoint(x: point.x - verticalMargin, y: verticalMargin))
       context.addLine(to: CGPoint(x: point.x, y: 0))
-      context.addLine(to: CGPoint(x: point.x + margin / 2, y: margin))
+      context.addLine(to: CGPoint(x: point.x + verticalMargin, y: verticalMargin))
     }
 
     context.closePath()
