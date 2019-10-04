@@ -4,7 +4,7 @@ let myBackgroundColor: UIColor = UIColor.lightGray
 let margin: CGFloat = 20
 
 class ModulePresenterView: UIView {
-  @objc var isVertical: Bool = true
+  @objc var verticalButtons: Bool = true
   var verticalConstraints: Array<NSLayoutConstraint> = Array()
   var horizontalConstraints: Array<NSLayoutConstraint> = Array()
   var insideView: UIView
@@ -61,7 +61,7 @@ class ModulePresenterView: UIView {
     guard let context = UIGraphicsGetCurrentContext() else { return }
     context.beginPath()
 
-    if self.isVertical {
+    if self.verticalButtons {
       var point = CGPoint.init(x: 0, y: self.position)
       point = self.convert(point, from: nil)
       context.move(to: CGPoint(x: margin, y: point.y - margin / 2))
@@ -81,7 +81,7 @@ class ModulePresenterView: UIView {
   }
   
   override func updateConstraints() {
-    if self.isVertical {
+    if self.verticalButtons {
       NSLayoutConstraint.deactivate(self.horizontalConstraints)
       NSLayoutConstraint.activate(self.verticalConstraints)
     } else {

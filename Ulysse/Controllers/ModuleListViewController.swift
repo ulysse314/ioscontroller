@@ -20,9 +20,9 @@ class ModuleListViewController: UIViewController, ModuleListViewDelegate {
     fatalError("init(coder:) has not been implemented")
   }
   
-  @objc var isVertical: Bool = false {
+  @objc var verticalButtons: Bool = false {
     didSet {
-      self.moduleListView.isVertical = self.isVertical
+      self.moduleListView.verticalButtons = self.verticalButtons
     }
   }
   
@@ -84,7 +84,7 @@ class ModuleListViewController: UIViewController, ModuleListViewDelegate {
     var point: CGPoint = CGPoint(x: x, y: y)
     point = button.convert(point, to: nil)
     var position: CGFloat = 0
-    if self.isVertical {
+    if self.verticalButtons {
       position = point.y
     } else {
       position = point.x

@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 @property (nonatomic, strong) ModuleListViewController *moduleListViewController;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
-@property (nonatomic, assign) BOOL isVertical;
+@property (nonatomic, assign) BOOL verticalButtons;
 
 @property (nonatomic, strong) Modules *modules;
 
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.isVertical = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
+  self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
 
@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.mapViewController.view.frame = self.view.bounds;
 
   self.moduleListViewController.delegate = self;
-  self.moduleListViewController.isVertical = self.isVertical;
+  self.moduleListViewController.verticalButtons = self.verticalButtons;
   self.moduleListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.moduleListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:-10],
@@ -190,11 +190,11 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
       [self.backgroundExitButton.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
     self.viewControllerPresenterViewController = [[ViewControllerPresenterViewController alloc] initWithNibName:nil bundle:nil];
-    self.viewControllerPresenterViewController.isVertical = self.isVertical;
+    self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
     [self addChildViewController:self.viewControllerPresenterViewController];
     self.viewControllerPresenterViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
-    if (self.isVertical) {
+    if (self.verticalButtons) {
       [NSLayoutConstraint activateConstraints:@[
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.topAnchor],
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor constant:8],

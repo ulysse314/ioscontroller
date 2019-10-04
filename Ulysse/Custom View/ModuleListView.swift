@@ -12,9 +12,9 @@ class ModuleListView: UIView {
   var selectedButton: ModuleButton?
   var focusedButtonIndex: Int?
   @objc weak var delegate: ModuleListViewDelegate?
-  @objc var isVertical = false {
+  @objc var verticalButtons = false {
     didSet {
-      self.stackView.axis = isVertical ? .vertical : .horizontal
+      self.stackView.axis = verticalButtons ? .vertical : .horizontal
     }
   }
 
@@ -24,7 +24,7 @@ class ModuleListView: UIView {
     super.init(frame: frame)
     self.addSubview(self.stackView)
     self.stackView.translatesAutoresizingMaskIntoConstraints = false
-    self.stackView.axis = isVertical ? .vertical : .horizontal
+    self.stackView.axis = verticalButtons ? .vertical : .horizontal
     self.stackView.spacing = 8
     NSLayoutConstraint.activate([
       self.stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
