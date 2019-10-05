@@ -12,17 +12,6 @@
 
 #import "Ulysse-Swift.h"
 
-typedef NS_ENUM(NSInteger, ButtonTag) {
-  BatteryButtonTag,
-  CellularButtonTag,
-  GPSButtonTag,
-  MotorsButtonTag,
-  BoatButtonTag,
-  ArduinoButtonTag,
-  RaspberryPiButtonTag,
-  SettingsButtonTag,
-};
-
 @interface ControlViewController ()<ModuleListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
