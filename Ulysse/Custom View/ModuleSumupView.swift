@@ -62,6 +62,18 @@ class ModuleSumupView: UIView {
     }
   }
   
+  func updateValues(value1: String?, value2: String?) {
+    var text: String! = ""
+    if (value1 != nil) {
+      text = value1
+    }
+    text = text + "\n"
+    if (value2 != nil) {
+      text = text + value2!
+    }
+    self.label.text = text
+  }
+  
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
     let view = super.hitTest(point, with:event)
     if (view == self) {
