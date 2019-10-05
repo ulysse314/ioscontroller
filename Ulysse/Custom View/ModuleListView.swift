@@ -17,7 +17,7 @@ class ModuleListView: UIView {
     self.addSubview(self.stackView)
     self.stackView.translatesAutoresizingMaskIntoConstraints = false
     self.stackView.axis = verticalButtons ? .vertical : .horizontal
-    self.stackView.spacing = 8
+    self.stackView.spacing = 10
     NSLayoutConstraint.activate([
       self.stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
       self.stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),

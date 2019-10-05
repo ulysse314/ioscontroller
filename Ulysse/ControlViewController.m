@@ -70,10 +70,9 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [self.moduleListViewController didMoveToParentViewController:self];
   
   self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.statusViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor constant:10].active = YES;
   [self.view.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
   [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
-  [self.statusViewController.view.heightAnchor constraintEqualToConstant:34].active = YES;
+  [self.statusViewController.view.heightAnchor constraintEqualToConstant:24].active = YES;
 
   // Configure views.
   self.mapViewController.view.frame = self.view.bounds;
