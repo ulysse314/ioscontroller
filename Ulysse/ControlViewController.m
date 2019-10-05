@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   [super viewDidLoad];
   NSLog(@"%@", [NSUserDefaults.standardUserDefaults stringForKey:@"testvalue"]);
   self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
-  self.verticalButtons = YES;
+  [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"vertical_buttons" options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
 
@@ -95,6 +95,14 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
   [self ulysseValuesDidChange:nil];
   [self startCam];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+  if (object == NSUserDefaults.standardUserDefaults) {
+    self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
+    self.moduleListViewController.verticalButtons = self.verticalButtons;
+    self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
+  }
 }
 
 - (BOOL)prefersStatusBarHidden {
