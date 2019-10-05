@@ -1,7 +1,7 @@
 import UIKit
 
 @objc protocol ModuleListViewControllerDelegate {
-  func moduleButtonWasSelected(module: Module, position: CGFloat)
+  func moduleButtonWasSelected(module: Module, buttonFrame: CGRect)
   func moduleButtonWasUnselected(module: Module)
 }
 
@@ -53,7 +53,7 @@ class ModuleListViewController: UIViewController, ModuleListViewDelegate {
     var index: Int = 0
     for module in self.modules.list() {
       let image = self.imageForModule(moduleIdentifier: module.identifier)
-      self.moduleListView.addModuleButton(image: image, buttonTag: index)
+      self.moduleListView.addModuleButton(image: image, moduleTag: index)
       module.addObserver(self, forKeyPath: "errors", options: .new, context: nil)
       index += 1
     }
@@ -69,31 +69,19 @@ class ModuleListViewController: UIViewController, ModuleListViewDelegate {
       let index = self.modules.list().firstIndex(of: module)!
       let moduleButton = self.moduleListView.moduleButtons[index]
       let errorCount = module.errors?.count ?? 0
-      if moduleButton.errorNumber != errorCount {
-        moduleButton.errorNumber = errorCount
+      if moduleButton.moduleButton.errorNumber != errorCount {
+        moduleButton.moduleButton.errorNumber = errorCount
       }
     }
   }
   
-  func moduleButtonWasSelected(button: ModuleButton) {
-    let index: Int! = self.moduleListView.moduleButtons.firstIndex(of: button)
+  func moduleButtonWasSelected(index: Int, buttonFrame: CGRect) {
     let module = self.modules.list()[index]
     self.delegate?.moduleButtonWasUnselected(module: module)
-    let x: CGFloat = button.bounds.origin.x + button.bounds.size.width / 2
-    let y: CGFloat = button.bounds.origin.y + button.bounds.size.height / 2
-    var point: CGPoint = CGPoint(x: x, y: y)
-    point = button.convert(point, to: nil)
-    var position: CGFloat = 0
-    if self.verticalButtons {
-      position = point.y
-    } else {
-      position = point.x
-    }
-    self.delegate?.moduleButtonWasSelected(module: module, position: position)
+    self.delegate?.moduleButtonWasSelected(module: module, buttonFrame: buttonFrame)
   }
   
-  func moduleButtonWasUnselected(button: ModuleButton) {
-    let index: Int! = self.moduleListView.moduleButtons.firstIndex(of: button)
+  func moduleButtonWasUnselected(index: Int) {
     let module = self.modules.list()[index]
     self.delegate?.moduleButtonWasUnselected(module: module)
   }

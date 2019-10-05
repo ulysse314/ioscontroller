@@ -1,20 +1,20 @@
 import UIKit
 
 @objc protocol ModuleListViewDelegate {
-  func moduleButtonWasSelected(button: ModuleButton)
-  func moduleButtonWasUnselected(button: ModuleButton)
+  func moduleButtonWasSelected(index: Int, buttonFrame: CGRect)
+  func moduleButtonWasUnselected(index: Int)
 }
 
 class ModuleListView: UIView {
 
   var stackView: UIStackView = UIStackView()
-  var moduleButtons: Array<ModuleButton> = [ModuleButton]()
-  var selectedButton: ModuleButton?
+  var moduleButtons: Array<ModuleSumupView> = [ModuleSumupView]()
+  var selectedButton: ModuleSumupView?
   var focusedButtonIndex: Int?
   @objc weak var delegate: ModuleListViewDelegate?
   @objc var verticalButtons = false {
     didSet {
-      self.stackView.axis = verticalButtons ? .vertical : .horizontal
+      self.updateView()
     }
   }
 
@@ -36,19 +36,27 @@ class ModuleListView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  @objc func addModuleButton(image: UIImage?, buttonTag: Int) {
+  @objc func addModuleButton(image: UIImage?, moduleTag: Int) {
     weak var weakSelf = self
-    let myCallback: (_ button: ModuleButton) ->() =  { (button) -> Void in
-      weakSelf?.wasSelectedButton(button: button)
+    let myCallback: (_ moduleButton: ModuleButton) ->() =  { (moduleButton) -> Void in
+      weakSelf?.wasSelectedButton(moduleButton: moduleButton)
     }
-    let button: ModuleButton = ModuleButton(image: image, callback: myCallback)
-    self.moduleButtons.append(button)
-    button.tag = buttonTag
-    self.stackView.addArrangedSubview(button)
+    let moduleSumupView: ModuleSumupView = ModuleSumupView(image: image, callback: myCallback)
+    moduleSumupView.verticalLabel = !self.verticalButtons
+    self.moduleButtons.append(moduleSumupView)
+    moduleSumupView.tag = moduleTag
+    self.stackView.addArrangedSubview(moduleSumupView)
   }
   
-  @objc func setErrorNumber(_ errorNumber: Int, buttonTag: Int) {
-    let button = self.moduleButton(buttonTag: buttonTag)
+  func updateView() {
+    self.stackView.axis = verticalButtons ? .vertical : .horizontal
+    for moduleSumupView in self.moduleButtons {
+      moduleSumupView.verticalLabel = !self.verticalButtons
+    }
+  }
+  
+  func setErrorNumber(_ errorNumber: Int, buttonTag: Int) {
+    let button = self.moduleButton(moduleTag: buttonTag)?.moduleButton
     button?.errorNumber = errorNumber
   }
 
@@ -64,28 +72,30 @@ class ModuleListView: UIView {
 
   @objc func unselectCurrentButton() {
     if (self.selectedButton != nil) {
-      let selectedButton = self.selectedButton!
-      self.selectedButton!.isSelected = false
+      let index = self.moduleButtons.firstIndex(of: self.selectedButton!)!
+      self.selectedButton!.moduleButton.isSelected = false
       self.selectedButton = nil
-      self.delegate?.moduleButtonWasUnselected(button: selectedButton)
+      self.delegate?.moduleButtonWasUnselected(index: index)
     }
   }
 
-  func wasSelectedButton(button: ModuleButton) {
-    self.selectedButton?.isSelected = false
-    if self.selectedButton != button {
-      button.isSelected = true
-      self.selectedButton = button
-      self.delegate?.moduleButtonWasSelected(button: button)
+  func wasSelectedButton(moduleButton: ModuleButton) {
+    self.selectedButton?.moduleButton.isSelected = false
+    if self.selectedButton?.moduleButton != moduleButton {
+      moduleButton.isSelected = true
+      self.selectedButton = moduleButton.superview as? ModuleSumupView
+      let index = self.moduleButtons.firstIndex(of: self.selectedButton!)!
+      let frame: CGRect = moduleButton.convert(moduleButton.bounds, to: nil)
+      self.delegate?.moduleButtonWasSelected(index: index, buttonFrame: frame)
     } else {
       self.unselectCurrentButton()
     }
   }
 
-  @objc func moduleButton(buttonTag: Int) -> ModuleButton? {
-    for button in self.moduleButtons {
-      if button.tag == buttonTag {
-        return button
+  @objc func moduleButton(moduleTag: Int) -> ModuleSumupView? {
+    for moduleSumpView in self.moduleButtons {
+      if moduleSumpView.tag == moduleTag {
+        return moduleSumpView
       }
     }
     return nil

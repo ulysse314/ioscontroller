@@ -15,6 +15,8 @@
 		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
 		022C0E2C2346AB5100F4DAA6 /* ModuleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E2B2346AB5100F4DAA6 /* ModuleListViewController.swift */; };
 		022C0E302347E0C800F4DAA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 022C0E2F2347E0C800F4DAA6 /* Settings.bundle */; };
+		022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E312348086300F4DAA6 /* ModuleDataView.swift */; };
+		022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */; };
 		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
 		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
@@ -71,6 +73,8 @@
 		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
 		022C0E2B2346AB5100F4DAA6 /* ModuleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleListViewController.swift; sourceTree = "<group>"; };
 		022C0E2F2347E0C800F4DAA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		022C0E312348086300F4DAA6 /* ModuleDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDataView.swift; sourceTree = "<group>"; };
+		022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSumupView.swift; sourceTree = "<group>"; };
 		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
@@ -187,7 +191,9 @@
 				0244BF28205458D100B1D6F5 /* MotorPowerView.h */,
 				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
 				026DD12A21FCA383006B18B7 /* ModuleButton.swift */,
+				022C0E312348086300F4DAA6 /* ModuleDataView.swift */,
 				026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */,
+				022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */,
 			);
 			path = "Custom View";
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 			files = (
 				02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */,
 				022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */,
+				022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
 				0234CC4022061ED200738CC0 /* Modules.swift in Sources */,
 				022BAD5721FDDF7900624EFA /* Module.swift in Sources */,
@@ -440,6 +447,7 @@
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
 				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
+				022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */,
 				029931451D3195DB00C03033 /* Ulysse.m in Sources */,
 				0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */,
 				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,

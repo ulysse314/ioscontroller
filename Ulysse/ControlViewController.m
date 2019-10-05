@@ -47,7 +47,9 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  NSLog(@"%@", [NSUserDefaults.standardUserDefaults stringForKey:@"testvalue"]);
   self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
+  self.verticalButtons = YES;
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
 
@@ -177,7 +179,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
 
 #pragma mark - ModuleListViewControllerDelegate
 
-- (void)moduleButtonWasSelectedWithModule:(Module * _Nonnull)module position:(CGFloat)position {
+- (void)moduleButtonWasSelectedWithModule:(Module * _Nonnull)module buttonFrame:(CGRect)buttonFrame {
   if (!self.viewControllerPresenterViewController) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -214,7 +216,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.viewControllerPresenterViewController.viewController = navigationController;
   UIViewController *viewController = [self viewControllerWithModule:module];
   [navigationController pushViewController:viewController animated:NO];
-  [self.viewControllerPresenterViewController openViewControllerWithPosition:position];
+  [self.viewControllerPresenterViewController openViewControllerWithPosition:self.verticalButtons ? (buttonFrame.origin.y + buttonFrame.size.height / 2) : (buttonFrame.origin.x + buttonFrame.size.width / 2)];
 }
 
 - (void)moduleButtonWasUnselectedWithModule:(Module* _Nonnull)module {
