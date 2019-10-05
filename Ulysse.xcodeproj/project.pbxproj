@@ -17,6 +17,10 @@
 		022C0E302347E0C800F4DAA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 022C0E2F2347E0C800F4DAA6 /* Settings.bundle */; };
 		022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E312348086300F4DAA6 /* ModuleDataView.swift */; };
 		022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */; };
+		022C0E36234907BE00F4DAA6 /* BatteryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E35234907BE00F4DAA6 /* BatteryModule.swift */; };
+		022C0E382349215C00F4DAA6 /* GPSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E372349215C00F4DAA6 /* GPSModule.swift */; };
+		022C0E3A23492E3E00F4DAA6 /* MotorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3923492E3E00F4DAA6 /* MotorModule.swift */; };
+		022C0E3C23492F8800F4DAA6 /* RaspberryPiModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3B23492F8800F4DAA6 /* RaspberryPiModule.swift */; };
 		0234CC3722025FC100738CC0 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* ModuleViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
 		0234CC4022061ED200738CC0 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Modules.swift */; };
@@ -75,6 +79,10 @@
 		022C0E2F2347E0C800F4DAA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		022C0E312348086300F4DAA6 /* ModuleDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDataView.swift; sourceTree = "<group>"; };
 		022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSumupView.swift; sourceTree = "<group>"; };
+		022C0E35234907BE00F4DAA6 /* BatteryModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryModule.swift; sourceTree = "<group>"; };
+		022C0E372349215C00F4DAA6 /* GPSModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSModule.swift; sourceTree = "<group>"; };
+		022C0E3923492E3E00F4DAA6 /* MotorModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorModule.swift; sourceTree = "<group>"; };
+		022C0E3B23492F8800F4DAA6 /* RaspberryPiModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaspberryPiModule.swift; sourceTree = "<group>"; };
 		0234CC3622025FC100738CC0 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0234CC3F22061ED200738CC0 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
@@ -146,7 +154,11 @@
 			isa = PBXGroup;
 			children = (
 				022BAD5621FDDF7900624EFA /* Module.swift */,
+				022C0E35234907BE00F4DAA6 /* BatteryModule.swift */,
 				02E549EF223EF0940080B353 /* CellularModule.swift */,
+				022C0E372349215C00F4DAA6 /* GPSModule.swift */,
+				022C0E3923492E3E00F4DAA6 /* MotorModule.swift */,
+				022C0E3B23492F8800F4DAA6 /* RaspberryPiModule.swift */,
 				0234CC3F22061ED200738CC0 /* Modules.swift */,
 				0234CC4122064B5D00738CC0 /* ModuleError.swift */,
 			);
@@ -432,6 +444,8 @@
 				022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */,
 				022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
+				022C0E3A23492E3E00F4DAA6 /* MotorModule.swift in Sources */,
+				022C0E3C23492F8800F4DAA6 /* RaspberryPiModule.swift in Sources */,
 				0234CC4022061ED200738CC0 /* Modules.swift in Sources */,
 				022BAD5721FDDF7900624EFA /* Module.swift in Sources */,
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
@@ -442,6 +456,7 @@
 				022C0E2C2346AB5100F4DAA6 /* ModuleListViewController.swift in Sources */,
 				02E549F0223EF0940080B353 /* CellularModule.swift in Sources */,
 				0244F5B7234169D700440189 /* MapViewController.swift in Sources */,
+				022C0E382349215C00F4DAA6 /* GPSModule.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
@@ -454,6 +469,7 @@
 				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
 				02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */,
 				026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */,
+				022C0E36234907BE00F4DAA6 /* BatteryModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

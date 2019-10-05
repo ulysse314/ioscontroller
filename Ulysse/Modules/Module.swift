@@ -54,5 +54,13 @@ class Module: NSObject {
     let value: Any? = self.values[key]
     return value
   }
+  
+  func value1() -> String? {
+    return nil
+  }
+  
+  func value2() -> String? {
+    return nil
+  }
 
 }

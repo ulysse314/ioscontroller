@@ -1,15 +1,15 @@
-import UIKit
+import Foundation
 
 class CellularModule: Module {
 
   @objc override func moduleValue(forKey key: String) -> Any? {
-    let value = super.moduleValue(forKey:key)
+    let value = super.moduleValue(forKey: key)
     if key == "ConnectionStatus" {
-      let status: Int = Int(value as? String ?? "-1")!
+      let status: Int = value as? Int ?? -1
       return type(of: self).connectionStatusString(status: status)
     } else if key == "CurrentNetworkType" {
-      let connectionType: Int = Int(value as? String ?? "-1")!
-      return type(of: self).networkTypeString(connectionType: connectionType)
+      let connectionType: Int = value as? Int ?? -1
+      return type(of: self).networkTypeString(connectionType: connectionType, short : false)
     }
     return value
   }
@@ -38,63 +38,75 @@ class CellularModule: Module {
     }
   }
 
-  class func networkTypeString(connectionType: Int) -> String {
+  class func networkTypeString(connectionType: Int, short: Bool) -> String {
     if connectionType == 0 {
-      return "No Service"
+      return short ? "-" : "No Service"
     } else if connectionType == 1 {
       return "GSM"
     } else if connectionType == 2 {
-      return "GPRS (2.5G)"
+      return short ? "GPRS" : "GPRS (2.5G)"
     } else if connectionType == 3 {
-      return "EDGE (2.75G)"
+      return short ? "EDGE" : "EDGE (2.75G)"
     } else if connectionType == 4 {
-      return "WCDMA (3G)"
+      return short ? "3G" : "WCDMA (3G)"
     } else if connectionType == 5 {
-      return "HSDPA (3G)"
+      return short ? "3G" : "HSDPA (3G)"
     } else if connectionType == 6 {
-      return "HSUPA (3G)"
+      return short ? "3G" : "HSUPA (3G)"
     } else if connectionType == 7 {
-      return "HSPA (3G)"
+      return short ? "3G" : "HSPA (3G)"
     } else if connectionType == 8 {
-      return "TD-SCDMA (3G)"
+      return short ? "SCDMA" : "TD-SCDMA (3G)"
     } else if connectionType == 9 {
-      return "HSPA+ (4G)"
+      return short ? "4G+" : "HSPA+ (4G)"
     } else if connectionType == 10 {
-      return "EV-DO rev. 0"
+      return short ? "EVDO0" : "EV-DO rev. 0"
     } else if connectionType == 11 {
-      return "EV-DO rev. A"
+      return short ? "EVDOA" : "EV-DO rev. A"
     } else if connectionType == 12 {
-      return "EV-DO rev. B"
+      return short ? "EVDOB" : "EV-DO rev. B"
     } else if connectionType == 13 {
       return "1xRTT"
     } else if connectionType == 14 {
       return "UMB"
     } else if connectionType == 15 {
-      return "1xEVDV"
+      return short ? "1EVDV" : "1xEVDV"
     } else if connectionType == 16 {
       return "3xRTT"
     } else if connectionType == 17 {
-      return "HSPA+ 64QAM"
+      return short ? "64QAM" : "HSPA+ 64QAM"
     } else if connectionType == 18 {
-      return "HSPA+ MIMO"
+      return short ? "MIMO" : "HSPA+ MIMO"
     } else if connectionType == 19 {
-      return "LTE (4G)"
+      return short ? "4G" : "LTE (4G)"
     } else if connectionType == 41 {
-      return "UMTS (3G)"
+      return short ? "3G" : "UMTS (3G)"
     } else if connectionType == 44 {
-      return "HSPA (3G)"
+      return short ? "3G" : "HSPA (3G)"
     } else if connectionType == 45 {
-      return "HSPA+ (3G)"
+      return short ? "3G" : "HSPA+ (3G)"
     } else if connectionType == 46 {
-      return "DC-HSPA+ (3G)"
+      return short ? "3G" : "DC-HSPA+ (3G)"
     } else if connectionType == 64 {
-      return "HSPA (3G)"
+      return short ? "3G" : "HSPA (3G)"
     } else if connectionType == 65 {
-      return "HSPA+ (3G)"
+      return short ? "3G" : "HSPA+ (3G)"
     } else if connectionType == 101 {
-      return "LTE (4G)"
+      return short ? "4GLTE" : "LTE (4G)"
     } else {
       return "Unknown: " + String(connectionType)
     }
   }
+  
+  override func value1() -> String? {
+    return String(self.moduleValue(forKey: "SignalIcon") as? Int ?? -1) + "/5"
+  }
+  
+  override func value2() -> String? {
+    let value = super.moduleValue(forKey: "CurrentNetworkType")
+    let status: Int = value as? Int ?? -1
+    let statusString: String =  type(of: self).networkTypeString(connectionType: status, short : true)
+    return statusString
+  }
+
 }
