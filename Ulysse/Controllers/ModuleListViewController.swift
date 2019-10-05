@@ -98,5 +98,13 @@ class ModuleListViewController: UIViewController {
       self.unselectCurrentButton()
     }
   }
+  
+  @objc func updateModuleValues() {
+    for i in 0...self.modules.list().count - 1 {
+      let module: Module = self.modules.list()[i]
+      let moduleSumupView: ModuleSumupView = self.moduleListView.moduleButtons[i]
+      moduleSumupView.updateValues(value1: module.value1(), value2: module.value2())
+    }
+  }
 
 }

@@ -128,6 +128,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   } else {
     _squareView.backgroundColor = [UIColor blackColor];
   }
+  [self.moduleListViewController updateModuleValues];
 }
 
 - (void)startCam {
