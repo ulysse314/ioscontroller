@@ -20,6 +20,7 @@ class ModuleListView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
+    self.backgroundColor = UIColor(white: 1, alpha: 0.5)
     self.addSubview(self.stackView)
     self.stackView.translatesAutoresizingMaskIntoConstraints = false
     self.stackView.axis = verticalButtons ? .vertical : .horizontal

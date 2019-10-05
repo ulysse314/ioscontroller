@@ -39,16 +39,17 @@ class ModulePresenterView: UIView {
     self.layer.backgroundColor = UIColor.clear.cgColor
     self.addSubview(self.insideView)
     NSLayoutConstraint.activate([
-      self.insideView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       self.insideView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
     ])
     self.verticalConstraints = [
-      self.insideView.topAnchor.constraint(equalTo: self.topAnchor),
       self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: horizontalMargin),
+      self.insideView.topAnchor.constraint(equalTo: self.topAnchor),
+      self.insideView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
     ]
     self.horizontalConstraints = [
-      self.insideView.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalMargin),
       self.insideView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      self.insideView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalMargin),
+      self.insideView.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalMargin),
     ]
     self.isOpaque = false
   }
@@ -71,9 +72,9 @@ class ModulePresenterView: UIView {
     } else {
       var point = CGPoint.init(x: self.position, y: 0)
       point = self.convert(point, from: nil)
-      context.move(to: CGPoint(x: point.x - verticalMargin, y: verticalMargin))
-      context.addLine(to: CGPoint(x: point.x, y: 0))
-      context.addLine(to: CGPoint(x: point.x + verticalMargin, y: verticalMargin))
+      context.move(to: CGPoint(x: point.x - verticalMargin, y: self.bounds.size.height - verticalMargin))
+      context.addLine(to: CGPoint(x: point.x, y: self.bounds.size.height))
+      context.addLine(to: CGPoint(x: point.x + verticalMargin, y: self.bounds.size.height - verticalMargin))
     }
 
     context.closePath()

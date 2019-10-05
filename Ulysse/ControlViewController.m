@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
   self.moduleListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
     [self.moduleListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:-10],
-    [self.moduleListViewController.view.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10],
+    [self.moduleListViewController.view.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor constant:-10],
   ]];
 
   // Rest of config.
@@ -206,17 +206,17 @@ typedef NS_ENUM(NSInteger, ButtonTag) {
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
     if (self.verticalButtons) {
       [NSLayoutConstraint activateConstraints:@[
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor],
+        [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.topAnchor],
-        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor constant:8],
-        [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-32],
         [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
       ]];
     } else {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.bottomAnchor constant:8],
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant: 10],
-        [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10],
-        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10],
+        [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [self.moduleListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
       ]];
     }
   }

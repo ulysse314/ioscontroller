@@ -14,7 +14,6 @@ class ModuleSumupView: UIView {
   init(image: UIImage?, callback: ((_ button: ModuleButton)->())?) {
     self.moduleButton = ModuleButton(image: image, callback: callback)
     super.init(frame: CGRect.zero)
-    self.backgroundColor = UIColor(white: 1, alpha: 0.5)
     self.addSubview(self.moduleButton)
     self.addSubview(self.label)
     self.moduleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -31,18 +30,18 @@ class ModuleSumupView: UIView {
       self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
     ]
     self.verticalConstraints = [
-          self.moduleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-          self.moduleButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-          self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-          self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      self.moduleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      self.moduleButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 
-          self.moduleButton.topAnchor.constraint(equalTo: self.topAnchor),
-          self.label.topAnchor.constraint(equalTo: self.moduleButton.bottomAnchor),
-          self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-        ]
+      self.label.topAnchor.constraint(equalTo: self.topAnchor),
+      self.label.bottomAnchor.constraint(equalTo: self.moduleButton.topAnchor, constant: -4),
+      self.moduleButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+    ]
     self.label.numberOfLines = 0
     self.label.isUserInteractionEnabled = false
-    self.label.font = UIFont(name: "Menlo-Regular", size: 11)
+    self.label.font = UIFont(name: "Menlo-Regular", size: 10)
     self.label.text = "12.5V\n20C"
     self.updateView()
   }
