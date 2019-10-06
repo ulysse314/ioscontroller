@@ -6,6 +6,7 @@
 #import <WebKit/WebKit.h>
 
 #import "AppDelegate.h"
+#import "GamepadController.h"
 #import "SettingsTableViewController.h"
 #import "UITabBarController+HideTabBar.h"
 #import "Ulysse.h"
@@ -36,7 +37,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  NSLog(@"%@", [NSUserDefaults.standardUserDefaults stringForKey:@"testvalue"]);
   self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
   [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"vertical_buttons" options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
@@ -75,7 +75,7 @@
   ]];
 
   // Rest of config.
-  [self.appDelegate addObserver:self forKeyPath:@"gameControlleur" options:NSKeyValueObservingOptionNew context:nil];
+  [self.appDelegate.gamepadController addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
   _ulysse = self.appDelegate.ulysse;
   self.view.autoresizesSubviews = NO;
   // Do any additional setup after loading the view, typically from a nib.
@@ -83,14 +83,26 @@
 
   [self ulysseValuesDidChange:nil];
   [self startCam];
+  [self updateGamepadController];
+  [self updateVerticalPreference];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
   if (object == NSUserDefaults.standardUserDefaults) {
-    self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
-    self.moduleListViewController.verticalButtons = self.verticalButtons;
-    self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
+    [self updateVerticalPreference];
+  } else if (object == self.appDelegate.gamepadController) {
+    [self updateGamepadController];
   }
+}
+
+- (void)updateVerticalPreference {
+  self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
+  self.moduleListViewController.verticalButtons = self.verticalButtons;
+  self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
+}
+
+- (void)updateGamepadController {
+  self.statusViewController.gamepadConnected = self.appDelegate.gamepadController.isConnected;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -104,8 +116,8 @@
 - (void)ulysseValuesDidChange:(NSNotification *)notification {
   Ulysse *ulysse = _ulysse;
   NSDictionary *allValues = ulysse.allValues;
-  [self.mapViewController updateWithValues:_ulysse.allValues];
-  [self.statusViewController updateWithValues:_ulysse.allValues];
+  [self.mapViewController updateWithValues:allValues];
+  [self.statusViewController updateWithValues:allValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self stopCam];
   } else if (!_camStarted && [[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
