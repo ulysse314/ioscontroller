@@ -14,5 +14,6 @@ typedef enum {
 @property(nonatomic, weak) Config *config;
 @property(nonatomic, weak) Ulysse *ulysse;
 @property(nonatomic) PlayerIndexFlash playerIndexFlash;
+@property(nonatomic, readonly) BOOL isConnected;
 
 @end

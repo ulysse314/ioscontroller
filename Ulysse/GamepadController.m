@@ -14,6 +14,8 @@
 }
 
 @property(nonatomic, strong) GCController *gameController;
+@property(nonatomic, readwrite) BOOL isConnected;
+
 @end
 
 @implementation GamepadController
@@ -152,6 +154,7 @@
   if (self.gameController) {
     return;
   }
+  self.isConnected = YES;
   self.gameController = notification.object;
   __weak __typeof(self) weakSelf = self;
   self.gameController.extendedGamepad.buttonMenu.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
@@ -179,6 +182,7 @@
 - (void)gameControllerDidDisconnected:(NSNotification *)notification {
   NSAssert(self.gameController == notification.object, @"Unknown game controller");
   [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
+  self.isConnected = NO;
   self.gameController = nil;
   [self updateMotorWithXValue:0 yValue:0];
 }
