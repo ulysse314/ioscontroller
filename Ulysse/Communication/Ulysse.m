@@ -265,6 +265,11 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   } else {
     self.modules.raspberryPiModule.values = @{};
   }
+  for (NSString *key in _allValues.allKeys) {
+    if ([key hasPrefix:@"motor-"]) {
+      [self.modules.motorsModule addValues:_allValues[key] motorKey:key];
+    }
+  }
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
 }

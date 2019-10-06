@@ -14,4 +14,7 @@ class MotorModule: Module {
     return "\(rightTemp)C"
   }
 
+  @objc func addValues(_ values: Dictionary<String, Any>, motorKey: String) {
+  }
+
 }
