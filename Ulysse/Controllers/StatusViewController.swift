@@ -6,9 +6,11 @@ class StatusViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = UIColor(white: 1, alpha: 0.75)
+    self.view.backgroundColor = UIColor(white: 1, alpha: 0.5)
     self.view.layer.cornerRadius = 10;
     self.view.layer.masksToBounds = true;
+    self.view.layer.borderColor = UIColor.lightGray.cgColor
+    self.view.layer.borderWidth = 1
 
     self.phoneBatteryLabel.font = UIFont(name: "Menlo-Regular", size: 10)
     self.phoneBatteryLabel.translatesAutoresizingMaskIntoConstraints = false
