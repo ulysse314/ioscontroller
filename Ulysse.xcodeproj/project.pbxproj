@@ -35,7 +35,7 @@
 		026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ModuleListView.swift */; };
 		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
 		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
-		029931151D3180FC00C03033 /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931141D3180FC00C03033 /* ControlViewController.m */; };
+		029931151D3180FC00C03033 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931141D3180FC00C03033 /* MainViewController.m */; };
 		0299311B1D3180FC00C03033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 029931191D3180FC00C03033 /* Main.storyboard */; };
 		0299311D1D3180FC00C03033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0299311C1D3180FC00C03033 /* Assets.xcassets */; };
 		029931201D3180FC00C03033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */; };
@@ -103,8 +103,8 @@
 		0299310E1D3180FC00C03033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		029931101D3180FC00C03033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		029931111D3180FC00C03033 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		029931131D3180FC00C03033 /* ControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControlViewController.h; sourceTree = "<group>"; };
-		029931141D3180FC00C03033 /* ControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ControlViewController.m; sourceTree = "<group>"; };
+		029931131D3180FC00C03033 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		029931141D3180FC00C03033 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		0299311A1D3180FC00C03033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0299311C1D3180FC00C03033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0299311F1D3180FC00C03033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -241,8 +241,8 @@
 				029931111D3180FC00C03033 /* AppDelegate.m */,
 				02FA6B0020A1BE680002CB00 /* GamepadController.h */,
 				02FA6B0120A1BE680002CB00 /* GamepadController.m */,
-				029931131D3180FC00C03033 /* ControlViewController.h */,
-				029931141D3180FC00C03033 /* ControlViewController.m */,
+				029931131D3180FC00C03033 /* MainViewController.h */,
+				029931141D3180FC00C03033 /* MainViewController.m */,
 				021565FB1FF6EC3E00D9BC98 /* Config.h */,
 				021565FC1FF6EC3E00D9BC98 /* Config.m */,
 				029931191D3180FC00C03033 /* Main.storyboard */,
@@ -460,7 +460,7 @@
 				026DD12D21FCB4D9006B18B7 /* ModuleListView.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
-				029931151D3180FC00C03033 /* ControlViewController.m in Sources */,
+				029931151D3180FC00C03033 /* MainViewController.m in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */,
 				029931451D3195DB00C03033 /* Ulysse.m in Sources */,

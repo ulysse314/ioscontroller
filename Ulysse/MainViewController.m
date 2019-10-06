@@ -1,4 +1,4 @@
-#import "ControlViewController.h"
+#import "MainViewController.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <MapKit/MapKit.h>
@@ -13,7 +13,7 @@
 
 #import "Ulysse-Swift.h"
 
-@interface ControlViewController ()<ModuleListViewControllerDelegate, WKNavigationDelegate> {
+@interface MainViewController ()<ModuleListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
   WKWebView *_webView;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation ControlViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
