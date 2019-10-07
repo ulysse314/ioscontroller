@@ -37,7 +37,7 @@ class ModuleListView: UIView {
   }
 
   func updateView() {
-    self.stackView.axis = verticalButtons ? .vertical : .horizontal
+    self.stackView.axis = self.verticalButtons ? .vertical : .horizontal
     for moduleSumupView in self.moduleButtons {
       moduleSumupView.verticalLabel = !self.verticalButtons
     }
