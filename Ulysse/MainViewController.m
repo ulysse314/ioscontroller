@@ -37,7 +37,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
   [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"vertical_buttons" options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.modules = self.appDelegate.modules;
@@ -59,7 +58,7 @@
   [self.moduleListViewController didMoveToParentViewController:self];
   
   self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
+  [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
   [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
   [self.statusViewController.view.heightAnchor constraintEqualToConstant:24].active = YES;
 
@@ -209,12 +208,12 @@
       [NSLayoutConstraint activateConstraints:@[
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor],
         [self.viewControllerPresenterViewController.view.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10],
-        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.moduleListViewController.view.topAnchor],
-        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
+        [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10],
+        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.moduleListViewController.view.bottomAnchor],
       ]];
     } else {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant: 10],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant: 10],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
         [self.moduleListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
