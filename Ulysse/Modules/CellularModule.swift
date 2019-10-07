@@ -94,7 +94,7 @@ class CellularModule: Module {
     } else if connectionType == 101 {
       return short ? "4GLTE" : "LTE (4G)"
     } else {
-      return "Unknown: " + String(connectionType)
+      return short ? String(connectionType) : "Unknown: " + String(connectionType)
     }
   }
   
