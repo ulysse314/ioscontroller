@@ -1,6 +1,6 @@
 import UIKit
 
-class ModuleListView: UIView {
+class DomainButtonListView: UIView {
 
   var stackView: UIStackView = UIStackView()
   var moduleButtons: Array<ModuleSumupView> = [ModuleSumupView]()

@@ -1,19 +1,19 @@
 import UIKit
 
-@objc protocol ModuleListViewControllerDelegate {
-  func moduleButtonWasSelected(module: Module, buttonFrame: CGRect)
-  func moduleButtonWasUnselected(module: Module)
+@objc protocol DomainButtonListViewControllerDelegate {
+  func domainButtonWasSelected(domain: Domain, buttonFrame: CGRect)
+  func domainButtonWasUnselected(domain: Domain)
 }
 
-class ModuleListViewController: UIViewController {
+class DomainButtonListViewController: UIViewController {
 
-  @objc var delegate: ModuleListViewControllerDelegate?
-  var modules: Modules
-  var moduleListView: ModuleListView = ModuleListView()
+  @objc var delegate: DomainButtonListViewControllerDelegate?
+  var domains: Domains
+  var domainButtonListView: DomainButtonListView = DomainButtonListView()
   var selectedButton: ModuleSumupView?
 
-  @objc init(modules: Modules) {
-    self.modules = modules
+  @objc init(domains: Domains) {
+    self.domains = domains
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -23,11 +23,11 @@ class ModuleListViewController: UIViewController {
   
   @objc var verticalButtons: Bool = false {
     didSet {
-      self.moduleListView.verticalButtons = self.verticalButtons
+      self.domainButtonListView.verticalButtons = self.verticalButtons
     }
   }
   
-  func imageForModule(moduleIdentifier: ModuleIdentifier) -> UIImage? {
+  func imageForModule(moduleIdentifier: DomainIdentifier) -> UIImage? {
     switch moduleIdentifier {
     case .Battery:
       return UIImage.init(named: "battery")
@@ -51,7 +51,7 @@ class ModuleListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     var index: Int = 0
-    for module in self.modules.list() {
+    for module in self.domains.list() {
       let image = self.imageForModule(moduleIdentifier: module.identifier)
       weak var weakSelf = self
       let myCallback: (_ moduleButton: ModuleButton) ->() =  { (moduleButton) -> Void in
@@ -59,27 +59,27 @@ class ModuleListViewController: UIViewController {
       }
       let moduleSumupView: ModuleSumupView = ModuleSumupView(image: image, callback: myCallback)
       moduleSumupView.tag = index
-      self.moduleListView.addModuleSumupView(moduleSumupView: moduleSumupView)
+      self.domainButtonListView.addModuleSumupView(moduleSumupView: moduleSumupView)
       module.addObserver(self, forKeyPath: "errors", options: .new, context: nil)
       index += 1
     }
-    self.view = self.moduleListView
+    self.view = self.domainButtonListView
   }
   
   @objc func unselectCurrentButton() {
     if (self.selectedButton != nil) {
-      let index = self.moduleListView.moduleButtons.firstIndex(of: self.selectedButton!)!
+      let index = self.domainButtonListView.moduleButtons.firstIndex(of: self.selectedButton!)!
       self.selectedButton!.moduleButton.isSelected = false
       self.selectedButton = nil
-      self.delegate?.moduleButtonWasUnselected(module: self.modules.list()[index])
+      self.delegate?.domainButtonWasUnselected(domain: self.domains.list()[index])
     }
   }
 
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if let module: Module = object as? Module {
-      let index = self.modules.list().firstIndex(of: module)!
-      let moduleButton = self.moduleListView.moduleButtons[index]
-      let errorCount = module.errors?.count ?? 0
+    if let domain: Domain = object as? Domain {
+      let index = self.domains.list().firstIndex(of: domain)!
+      let moduleButton = self.domainButtonListView.moduleButtons[index]
+      let errorCount = domain.errors.count
       if moduleButton.moduleButton.errorNumber != errorCount {
         moduleButton.moduleButton.errorNumber = errorCount
       }
@@ -91,19 +91,19 @@ class ModuleListViewController: UIViewController {
     if self.selectedButton?.moduleButton != moduleButton {
       moduleButton.isSelected = true
       self.selectedButton = moduleButton.superview as? ModuleSumupView
-      let index = self.moduleListView.moduleButtons.firstIndex(of: self.selectedButton!)!
+      let index = self.domainButtonListView.moduleButtons.firstIndex(of: self.selectedButton!)!
       let frame: CGRect = moduleButton.convert(moduleButton.bounds, to: nil)
-      self.delegate?.moduleButtonWasSelected(module: self.modules.list()[index], buttonFrame: frame)
+      self.delegate?.domainButtonWasSelected(domain: self.domains.list()[index], buttonFrame: frame)
     } else {
       self.unselectCurrentButton()
     }
   }
   
-  @objc func updateModuleValues() {
-    for i in 0...self.modules.list().count - 1 {
-      let module: Module = self.modules.list()[i]
-      let moduleSumupView: ModuleSumupView = self.moduleListView.moduleButtons[i]
-      moduleSumupView.updateValues(value1: module.value1(), value2: module.value2())
+  @objc func updateDomainButtonValues() {
+    for i in 0...self.domains.list().count - 1 {
+      let domain: Domain = self.domains.list()[i]
+      let moduleSumupView: ModuleSumupView = self.domainButtonListView.moduleButtons[i]
+      moduleSumupView.updateValues(value1: domain.value1(), value2: domain.value2())
     }
   }
 

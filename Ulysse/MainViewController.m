@@ -13,7 +13,7 @@
 
 #import "Ulysse-Swift.h"
 
-@interface MainViewController ()<ModuleListViewControllerDelegate, WKNavigationDelegate> {
+@interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
   WKWebView *_webView;
@@ -22,12 +22,12 @@
 
 @property (nonatomic, strong) MapViewController *mapViewController;
 @property (nonatomic, strong) StatusViewController *statusViewController;
-@property (nonatomic, strong) ModuleListViewController *moduleListViewController;
+@property (nonatomic, strong) DomainButtonListViewController *domainButtonListViewController;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
 @property (nonatomic, assign) BOOL verticalButtons;
 
-@property (nonatomic, strong) Modules *modules;
+@property (nonatomic, strong) Domains *domains;
 
 @property (nonatomic, weak) AppDelegate *appDelegate;
 
@@ -39,7 +39,7 @@
   [super viewDidLoad];
   [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"vertical_buttons" options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-  self.modules = self.appDelegate.modules;
+  self.domains = self.appDelegate.domains;
 
   // Add view controllers.
   self.mapViewController = [[MapViewController alloc] init];
@@ -52,10 +52,10 @@
   [self.view addSubview:self.statusViewController.view];
   [self.statusViewController didMoveToParentViewController:self];
 
-  self.moduleListViewController = [[ModuleListViewController alloc] initWithModules:self.modules];
-  [self addChildViewController:self.moduleListViewController];
-  [self.view addSubview:self.moduleListViewController.view];
-  [self.moduleListViewController didMoveToParentViewController:self];
+  self.domainButtonListViewController = [[DomainButtonListViewController alloc] initWithDomains:self.domains];
+  [self addChildViewController:self.domainButtonListViewController];
+  [self.view addSubview:self.domainButtonListViewController.view];
+  [self.domainButtonListViewController didMoveToParentViewController:self];
   
   self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
@@ -65,12 +65,12 @@
   // Configure views.
   self.mapViewController.view.frame = self.view.bounds;
 
-  self.moduleListViewController.delegate = self;
-  self.moduleListViewController.verticalButtons = self.verticalButtons;
-  self.moduleListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+  self.domainButtonListViewController.delegate = self;
+  self.domainButtonListViewController.verticalButtons = self.verticalButtons;
+  self.domainButtonListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
-    [self.moduleListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
-    [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.moduleListViewController.view.bottomAnchor constant:10],
+    [self.domainButtonListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
+    [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.bottomAnchor constant:10],
   ]];
 
   // Rest of config.
@@ -96,7 +96,7 @@
 
 - (void)updateVerticalPreference {
   self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
-  self.moduleListViewController.verticalButtons = self.verticalButtons;
+  self.domainButtonListViewController.verticalButtons = self.verticalButtons;
   self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
 }
 
@@ -123,7 +123,7 @@
   } else {
     _squareView.backgroundColor = [UIColor blackColor];
   }
-  [self.moduleListViewController updateModuleValues];
+  [self.domainButtonListViewController updateDomainButtonValues];
 }
 
 - (void)startCam {
@@ -150,17 +150,17 @@
 }
 
 - (void)backgroundExitButtonAction:(id)sender {
-  [self.moduleListViewController unselectCurrentButton];
+  [self.domainButtonListViewController unselectCurrentButton];
 }
 
-- (UIViewController *)viewControllerWithModule:(Module *)module {
-  if (module.identifier == ModuleIdentifierSettings) {
+- (UIViewController *)viewControllerWithDomain:(Domain *)domain {
+  if (domain.identifier == DomainIdentifierSettings) {
     UIStoryboard * storyBoard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
     UIViewController *viewController = [storyBoard instantiateInitialViewController];
-    viewController.title = module.name;
+    viewController.title = domain.name;
     return viewController;
   }
-  return [[ModuleViewController alloc] initWithModule:module];
+  return [[DetailDomainViewController alloc] initWithModuleDomain:(ModuleDomain *)domain];
 }
 
 #pragma mark - WKNavigationDelegate
@@ -181,14 +181,14 @@
   DEBUGLOG(@"webViewWebContentProcessDidTerminate");
 }
 
-#pragma mark - ModuleListViewControllerDelegate
+#pragma mark - DomainButtonListViewControllerDelegate
 
-- (void)moduleButtonWasSelectedWithModule:(Module * _Nonnull)module buttonFrame:(CGRect)buttonFrame {
+- (void)domainButtonWasSelectedWithDomain:(Domain * _Nonnull)domain buttonFrame:(CGRect)buttonFrame {
   if (!self.viewControllerPresenterViewController) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addTarget:self action:@selector(backgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:self.backgroundExitButton belowSubview:self.moduleListViewController.view];
+    [self.view insertSubview:self.backgroundExitButton belowSubview:self.domainButtonListViewController.view];
     [NSLayoutConstraint activateConstraints:@[
       [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
       [self.backgroundExitButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
@@ -202,28 +202,28 @@
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
     if (self.verticalButtons) {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.moduleListViewController.view.trailingAnchor],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.trailingAnchor],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10],
-        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.moduleListViewController.view.bottomAnchor],
+        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.bottomAnchor],
       ]];
     } else {
       [NSLayoutConstraint activateConstraints:@[
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [self.moduleListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
+        [self.domainButtonListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
       ]];
     }
   }
   UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
   self.viewControllerPresenterViewController.viewController = navigationController;
-  UIViewController *viewController = [self viewControllerWithModule:module];
+  UIViewController *viewController = [self viewControllerWithDomain:domain];
   [navigationController pushViewController:viewController animated:NO];
   [self.viewControllerPresenterViewController openViewControllerWithPosition:self.verticalButtons ? (buttonFrame.origin.y + buttonFrame.size.height / 2) : (buttonFrame.origin.x + buttonFrame.size.width / 2)];
 }
 
-- (void)moduleButtonWasUnselectedWithModule:(Module* _Nonnull)module {
+- (void)domainButtonWasUnselectedWithDomain:(Domain* _Nonnull)domain {
   [self removePresentedViewController];
 }
 

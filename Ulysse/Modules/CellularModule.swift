@@ -1,19 +1,14 @@
+//
+//  CellularModule.swift
+//  Ulysse
+//
+//  Copyright © 2019 Ulysse 314 Boat. All rights reserved.
+//
+
 import Foundation
 
 class CellularModule: Module {
-
-  @objc override func moduleValue(forKey key: String) -> Any? {
-    let value = super.moduleValue(forKey: key)
-    if key == "ConnectionStatus" {
-      let status: Int = value as? Int ?? -1
-      return type(of: self).connectionStatusString(status: status)
-    } else if key == "CurrentNetworkType" {
-      let connectionType: Int = value as? Int ?? -1
-      return type(of: self).networkTypeString(connectionType: connectionType, short : false)
-    }
-    return value
-  }
-
+  
   class func connectionStatusString(status: Int) -> String {
     if status == 2 || status == 3 || status == 5 || status == 8 || status == 20 || status == 21 || status == 23 || status == 27 || status == 28 || status == 29 || status == 30 || status == 31 || status == 32 || status == 33 {
       return "Connection failed, the profile is invalid"
@@ -97,16 +92,17 @@ class CellularModule: Module {
       return short ? String(connectionType) : "Unknown: " + String(connectionType)
     }
   }
-  
-  override func value1() -> String? {
-    return String(self.moduleValue(forKey: "SignalIcon") as? Int ?? -1) + "/5"
-  }
-  
-  override func value2() -> String? {
-    let value = super.moduleValue(forKey: "CurrentNetworkType")
-    let status: Int = value as? Int ?? -1
-    let statusString: String =  type(of: self).networkTypeString(connectionType: status, short : true)
-    return statusString
+
+  override func humanValue(key: String, short: Bool) -> Any? {
+    let value = super.humanValue(key: key, short: short)
+    if key == "ConnectionStatus" {
+      let status: Int = value as? Int ?? -1
+      return type(of: self).connectionStatusString(status: status)
+    } else if key == "CurrentNetworkType" {
+      let connectionType: Int = value as? Int ?? -1
+      return type(of: self).networkTypeString(connectionType: connectionType, short : short)
+    }
+    return value
   }
 
 }

@@ -1,22 +1,14 @@
-//
-//  ModuleViewController.swift
-//  Ulysse
-//
-//  Copyright © 2019 Ulysse 314 Boat. All rights reserved.
-//
-
 import UIKit
 
-class ModuleViewController: UITableViewController {
+class DetailDomainViewController: UITableViewController {
   
-  var module: Module
+  var moduleDomain: ModuleDomain
 
-  @objc required public init(module: Module) {
-    self.module = module
+  @objc required public init(moduleDomain: ModuleDomain) {
+    self.moduleDomain = moduleDomain
     super.init(nibName: nil, bundle: nil)
-    self.module.addObserver(self, forKeyPath: "values", options: [.new], context: nil)
-    self.module.addObserver(self, forKeyPath: "errorMessages", options: [.new], context: nil)
-    self.title = module.name
+    NotificationCenter.default.addObserver(self, selector: #selector(self.moduleDomainValuesDidUpdate), name: NSNotification.Name(rawValue: ModuleDomain.ValuesUpdated), object: moduleDomain)
+    self.title = self.moduleDomain.name
   }
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -26,29 +18,26 @@ class ModuleViewController: UITableViewController {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  deinit {
-    module.removeObserver(self, forKeyPath: "values")
-    module.removeObserver(self, forKeyPath: "errorMessages")
-  }
 
   // MARK: - TableView
 
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return self.module.errors == nil ? 1 : 2
+    return self.moduleDomain.modules.count + (self.moduleDomain.errors.count == 0 ? 0 : 1)
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if (section == 1 || self.module.errors == nil) {
-      return self.module.keys.count
+    if section > 0 || self.moduleDomain.errors.count == 0 {
+      let moduleIndex: Int = self.moduleDomain.errors.count == 0 ? section : (section - 1)
+      return self.moduleDomain.modules[moduleIndex].values.count
     } else {
-      return self.module.errors!.count
+      return self.moduleDomain.errors.count
     }
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    if (section == 1 || self.module.errors == nil) {
-      return "Values"
+    if section > 0 || self.moduleDomain.errors.count == 0 {
+      let moduleIndex: Int = self.moduleDomain.errors.count == 0 ? section : (section - 1)
+      return self.moduleDomain.modules[moduleIndex].name
     } else {
       return "Errors"
     }
@@ -56,10 +45,12 @@ class ModuleViewController: UITableViewController {
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-    if (indexPath.section == 1 || self.module.errors == nil) {
-      let key = self.module.keys[indexPath.row]
+    let moduleIndex: Int = self.moduleDomain.errors.count == 0 ? indexPath.section : (indexPath.section - 1)
+    if moduleIndex >= 0 {
+      let module: Module = self.moduleDomain.modules[moduleIndex]
+      let key: String = module.sortedKeys[indexPath.row]
       cell.textLabel?.text = key
-      let value = self.module.moduleValue(forKey:key)
+      let value = module.humanValue(key: key, short: false)
       if value is Int {
         cell.detailTextLabel?.text = String(value as! Int)
       } else if value is Float {
@@ -74,7 +65,7 @@ class ModuleViewController: UITableViewController {
         cell.detailTextLabel?.text = "-"
       }
     } else {
-      cell.textLabel?.text = self.module.errors![indexPath.row].message
+      cell.textLabel?.text = self.moduleDomain.errors[indexPath.row].message
     }
     return cell
   }
@@ -83,9 +74,9 @@ class ModuleViewController: UITableViewController {
     return false
   }
 
-  // MARK: - Observer
+  // MARK: - ModuleDomain notification
 
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+  @objc func moduleDomainValuesDidUpdate(_ notification: Notification) {
     self.tableView.reloadData()
   }
 

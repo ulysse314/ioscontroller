@@ -2,7 +2,7 @@
 
 @class Config;
 @class GamepadController;
-@class Modules;
+@class Domains;
 @class Ulysse;
 
 typedef NS_OPTIONS(NSUInteger, Alert) {
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, AlertLevel) {
 @property(nonatomic, readonly) Alert alert;
 @property(nonatomic, strong) GamepadController *gamepadController;
 
-@property (nonatomic, strong) Modules *modules;
+@property (nonatomic, strong) Domains *domains;
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp;
 + (NSString *)stringWithDate:(NSDate *)date;

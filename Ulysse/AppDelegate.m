@@ -34,8 +34,8 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   [UIDevice currentDevice].batteryMonitoringEnabled = YES;
   _config = [Config sharedInstance];
   [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
-  self.modules = [[Modules alloc] init];
-  self.ulysse = [[Ulysse alloc] initWithConfig:_config modules:self.modules];
+  self.domains = [[Domains alloc] init];
+  self.ulysse = [[Ulysse alloc] initWithConfig:_config domains:self.domains];
   [self loadPreferences];
   // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;

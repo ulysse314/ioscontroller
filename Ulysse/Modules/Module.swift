@@ -1,66 +1,36 @@
-import Foundation
+//
+//  Module.swift
+//  Ulysse
+//
+//  Copyright © 2019 Ulysse 314 Boat. All rights reserved.
+//
 
-@objc enum ModuleIdentifier: Int {
-  case Battery
-  case Cellular
-  case GPS
-  case Motors
-  case Boat
-  case Arduino
-  case RaspberryPi
-  case Settings
-}
+import Foundation
 
 class Module: NSObject {
 
-  @objc private(set) var name: String
-  @objc let identifier: ModuleIdentifier
-  @objc dynamic var values: Dictionary<String, Any> {
-    didSet {
-      var newErrors: Array<ModuleError> = []
-      let valueErrors = self.values["errors"] as? Array<Array<Any>>
-      if valueErrors != nil {
-        for jsonError in valueErrors! {
-          var error: ModuleError?
-          if jsonError.count == 2 {
-            error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: nil)
-          } else if jsonError.count == 3 {
-            error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: jsonError[2])
-          }
-          if error != nil {
-            newErrors.append(error!)
-          }
-        }
-      }
-      self.errors = newErrors.count == 0 ? nil : newErrors
-
-      var newKeys: Array = Array(self.values.keys)
-      newKeys = newKeys.sorted{ $0.compare($1, options: .caseInsensitive) == .orderedAscending }
-      self.keys = newKeys.filter { $0 != "errors" }
-    }
-  }
-  @objc dynamic var errors: Array<ModuleError>?
-  private(set) var keys: Array<String>
-
-  @objc init(name: String, identifier: ModuleIdentifier) {
+  @objc let name: String
+  @objc private(set) var sortedKeys: Array<String> = [String]()
+  @objc private(set) var values: Dictionary<String, Any> = [String: Any]()
+  
+  init(name: String) {
     self.name = name
-    self.keys = [String]()
-    self.values = [String: Any]()
-    self.identifier = identifier
     super.init()
   }
-
-  @objc func moduleValue(forKey key: String) -> Any? {
-    let value: Any? = self.values[key]
-    return value
+  
+  func setAllValues(_ values: Dictionary<String, Any>) {
+    self.values = values
+    var newSortedKeys: Array = Array(self.values.keys)
+    newSortedKeys = newSortedKeys.sorted{ $0.compare($1, options: .caseInsensitive) == .orderedAscending }
+    self.sortedKeys = newSortedKeys.filter { $0 != "errors" }
+    self.values.removeValue(forKey: "errors")
   }
   
-  func value1() -> String? {
-    return nil
+  func value(key: String) -> Any? {
+    return self.values[key]
   }
   
-  func value2() -> String? {
-    return nil
+  func humanValue(key: String, short: Bool) -> Any? {
+    return self.value(key: key)
   }
-
 }

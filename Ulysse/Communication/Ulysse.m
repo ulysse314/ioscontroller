@@ -78,7 +78,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   uint8_t *_tmpBuffer;
 }
 
-@property(nonatomic, strong) Modules *modules;
+@property(nonatomic, strong) Domains *domains;
 
 @end
 
@@ -89,14 +89,14 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 @synthesize extraMotorCoef = _extraMotorCoef;
 @synthesize arduinoInfo = _arduinoInfo;
 
-- (instancetype)initWithConfig:(Config *)config modules:(Modules*)modules {
+- (instancetype)initWithConfig:(Config *)config domains:(Domains*)domains {
   self = [super init];
   if (self) {
     _config = config;
     [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
     _motorCoef = 0.5;
     _tmpBuffer = malloc(BUFFER_SIZE);
-    self.modules = modules;
+    self.domains = domains;
   }
   return self;
 }
@@ -239,37 +239,39 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 
 - (void)newValues:(NSDictionary *)values {
   _allValues = [values mutableCopy];
+  [self.domains.arduinoDomain valueUpdateStart];
   if (_allValues[@"arduino"]) {
     _arduinoInfo = _allValues[@"arduino"];
-    self.modules.arduinoModule.values = _allValues[@"arduino"];
-  } else {
-    self.modules.arduinoModule.values = @{};
+    [self.domains.arduinoDomain addValuesWithModuleName:@"arduino" values:_allValues[@"arduino"]];
   }
+  [self.domains.arduinoDomain valueUpdateDone];
+  [self.domains.batteryDomain valueUpdateStart];
   if (_allValues[@"battery"]) {
-    self.modules.batteryModule.values = _allValues[@"battery"];
-  } else {
-    self.modules.batteryModule.values = @{};
+    [self.domains.batteryDomain addValuesWithModuleName:@"battery" values:_allValues[@"battery"]];
   }
+  [self.domains.batteryDomain valueUpdateDone];
+  [self.domains.gpsDomain valueUpdateStart];
   if (_allValues[@"gps"]) {
-    self.modules.gpsModule.values = _allValues[@"gps"];
-  } else {
-    self.modules.gpsModule.values = @{};
+    [self.domains.gpsDomain addValuesWithModuleName:@"gps" values:_allValues[@"gps"]];
   }
+  [self.domains.gpsDomain valueUpdateDone];
+  [self.domains.cellularDomain valueUpdateStart];
   if (_allValues[@"cellular"]) {
-    self.modules.cellularModule.values = _allValues[@"cellular"];
-  } else {
-    self.modules.cellularModule.values = @{};
+    [self.domains.cellularDomain addValuesWithModuleName:@"cellular" values:_allValues[@"cellular"]];
   }
+  [self.domains.cellularDomain valueUpdateDone];
+  [self.domains.raspberryPiDomain valueUpdateStart];
   if (_allValues[@"pi"]) {
-    self.modules.raspberryPiModule.values = _allValues[@"pi"];
-  } else {
-    self.modules.raspberryPiModule.values = @{};
+    [self.domains.raspberryPiDomain addValuesWithModuleName:@"pi" values:_allValues[@"pi"]];
   }
+  [self.domains.raspberryPiDomain valueUpdateDone];
+  [self.domains.motorsDomain valueUpdateStart];
   for (NSString *key in _allValues.allKeys) {
     if ([key hasPrefix:@"motor-"]) {
-      [self.modules.motorsModule addValues:_allValues[key] motorKey:key];
+      [self.domains.motorsDomain addValuesWithModuleName:key values:_allValues[key]];
     }
   }
+  [self.domains.motorsDomain valueUpdateDone];
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
 }
