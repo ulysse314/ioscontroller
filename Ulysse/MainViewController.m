@@ -104,10 +104,6 @@
   self.statusViewController.gamepadConnected = self.appDelegate.gamepadController.isConnected;
 }
 
-- (BOOL)prefersStatusBarHidden {
-  return NO;
-}
-
 - (void)viewDidUnload {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UlysseValuesDidUpdate object:_ulysse];
 }
