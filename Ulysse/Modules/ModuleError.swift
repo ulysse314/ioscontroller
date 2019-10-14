@@ -30,8 +30,8 @@ class ModuleError: NSObject {
     case memoryDifference500 = 7
     case memoryDifference1k = 8
     case infoMemory = 9
-    case lowMemory = 10
-    case veryLowMemory = 11
+    case warningMemory = 10
+    case criticalMemory = 11
     case codeUnknown = 12
     case gpsValueIndex = 13
     case gpsCodeUnknown = 14
@@ -140,11 +140,11 @@ class ModuleError: NSObject {
     case .memoryDifference1k:
       return "Memory difference 1k"
     case .infoMemory:
-      return "Info memory"
-    case .lowMemory:
-      return "Low memory"
-    case .veryLowMemory:
-      return "Very low memory"
+      return "[info] memory"
+    case .warningMemory:
+      return "[warning] memory"
+    case .criticalMemory:
+      return "[critical] memory"
     case .codeUnknown:
       return "Code unknown"
     case .gpsValueIndex:
