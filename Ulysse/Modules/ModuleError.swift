@@ -38,9 +38,9 @@ class ModuleError: NSObject {
     case addingValueWithSameName = 15
     case pwmDriverNotAvailable = 16
     case piLinkConnectionTimeOut = 17
-    case loopCycleLowInfo = 18
-    case loopCycleLowWarning = 19
-    case loopCycleLowCritical = 20
+    case mainLoopCounterLowInfo = 18
+    case mainLoopCounterLowWarning = 19
+    case mainLoopCounterLowCritical = 20
     case notStarted = 21
     case devNotFound = 100
     case connectionError = 101
@@ -157,12 +157,12 @@ class ModuleError: NSObject {
       return "PWM driver not available"
     case .piLinkConnectionTimeOut:
       return "PI link connection time out"
-    case .loopCycleLowInfo:
-      return "Loop cycle low info"
-    case .loopCycleLowWarning:
-      return "Loop cycle low warning"
-    case .loopCycleLowCritical:
-      return "Loop cycle low critical"
+    case .mainLoopCounterLowInfo:
+      return "Main loop counter low info"
+    case .mainLoopCounterLowWarning:
+      return "Main loop counter low warning"
+    case .mainLoopCounterLowCritical:
+      return "Main loop counter low critical"
     case .notStarted:
       return "Not started"
     case .devNotFound:
