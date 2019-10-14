@@ -5,11 +5,11 @@ class ModuleButton: UIControl {
   var imageView: UIImageView = UIImageView(frame: CGRect.zero)
   var errorLabelContainer: UIView = UIImageView(frame: CGRect.zero)
   var errorLabel: UILabel = UILabel(frame: CGRect.zero)
-  @objc var errorNumber: Int = 0 {
+  @objc var errorCount: Int = 0 {
     didSet {
-      self.errorLabelContainer.isHidden = self.errorNumber == 0
-      self.errorLabel.isHidden = self.errorNumber == 0
-      self.errorLabel.text = String(self.errorNumber)
+      self.errorLabelContainer.isHidden = self.errorCount == 0
+      self.errorLabel.isHidden = self.errorCount == 0
+      self.errorLabel.text = String(self.errorCount)
     }
   }
   var callback: ((_ button: ModuleButton)->())?

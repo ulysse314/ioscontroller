@@ -94,8 +94,8 @@ class DomainButtonListViewController: UIViewController {
       let moduleSumupView: ModuleSumupView = self.domainButtonListView.moduleButtons[i]
       moduleSumupView.updateValues(value1: domain.value1(), value2: domain.value2())
       let errorCount = domain.errors.count
-      if moduleSumupView.moduleButton.errorNumber != errorCount {
-        moduleSumupView.moduleButton.errorNumber = errorCount
+      if moduleSumupView.moduleButton.errorCount != errorCount {
+        moduleSumupView.moduleButton.errorCount = errorCount
       }
     }
   }
