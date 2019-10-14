@@ -18,12 +18,5 @@ class CellularDomain: ModuleDomain {
     let value = module?.humanValue(key: "CurrentNetworkType", short: true)
     return value as? String ?? ""
   }
-  
-  override func createModule(name: String) -> Module {
-    if name == "cellular" {
-      return CellularModule(name: name)
-    }
-    return Module(name: name)
-  }
 
 }

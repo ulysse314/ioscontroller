@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		020BA00823512A72005BA152 /* CellularModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00723512A72005BA152 /* CellularModule.swift */; };
+		020BA00C2354C841005BA152 /* GPSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00B2354C841005BA152 /* GPSModule.swift */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
 		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		020BA00723512A72005BA152 /* CellularModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularModule.swift; sourceTree = "<group>"; };
+		020BA00B2354C841005BA152 /* GPSModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSModule.swift; sourceTree = "<group>"; };
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				023C9F6C234BDB420003F0FA /* Module.swift */,
 				020BA00723512A72005BA152 /* CellularModule.swift */,
+				020BA00B2354C841005BA152 /* GPSModule.swift */,
 				0234CC4122064B5D00738CC0 /* ModuleError.swift */,
 			);
 			path = Modules;
@@ -473,6 +476,7 @@
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
 				022C0E2C2346AB5100F4DAA6 /* DomainButtonListViewController.swift in Sources */,
 				02E549F0223EF0940080B353 /* CellularDomain.swift in Sources */,
+				020BA00C2354C841005BA152 /* GPSModule.swift in Sources */,
 				0244F5B7234169D700440189 /* MapViewController.swift in Sources */,
 				022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */,

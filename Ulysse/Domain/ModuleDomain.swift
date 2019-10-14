@@ -58,6 +58,11 @@ class ModuleDomain: Domain {
   }
   
   func createModule(name: String) -> Module {
+    if name == "cellular" {
+      return CellularModule(name: name)
+    } else if name == "gps" {
+      return GPSModule(name: name)
+    }
     return Module(name: name)
   }
 
