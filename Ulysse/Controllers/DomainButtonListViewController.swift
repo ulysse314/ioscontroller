@@ -74,17 +74,6 @@ class DomainButtonListViewController: UIViewController {
       self.delegate?.domainButtonWasUnselected(domain: self.domains.list()[index])
     }
   }
-
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if let domain: Domain = object as? Domain {
-      let index = self.domains.list().firstIndex(of: domain)!
-      let moduleButton = self.domainButtonListView.moduleButtons[index]
-      let errorCount = domain.errors.count
-      if moduleButton.moduleButton.errorNumber != errorCount {
-        moduleButton.moduleButton.errorNumber = errorCount
-      }
-    }
-  }
   
   func wasSelectedButton(moduleButton: ModuleButton) {
     self.selectedButton?.moduleButton.isSelected = false
@@ -104,6 +93,10 @@ class DomainButtonListViewController: UIViewController {
       let domain: Domain = self.domains.list()[i]
       let moduleSumupView: ModuleSumupView = self.domainButtonListView.moduleButtons[i]
       moduleSumupView.updateValues(value1: domain.value1(), value2: domain.value2())
+      let errorCount = domain.errors.count
+      if moduleSumupView.moduleButton.errorNumber != errorCount {
+        moduleSumupView.moduleButton.errorNumber = errorCount
+      }
     }
   }
 
