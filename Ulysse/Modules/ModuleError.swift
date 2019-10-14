@@ -51,7 +51,7 @@ class ModuleError: NSObject {
     case noError = 0
     case unknownAntenna = 1
     case externalAntennaProblem = 2
-    case internalAntenna = 3
+    case usingInternalAntenna = 3
     case noFixMode = 4
     case mode2D = 5
     case usedSatellitesTooLow = 6
@@ -183,8 +183,8 @@ class ModuleError: NSObject {
       return "Unknown antenna"
     case .externalAntennaProblem:
       return "External antenna problem"
-    case .internalAntenna:
-      return "Internal antenna"
+    case .usingInternalAntenna:
+      return "Using internal antenna"
     case .noFixMode:
       return "No fix mode"
     case .mode2D:
