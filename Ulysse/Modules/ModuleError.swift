@@ -128,11 +128,11 @@ class ModuleError: NSObject {
     case .getValueWithWrongType:
       return "Get value with type"
     case .computeTimeInfo:
-      return "Compute time info"
+      return "[info] Compute time"
     case .computeTimeWarning:
-      return "Compute time warning"
+      return "[warning] Compute time"
     case .computeTimeCritical:
-      return "Compute time critical"
+      return "[critical] Compute time"
     case .memoryDifference100:
       return "Memory difference 100"
     case .memoryDifference500:
@@ -158,11 +158,11 @@ class ModuleError: NSObject {
     case .piLinkConnectionTimeOut:
       return "PI link connection time out"
     case .mainLoopCounterLowInfo:
-      return "Main loop counter low info"
+      return "[info] Main loop counter low"
     case .mainLoopCounterLowWarning:
-      return "Main loop counter low warning"
+      return "[warning] Main loop counter low"
     case .mainLoopCounterLowCritical:
-      return "Main loop counter low critical"
+      return "[critical] Main loop counter low"
     case .notStarted:
       return "Not started"
     case .devNotFound:
@@ -206,11 +206,11 @@ class ModuleError: NSObject {
     case .temperatureUnknown:
       return "Temperature unknown"
     case .temperatureInfo:
-      return "Temperature info"
+      return "[info] Temperature"
     case .temperatureWarning:
-      return "Temperature warning"
+      return "[warning] Temperature"
     case .temperatureCritical:
-      return "Temperature critical"
+      return "[critical] Temperature"
     case .pwmNotAvailable:
       return "PWM not available"
     }
@@ -228,25 +228,25 @@ class ModuleError: NSObject {
     case .INA219NotFound:
       return "INA219 not found"
     case .voltageInfo:
-      return "Voltage info"
+      return "[info] Voltage"
     case .voltageWarning:
-      return "Voltage warning"
+      return "[warning] Voltage"
     case .voltageCritical:
-      return "Voltage critical"
+      return "[critical] Voltage"
     case .ampereInfo:
-      return "Ampere info"
+      return "[info] Ampere"
     case .ampereWarning:
-      return "Ampere warning"
+      return "[warning] Ampere"
     case .ampereCritical:
-      return "Ampere critical"
+      return "[critical] Ampere"
     case .temperatureUnknown:
       return "Temperature unknown"
     case .temperatureInfo:
-      return "Temperture info"
+      return "[info] Temperture"
     case .temperatureWarning:
-      return "Temperature warning"
+      return "[warning] Temperature"
     case .temperatureCritical:
-      return "Temperature critical"
+      return "[critical] Temperature"
     }
   }
 
@@ -286,29 +286,29 @@ class ModuleError: NSObject {
     case .noError:
       return "No error" + (message != nil ? (", " + message!) : "")
     case .temperatureInfo:
-      return "Temperature info" + (message != nil ? (", " + message!) : "")
+      return "[info] Temperature" + (message != nil ? (", " + message!) : "")
     case .temperatureWarning:
-      return "Temperature warning" + (message != nil ? (", " + message!) : "")
+      return "[warning] Temperature" + (message != nil ? (", " + message!) : "")
     case .temperatureCritical:
-      return "Temperature critical" + (message != nil ? (", " + message!) : "")
+      return "[critical] Temperature" + (message != nil ? (", " + message!) : "")
     case .memoryInfo:
-      return "Memory info" + (message != nil ? (", " + message!) : "")
+      return "[info] Memory" + (message != nil ? (", " + message!) : "")
     case .memoryWarning:
-      return "Memory warning" + (message != nil ? (", " + message!) : "")
+      return "[warning] Memory" + (message != nil ? (", " + message!) : "")
     case .memoryCritical:
-      return "Memory critical" + (message != nil ? (", " + message!) : "")
+      return "[critical] Memory" + (message != nil ? (", " + message!) : "")
     case .diskInfo:
-      return "Disk info" + (message != nil ? (", " + message!) : "")
+      return "[info] Disk" + (message != nil ? (", " + message!) : "")
     case .diskWarning:
-      return "Disk warning" + (message != nil ? (", " + message!) : "")
+      return "[warning] Disk" + (message != nil ? (", " + message!) : "")
     case .diskCritical:
-      return "Disk critical" + (message != nil ? (", " + message!) : "")
+      return "[critical] Disk" + (message != nil ? (", " + message!) : "")
     case .cpuInfo:
-      return "CPU info" + (message != nil ? (", " + message!) : "")
+      return "[info] CPU" + (message != nil ? (", " + message!) : "")
     case .cpuWarning:
-      return "CPU warning" + (message != nil ? (", " + message!) : "")
+      return "[warning] CPU" + (message != nil ? (", " + message!) : "")
     case .cpuCritical:
-      return "CPU critical" + (message != nil ? (", " + message!) : "")
+      return "[critical] CPU" + (message != nil ? (", " + message!) : "")
     }
 }
 
