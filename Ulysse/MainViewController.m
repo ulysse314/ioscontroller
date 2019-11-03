@@ -13,6 +13,8 @@
 
 #import "Ulysse-Swift.h"
 
+#define kVerticalButtonsPReference   @"vertical_buttons"
+
 @interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
@@ -37,7 +39,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"vertical_buttons" options:NSKeyValueObservingOptionNew context:nil];
+  [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:kVerticalButtonsPReference options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.domains = self.appDelegate.domains;
 
@@ -95,7 +97,11 @@
 }
 
 - (void)updateVerticalPreference {
-  self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:@"vertical_buttons"];
+  if ([NSUserDefaults.standardUserDefaults objectForKey:kVerticalButtonsPReference]) {
+    self.verticalButtons = [NSUserDefaults.standardUserDefaults boolForKey:kVerticalButtonsPReference];
+  } else {
+    self.verticalButtons = YES;
+  }
   self.domainButtonListViewController.verticalButtons = self.verticalButtons;
   self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
 }

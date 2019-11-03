@@ -14,7 +14,7 @@
 			<key>Key</key>
 			<string>vertical_buttons</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 	</array>
 </dict>
