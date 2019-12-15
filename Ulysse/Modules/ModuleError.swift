@@ -42,6 +42,8 @@ class ModuleError: NSObject {
     case mainLoopCounterLowWarning = 19
     case mainLoopCounterLowCritical = 20
     case notStarted = 21
+    case motorCodeUnknown = 22
+    case batteryCodeUnknown = 23
     case devNotFound = 100
     case connectionError = 101
   }
@@ -71,18 +73,17 @@ class ModuleError: NSObject {
   // Battery domain 4
   enum BatteryError : Int {
     case noError = 0
-    case codeUnknown = 1
-    case INA219NotFound = 2
-    case voltageInfo = 3
-    case voltageWarning = 4
-    case voltageCritical = 5
-    case ampereInfo = 6
-    case ampereWarning = 7
-    case ampereCritical = 8
-    case temperatureUnknown = 9
-    case temperatureInfo = 10
-    case temperatureWarning = 11
-    case temperatureCritical = 12
+    case INA219NotFound = 1
+    case voltageInfo = 2
+    case voltageWarning = 3
+    case voltageCritical = 4
+    case ampereInfo = 5
+    case ampereWarning = 6
+    case ampereCritical = 7
+    case temperatureUnknown = 8
+    case temperatureInfo = 9
+    case temperatureWarning = 10
+    case temperatureCritical = 11
   }
 
   // Cellular domain 5
@@ -165,6 +166,10 @@ class ModuleError: NSObject {
       return "[critical] Main loop counter low"
     case .notStarted:
       return "Not started"
+    case .motorCodeUnknown:
+      return "Motor code unknown"
+    case .batteryCodeUnknown:
+      return "Battery code unknown"
     case .devNotFound:
       return "Dev not found"
     case .connectionError:
@@ -223,8 +228,6 @@ class ModuleError: NSObject {
     switch errorCode! {
     case .noError:
       return "No error"
-    case .codeUnknown:
-      return "Code unknown"
     case .INA219NotFound:
       return "INA219 not found"
     case .voltageInfo:
