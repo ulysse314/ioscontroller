@@ -6,7 +6,7 @@ class Domains: NSObject {
   @objc var cellularDomain: CellularDomain
   @objc var gpsDomain: GPSDomain
   @objc var motorsDomain: MotorDomain
-  @objc var boatDomain: ModuleDomain
+  @objc var hullDomain: ModuleDomain
   @objc var arduinoDomain: ModuleDomain
   @objc var raspberryPiDomain: RaspberryPiDomain
   @objc var settingsDomain: Domain
@@ -16,7 +16,7 @@ class Domains: NSObject {
     self.cellularDomain = CellularDomain(identifier: .Cellular)
     self.gpsDomain = GPSDomain(identifier: .GPS)
     self.motorsDomain = MotorDomain(identifier: .Motors)
-    self.boatDomain = ModuleDomain(name: "Boat", identifier: .Boat)
+    self.hullDomain = ModuleDomain(name: "Hull", identifier: .Boat)
     self.arduinoDomain = ModuleDomain(name: "Arduino", identifier: .Arduino)
     self.raspberryPiDomain = RaspberryPiDomain(identifier: .RaspberryPi)
     self.settingsDomain = Domain(name: "Settings", identifier: .Settings)
@@ -29,7 +29,7 @@ class Domains: NSObject {
       self.cellularDomain,
       self.gpsDomain,
       self.motorsDomain,
-      self.boatDomain,
+      self.hullDomain,
       self.arduinoDomain,
       self.raspberryPiDomain,
       self.settingsDomain,
