@@ -13,12 +13,6 @@
 NSString *UlysseValuesDidUpdate = @"UlysseValuesDidUpdate";
 NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
-typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
-  UlysseConnectionStateClosed,
-  UlysseConnectionStateOpening,
-  UlysseConnectionStateOpened,
-};
-
 NSString *StreamStatusString(NSStreamStatus status) {
   switch (status) {
     case NSStreamStatusNotOpen:

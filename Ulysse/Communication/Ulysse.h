@@ -12,6 +12,12 @@ extern NSString *UlysseWaitedTooLong;
 @class Config;
 @class Domains;
 
+typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
+  UlysseConnectionStateClosed,
+  UlysseConnectionStateOpening,
+  UlysseConnectionStateOpened,
+};
+
 @interface Ulysse : NSObject
 
 @property(nonatomic, readonly) NSDictionary<NSString *, id> *allValues;
@@ -19,6 +25,7 @@ extern NSString *UlysseWaitedTooLong;
 @property(nonatomic, readonly) BOOL waitingTooLong;
 @property(nonatomic) float motorCoef;
 @property(nonatomic) float extraMotorCoef;
+@property(nonatomic, readonly) UlysseConnectionState state;
 
 - (instancetype)initWithConfig:(Config *)config domains:(Domains*)domains;
 
