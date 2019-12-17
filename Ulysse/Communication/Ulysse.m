@@ -124,7 +124,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
       [_allValues setObject:values[key] forKey:key];
     }
   }
-  if (self.state == UlysseConnectionStateOpened) {
+  if (self.isConnected) {
     [self sendValues];
   }
 }
@@ -153,6 +153,16 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 
 - (void)sendCommand:(NSString *)command {
   [self setValues:@{@"command": command}];
+}
+
+- (BOOL)isConnected {
+  switch (self.state) {
+    case UlysseConnectionStateClosed:
+    case UlysseConnectionStateOpening:
+      return NO;
+    case UlysseConnectionStateOpened:
+      return YES;
+  }
 }
 
 #pragma mark - Private
@@ -357,7 +367,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   if (!_shouldOpen) {
     return;
   }
-  if (self.state == UlysseConnectionStateClosed || self.state == UlysseConnectionStateOpening) {
+  if (!self.isConnected) {
     _waitingCounter = 2;
   } else {
     _waitingCounter++;

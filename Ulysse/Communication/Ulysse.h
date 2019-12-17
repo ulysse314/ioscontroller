@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
 @property(nonatomic, readonly) BOOL waitingTooLong;
 @property(nonatomic) float motorCoef;
 @property(nonatomic) float extraMotorCoef;
+@property(nonatomic, readonly) BOOL isConnected;
 @property(nonatomic, readonly) UlysseConnectionState state;
 
 - (instancetype)initWithConfig:(Config *)config domains:(Domains*)domains;
