@@ -265,6 +265,11 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
     [self.domains.raspberryPiDomain addValuesWithModuleName:@"pi" values:_allValues[@"pi"]];
   }
   [self.domains.raspberryPiDomain valueUpdateDone];
+  [self.domains.hullDomain valueUpdateStart];
+  if (_allValues[@"hull"]) {
+    [self.domains.hullDomain addValuesWithModuleName:@"hull" values:_allValues[@"hull"]];
+  }
+  [self.domains.hullDomain valueUpdateDone];
   [self.domains.motorsDomain valueUpdateStart];
   for (NSString *key in _allValues.allKeys) {
     if ([key hasPrefix:@"motor-"]) {
