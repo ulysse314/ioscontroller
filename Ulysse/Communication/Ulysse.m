@@ -68,7 +68,6 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   NSOutputStream *_outputStream;
   NSMutableDictionary *_valuesToSend;
   NSTimer *_pingTimer;
-  UlysseConnectionState _state;
   BOOL _shouldOpen;
   NSInteger _waitingCounter;
   float _leftMotor;
@@ -79,6 +78,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 @property(nonatomic, strong) Domains *domains;
+@property(nonatomic, readwrite) UlysseConnectionState state;
 
 @end
 
@@ -130,7 +130,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
       [_allValues setObject:values[key] forKey:key];
     }
   }
-  if (_state == UlysseConnectionStateOpened) {
+  if (self.state == UlysseConnectionStateOpened) {
     [self sendValues];
   }
 }
@@ -164,7 +164,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 #pragma mark - Private
 
 - (void)openInternal {
-  _state = UlysseConnectionStateOpening;
+  self.state = UlysseConnectionStateOpening;
   CFReadStreamRef readStream;
   CFWriteStreamRef writeStream;
   NSString *server = [_config valueForKey:@"value_relay_server"];
@@ -195,7 +195,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   
   _inputStream.delegate = nil;
   _outputStream.delegate = nil;
-  _state = UlysseConnectionStateClosed;
+  self.state = UlysseConnectionStateClosed;
 }
 
 - (void)inputStreamHandleEvent:(NSStreamEvent)eventCode {
@@ -282,7 +282,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)outputStreamHandleEvent:(NSStreamEvent)eventCode {
-  if ((eventCode & NSStreamEventHasSpaceAvailable) && _state == UlysseConnectionStateOpening) {
+  if ((eventCode & NSStreamEventHasSpaceAvailable) && self.state == UlysseConnectionStateOpening) {
     [self sendValidToken];
   }
 }
@@ -314,8 +314,8 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)pingTimer:(NSTimer *)timer {
-//  DEBUGLOG(@"ping %lu", (unsigned long)_state);
-  switch (_state) {
+//  DEBUGLOG(@"ping %lu", (unsigned long)self.state);
+  switch (self.state) {
     case UlysseConnectionStateClosed:
       [self increaseWaitingCount];
       if (_shouldOpen) {
@@ -338,7 +338,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   DEBUGLOG(@"sent %ld %ld", count, [data length]);
   [_outputStream write:(const uint8_t *)"\n" maxLength:1];
 #pragma unused(count)
-  _state = UlysseConnectionStateOpened;
+  self.state = UlysseConnectionStateOpened;
   DEBUGLOG(@"Token sent");
 }
 
@@ -363,7 +363,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   if (!_shouldOpen) {
     return;
   }
-  if (_state == UlysseConnectionStateClosed || _state == UlysseConnectionStateOpening) {
+  if (self.state == UlysseConnectionStateClosed || self.state == UlysseConnectionStateOpening) {
     _waitingCounter = 2;
   } else {
     _waitingCounter++;
