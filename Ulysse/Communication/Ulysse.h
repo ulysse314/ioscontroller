@@ -15,7 +15,8 @@ extern NSString *UlysseWaitedTooLong;
 typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
   UlysseConnectionStateClosed,
   UlysseConnectionStateOpening,
-  UlysseConnectionStateOpened,
+  UlysseConnectionStateWaitingForData,
+  UlysseConnectionStateData,
 };
 
 @interface Ulysse : NSObject

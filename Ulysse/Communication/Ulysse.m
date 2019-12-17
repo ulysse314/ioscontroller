@@ -160,7 +160,8 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
     case UlysseConnectionStateClosed:
     case UlysseConnectionStateOpening:
       return NO;
-    case UlysseConnectionStateOpened:
+    case UlysseConnectionStateWaitingForData:
+    case UlysseConnectionStateData:
       return YES;
   }
 }
@@ -327,9 +328,8 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
       }
       break;
     case UlysseConnectionStateOpening:
-      [self increaseWaitingCount];
-      break;
-    case UlysseConnectionStateOpened:
+    case UlysseConnectionStateWaitingForData:
+    case UlysseConnectionStateData:
       [self increaseWaitingCount];
       break;
   }
@@ -342,7 +342,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   DEBUGLOG(@"sent %ld %ld", count, [data length]);
   [_outputStream write:(const uint8_t *)"\n" maxLength:1];
 #pragma unused(count)
-  self.state = UlysseConnectionStateOpened;
+  self.state = UlysseConnectionStateWaitingForData;
   DEBUGLOG(@"Token sent");
 }
 
