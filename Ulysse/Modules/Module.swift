@@ -17,7 +17,7 @@ class Module: NSObject {
     self.name = name
     super.init()
   }
-  
+
   func setAllValues(_ values: Dictionary<String, Any>) {
     self.values = values
     var newSortedKeys: Array = Array(self.values.keys)
@@ -25,12 +25,16 @@ class Module: NSObject {
     self.sortedKeys = newSortedKeys.filter { $0 != "errors" }
     self.values.removeValue(forKey: "errors")
   }
-  
+
   func value(key: String) -> Any? {
     return self.values[key]
   }
-  
+
   func humanValue(key: String, short: Bool) -> Any? {
     return self.value(key: key)
+  }
+
+  func humanKey(key: String) -> String {
+    return key
   }
 }

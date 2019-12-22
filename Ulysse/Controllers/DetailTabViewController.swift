@@ -49,7 +49,7 @@ class DetailDomainViewController: UITableViewController {
     if moduleIndex >= 0 {
       let module: Module = self.moduleDomain.modules[moduleIndex]
       let key: String = module.sortedKeys[indexPath.row]
-      cell.textLabel?.text = key
+      cell.textLabel?.text = module.humanKey(key: key)
       let value = module.humanValue(key: key, short: false)
       if value is Int {
         cell.detailTextLabel?.text = String(value as! Int)
