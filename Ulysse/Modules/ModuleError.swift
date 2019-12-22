@@ -80,10 +80,15 @@ class ModuleError: NSObject {
     case ampereInfo = 5
     case ampereWarning = 6
     case ampereCritical = 7
-    case temperatureUnknown = 8
-    case temperatureInfo = 9
-    case temperatureWarning = 10
-    case temperatureCritical = 11
+    case batteryTemperatureUnknown = 8
+    case batteryTemperatureInfo = 9
+    case batteryTemperatureWarning = 10
+    case batteryTemperatureCritical = 11
+    case ads1115NotFound = 12
+    case balancerTemperatureUnknown = 13
+    case balancerTemperatureInfo = 14
+    case balancerTemperatureWarning = 15
+    case balancerTemperatureCritical = 16
   }
 
   // Cellular domain 5
@@ -242,14 +247,24 @@ class ModuleError: NSObject {
       return "[warning] Ampere"
     case .ampereCritical:
       return "[critical] Ampere"
-    case .temperatureUnknown:
-      return "Temperature unknown"
-    case .temperatureInfo:
-      return "[info] Temperture"
-    case .temperatureWarning:
-      return "[warning] Temperature"
-    case .temperatureCritical:
-      return "[critical] Temperature"
+    case .batteryTemperatureUnknown:
+      return "Battery temperature unknown"
+    case .batteryTemperatureInfo:
+      return "[info] Battery temperture"
+    case .batteryTemperatureWarning:
+      return "[warning] Battery temperature"
+    case .batteryTemperatureCritical:
+      return "[critical] Battery temperature"
+    case .ads1115NotFound:
+      return "[critical] ADS1115 not found"
+    case .balancerTemperatureUnknown:
+      return "Balancer temperature unknown"
+    case .balancerTemperatureInfo:
+      return "[info] Balancer temperture"
+    case .balancerTemperatureWarning:
+      return "[warning] Balancer temperature"
+    case .balancerTemperatureCritical:
+      return "[critical] Balancer temperature"
     }
   }
 
