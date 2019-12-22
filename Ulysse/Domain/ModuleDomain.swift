@@ -62,6 +62,8 @@ class ModuleDomain: Domain {
       return CellularModule(name: name)
     } else if name == "gps" {
       return GPSModule(name: name)
+    } else if name == "battery" {
+      return BatteryModule(name: name)
     }
     return Module(name: name)
   }
