@@ -16,6 +16,7 @@ class ModuleError: NSObject {
     case battery = 4
     case cellular = 5
     case pi = 6
+    case hull = 7
   }
 
   // Arduino domain 1
@@ -120,6 +121,13 @@ class ModuleError: NSObject {
     case cpuInfo = 10
     case cpuWarning = 11
     case cpuCritical = 12
+  }
+
+  // Hull domain 7
+  enum HullError : Int {
+    case noError = 0
+    case ads1115NotFound = 1
+    case leak = 2
   }
 
   class func arduinoErrorMessage(errorCode: ArduinoError?) -> String {
@@ -328,7 +336,21 @@ class ModuleError: NSObject {
     case .cpuCritical:
       return "[critical] CPU" + (message != nil ? (", " + message!) : "")
     }
-}
+  }
+
+  class func hullErrorMessage(errorCode: HullError?, message: String?) -> String {
+    if errorCode == nil {
+      return "Unknown hull error code"
+    }
+    switch errorCode! {
+    case .noError:
+      return "No error" + (message != nil ? (", " + message!) : "")
+    case .ads1115NotFound:
+      return "[info] ADS1115 not found" + (message != nil ? (", " + message!) : "")
+    case .leak:
+      return "[critical] Leak" + (message != nil ? (", " + message!) : "")
+    }
+  }
 
   var domain: Domain
   var errorCode: Int
@@ -365,6 +387,8 @@ class ModuleError: NSObject {
       self.message = ModuleError.cellularErrorMessage(errorCode: CellularError(rawValue: errorCode), message: message)
     case .pi:
       self.message = ModuleError.piErrorMessage(errorCode: PiError(rawValue: errorCode), message: message)
+    case .hull:
+      self.message = ModuleError.hullErrorMessage(errorCode: HullError(rawValue: errorCode), message: message)
     }
   }
 }
