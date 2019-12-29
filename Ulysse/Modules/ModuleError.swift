@@ -115,12 +115,12 @@ class ModuleError: NSObject {
     case memoryInfo = 4
     case memoryWarning = 5
     case memoryCritical = 6
-    case diskInfo = 7
-    case diskWarning = 8
-    case diskCritical = 9
-    case cpuInfo = 10
-    case cpuWarning = 11
-    case cpuCritical = 12
+    case percentageDiskInfo = 7
+    case percentageDiskWarning = 8
+    case percentageDiskCritical = 9
+    case percentageCPUInfo = 10
+    case percentageCPUWarning = 11
+    case percentageCPUCritical = 12
   }
 
   // Hull domain 7
@@ -323,18 +323,18 @@ class ModuleError: NSObject {
       return "[warning] Memory" + (message != nil ? (", " + message!) : "")
     case .memoryCritical:
       return "[critical] Memory" + (message != nil ? (", " + message!) : "")
-    case .diskInfo:
-      return "[info] Disk" + (message != nil ? (", " + message!) : "")
-    case .diskWarning:
-      return "[warning] Disk" + (message != nil ? (", " + message!) : "")
-    case .diskCritical:
-      return "[critical] Disk" + (message != nil ? (", " + message!) : "")
-    case .cpuInfo:
-      return "[info] CPU" + (message != nil ? (", " + message!) : "")
-    case .cpuWarning:
-      return "[warning] CPU" + (message != nil ? (", " + message!) : "")
-    case .cpuCritical:
-      return "[critical] CPU" + (message != nil ? (", " + message!) : "")
+    case .percentageDiskInfo:
+      return "[info] Disk percentage" + (message != nil ? (", " + message!) : "")
+    case .percentageDiskWarning:
+      return "[warning] Disk percentage" + (message != nil ? (", " + message!) : "")
+    case .percentageDiskCritical:
+      return "[critical] Disk percentage" + (message != nil ? (", " + message!) : "")
+    case .percentageCPUInfo:
+      return "[info] CPU percentage" + (message != nil ? (", " + message!) : "")
+    case .percentageCPUWarning:
+      return "[warning] CPU percentage" + (message != nil ? (", " + message!) : "")
+    case .percentageCPUCritical:
+      return "[critical] CPU percentage" + (message != nil ? (", " + message!) : "")
     }
   }
 
