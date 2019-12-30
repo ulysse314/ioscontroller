@@ -373,7 +373,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
     _waitingCounter++;
   }
 //  DEBUGLOG(@"increase waiting count %ld", _waitingCounter);
-  NSInteger previousWaitingTooLong = _waitingTooLong;
+  BOOL previousWaitingTooLong = _waitingTooLong;
   if (_waitingCounter == 2) {
     _waitingTooLong = YES;
   }
@@ -383,7 +383,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)resetWaitingCount {
-  NSInteger previousWaitingTooLong = _waitingTooLong;
+  BOOL previousWaitingTooLong = _waitingTooLong;
   _waitingCounter = 0;
   _waitingTooLong = NO;
   if (previousWaitingTooLong != _waitingTooLong) {
