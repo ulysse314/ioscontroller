@@ -16,7 +16,7 @@ class Domains: NSObject {
     self.cellularDomain = CellularDomain(identifier: .Cellular)
     self.gpsDomain = GPSDomain(identifier: .GPS)
     self.motorsDomain = MotorDomain(identifier: .Motors)
-    self.hullDomain = ModuleDomain(name: "Hull", identifier: .Boat)
+    self.hullDomain = HullDomain(identifier: .Boat)
     self.arduinoDomain = ModuleDomain(name: "Arduino", identifier: .Arduino)
     self.raspberryPiDomain = RaspberryPiDomain(identifier: .RaspberryPi)
     self.settingsDomain = Domain(name: "Settings", identifier: .Settings)
