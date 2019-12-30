@@ -121,6 +121,10 @@ class ModuleError: NSObject {
     case noError = 0
     case ads1115NotFound = 1
     case leak = 2
+    case temperatureInfo = 3
+    case temperatureWarning = 4
+    case temperatureCritical = 5
+    case temperatureInvalid = 6
   }
 
   class func arduinoErrorMessage(errorCode: ArduinoError?) -> String {
@@ -342,6 +346,14 @@ class ModuleError: NSObject {
       return "[info] ADS1115 not found" + (message != nil ? (", " + message!) : "")
     case .leak:
       return "[critical] Leak" + (message != nil ? (", " + message!) : "")
+    case .temperatureInfo:
+      return "[info] Temperature" + (message != nil ? (", " + message!) : "")
+    case .temperatureWarning:
+      return "[warning] Temperature" + (message != nil ? (", " + message!) : "")
+    case .temperatureCritical:
+      return "[critical] Temperature" + (message != nil ? (", " + message!) : "")
+    case .temperatureInvalid:
+      return "[critical] Temperature Invalid" + (message != nil ? (", " + message!) : "")
     }
   }
 
