@@ -1,10 +1,3 @@
-//
-//  ModuleError.swift
-//  Ulysse
-//
-//  Copyright © 2019 Ulysse 314 Boat. All rights reserved.
-//
-
 import UIKit
 
 class ModuleError: NSObject {

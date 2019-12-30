@@ -1,10 +1,3 @@
-//
-//  CellularModule.swift
-//  Ulysse
-//
-//  Copyright © 2019 Ulysse 314 Boat. All rights reserved.
-//
-
 import Foundation
 
 class CellularModule: Module {
