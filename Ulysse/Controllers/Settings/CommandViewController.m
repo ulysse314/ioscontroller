@@ -18,13 +18,13 @@
     @{
       @"commands": @[
         @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
-        @{ @"name": @"Update Arduino", @"command": @"arduino_update"},
+        @{ @"name": @"Update Arduino", @"command": @"arduino_update", @"alert": @{ @"question": @"Do you want to update the arduino?" }},
       ],
     },
     @{
       @"commands": @[
-        @{ @"name": @"Reboot", @"command": @"reboot"},
-        @{ @"name": @"Shutdown", @"command": @"shutdown", @"alert": @YES},
+        @{ @"name": @"Reboot", @"command": @"reboot", @"alert": @{ @"question": @"Do you want to reboot the Raspberry Pi?" }},
+        @{ @"name": @"Shutdown", @"command": @"shutdown", @"alert": @{ @"question": @"Do you want to shutdown the Raspberry Pi?" }},
       ],
     },
   ];
@@ -67,11 +67,12 @@
     [appDelegate.ulysse sendCommand:command[@"command"]];
     [self.navigationController popViewControllerAnimated:YES];
   };
-  if (![command[@"alert"] boolValue]) {
+  if (!command[@"alert"]) {
     executeCommand();
   } else {
+    NSDictionary *alertData = command[@"alert"];
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Shutdown?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertData[@"question"] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:command[@"name"] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
