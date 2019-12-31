@@ -48,10 +48,11 @@ class ModuleError: NSObject {
     case unknownAntenna = 1
     case externalAntennaProblem = 2
     case usingInternalAntenna = 3
-    case noFixMode = 4
-    case mode2D = 5
-    case usedSatellitesTooLow = 6
-    case usedSatellitesLow = 7
+    case unknownMode = 4
+    case noFixMode = 5
+    case mode2D = 6
+    case usedSatellitesTooLow = 7
+    case usedSatellitesLow = 8
   }
 
   // Motor domain 3
@@ -200,6 +201,8 @@ class ModuleError: NSObject {
       return "External antenna problem"
     case .usingInternalAntenna:
       return "Using internal antenna"
+    case .unknownMode:
+      return "Unknown mode"
     case .noFixMode:
       return "No fix mode"
     case .mode2D:
