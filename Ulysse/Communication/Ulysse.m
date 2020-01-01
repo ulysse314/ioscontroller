@@ -245,14 +245,14 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 - (void)newValues:(NSDictionary *)values {
   _allValues = [values mutableCopy];
   [self.domains.arduinoDomain valueUpdateStart];
-  if (_allValues[@"arduino"]) {
-    _arduinoInfo = _allValues[@"arduino"];
-    [self.domains.arduinoDomain addValuesWithModuleName:@"arduino" values:_allValues[@"arduino"]];
+  if (_allValues[@"ard"]) {
+    _arduinoInfo = _allValues[@"ard"];
+    [self.domains.arduinoDomain addValuesWithModuleName:@"arduino" values:_allValues[@"ard"]];
   }
   [self.domains.arduinoDomain valueUpdateDone];
   [self.domains.batteryDomain valueUpdateStart];
-  if (_allValues[@"battery"]) {
-    [self.domains.batteryDomain addValuesWithModuleName:@"battery" values:_allValues[@"battery"]];
+  if (_allValues[@"batt"]) {
+    [self.domains.batteryDomain addValuesWithModuleName:@"battery" values:_allValues[@"batt"]];
   }
   [self.domains.batteryDomain valueUpdateDone];
   [self.domains.gpsDomain valueUpdateStart];
@@ -261,8 +261,8 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   }
   [self.domains.gpsDomain valueUpdateDone];
   [self.domains.cellularDomain valueUpdateStart];
-  if (_allValues[@"cellular"]) {
-    [self.domains.cellularDomain addValuesWithModuleName:@"cellular" values:_allValues[@"cellular"]];
+  if (_allValues[@"cell"]) {
+    [self.domains.cellularDomain addValuesWithModuleName:@"cellular" values:_allValues[@"cell"]];
   }
   [self.domains.cellularDomain valueUpdateDone];
   [self.domains.raspberryPiDomain valueUpdateStart];
@@ -271,13 +271,13 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   }
   [self.domains.raspberryPiDomain valueUpdateDone];
   [self.domains.hullDomain valueUpdateStart];
-  if (_allValues[@"hull"]) {
-    [self.domains.hullDomain addValuesWithModuleName:@"hull" values:_allValues[@"hull"]];
+  if (_allValues[@"hll"]) {
+    [self.domains.hullDomain addValuesWithModuleName:@"hull" values:_allValues[@"hll"]];
   }
   [self.domains.hullDomain valueUpdateDone];
   [self.domains.motorsDomain valueUpdateStart];
   for (NSString *key in _allValues.allKeys) {
-    if ([key hasPrefix:@"motor-"]) {
+    if ([key hasPrefix:@"mtr-"]) {
       [self.domains.motorsDomain addValuesWithModuleName:key values:_allValues[key]];
     }
   }
