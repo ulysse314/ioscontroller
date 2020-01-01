@@ -10,7 +10,7 @@ class GPSDomain: ModuleDomain {
 
   override func value1() -> String? {
     let module: Module? = self.module(name: "gps")
-    let modeValue: Int = module?.value(key: "mode") as? Int ?? 0
+    let modeValue: Int = module?.value(key: "mod") as? Int ?? 0
     switch modeValue {
     case 1:
       return "-"
@@ -25,9 +25,9 @@ class GPSDomain: ModuleDomain {
 
   override func value2() -> String? {
     let module: Module? = self.module(name: "gps")
-    let satCount: Int = module?.value(key: "sat") as? Int ?? 0
-    let trackCount: Int = module?.value(key: "tracked") as? Int ?? 0
-    return "\(trackCount)/\(satCount)"
+    let usedSatelliteCount: Int = module?.value(key: "ust") as? Int ?? 0
+    let viewedSatelliteCount: Int = module?.value(key: "vst") as? Int ?? 0
+    return "\(usedSatelliteCount)/\(viewedSatelliteCount)"
   }
 
 }

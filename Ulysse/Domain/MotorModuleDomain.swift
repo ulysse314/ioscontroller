@@ -9,14 +9,14 @@ class MotorDomain: ModuleDomain {
   // MARK: - Short values
 
   override func value1() -> String? {
-    let module: Module? = self.module(name: "motor-l")
-    let leftTemp: Int = Int(getDouble(value: module?.value(key: "temp")))
+    let module: Module? = self.module(name: "mtr-l")
+    let leftTemp: Int = Int(getDouble(value: module?.value(key: "t")))
     return "\(leftTemp)ºC"
   }
   
   override func value2() -> String? {
-    let module: Module? = self.module(name: "motor-r")
-    let rightTemp: Int = Int(getDouble(value: module?.value(key: "temp")))
+    let module: Module? = self.module(name: "mtr-r")
+    let rightTemp: Int = Int(getDouble(value: module?.value(key: "t")))
     return "\(rightTemp)ºC"
   }
 
