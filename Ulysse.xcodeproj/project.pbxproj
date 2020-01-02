@@ -50,6 +50,7 @@
 		02D6ED0923AEFD830041E183 /* BatteryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0823AEFD830041E183 /* BatteryModule.swift */; };
 		02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0A23B9B1660041E183 /* HullDomain.swift */; };
 		02D6ED0D23BDE3E90041E183 /* HullModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0C23BDE3E90041E183 /* HullModule.swift */; };
+		02D6ED0F23BDE9FA0041E183 /* ArduinoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */; };
 		02E549F0223EF0940080B353 /* CellularDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E549EF223EF0940080B353 /* CellularDomain.swift */; };
 		02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0120A1BE680002CB00 /* GamepadController.m */; };
 		02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0420A6C2A50002CB00 /* CommandViewController.m */; };
@@ -132,6 +133,7 @@
 		02D6ED0823AEFD830041E183 /* BatteryModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryModule.swift; sourceTree = "<group>"; };
 		02D6ED0A23B9B1660041E183 /* HullDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullDomain.swift; sourceTree = "<group>"; };
 		02D6ED0C23BDE3E90041E183 /* HullModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullModule.swift; sourceTree = "<group>"; };
+		02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArduinoModule.swift; sourceTree = "<group>"; };
 		02E549EF223EF0940080B353 /* CellularDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularDomain.swift; sourceTree = "<group>"; };
 		02FA6B0020A1BE680002CB00 /* GamepadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamepadController.h; sourceTree = "<group>"; };
 		02FA6B0120A1BE680002CB00 /* GamepadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamepadController.m; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				023C9F6C234BDB420003F0FA /* Module.swift */,
+				02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */,
 				020BA00723512A72005BA152 /* CellularModule.swift */,
 				020BA00B2354C841005BA152 /* GPSModule.swift */,
 				02D6ED0C23BDE3E90041E183 /* HullModule.swift */,
@@ -503,6 +506,7 @@
 				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,
 				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
 				02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */,
+				02D6ED0F23BDE9FA0041E183 /* ArduinoModule.swift in Sources */,
 				02D6ED0923AEFD830041E183 /* BatteryModule.swift in Sources */,
 				026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */,
 				022C0E36234907BE00F4DAA6 /* BatteryDomain.swift in Sources */,
