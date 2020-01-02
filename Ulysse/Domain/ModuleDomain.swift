@@ -27,8 +27,8 @@ class ModuleDomain: Domain {
         var error: ModuleError?
         if jsonError.count == 2 {
           error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: nil)
-        } else if jsonError.count == 3 {
-          error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: jsonError[2])
+        } else if jsonError.count == 4 {
+          error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: jsonError[3])
         }
         if error != nil {
           self.errors.append(error!)

@@ -214,23 +214,23 @@ class ModuleError: NSObject {
     }
   }
 
-  class func motorErrorMessage(errorCode: MotorError?) -> String {
+  class func motorErrorMessage(errorCode: MotorError?, message: String?) -> String {
     if errorCode == nil {
       return "Unknown motor error code"
     }
     switch errorCode! {
     case .noError:
-      return "No error"
+      return "No error" + (message != nil ? (", " + message!) : "")
     case .temperatureUnknown:
-      return "Temperature unknown"
+      return "Temperature unknown" + (message != nil ? (", " + message!) : "")
     case .temperatureInfo:
-      return "[info] Temperature"
+      return "[info] Temperature" + (message != nil ? (", " + message!) : "")
     case .temperatureWarning:
-      return "[warning] Temperature"
+      return "[warning] Temperature" + (message != nil ? (", " + message!) : "")
     case .temperatureCritical:
-      return "[critical] Temperature"
+      return "[critical] Temperature" + (message != nil ? (", " + message!) : "")
     case .pwmNotAvailable:
-      return "PWM not available"
+      return "PWM not available" + (message != nil ? (", " + message!) : "")
     }
   }
 
@@ -388,7 +388,7 @@ class ModuleError: NSObject {
     case .gps:
       self.message = ModuleError.gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
     case .motor:
-      self.message = ModuleError.motorErrorMessage(errorCode: MotorError(rawValue: errorCode))
+      self.message = ModuleError.motorErrorMessage(errorCode: MotorError(rawValue: errorCode), message: message)
     case .battery:
       self.message = ModuleError.batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
     case .cellular:
