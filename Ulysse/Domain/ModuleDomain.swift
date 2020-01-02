@@ -68,6 +68,8 @@ class ModuleDomain: Domain {
       return HullModule(name: name)
     } else if name == "arduino" {
       return ArduinoModule(name: name)
+    } else if name == "pi" {
+      return PiModule(name: name)
     }
     return Module(name: name)
   }
