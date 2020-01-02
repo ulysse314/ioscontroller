@@ -4,7 +4,7 @@ class GPSModule: Module {
 
   override func humanValue(key: String, short: Bool) -> Any? {
     let value = super.humanValue(key: key, short: short)
-    if key == "antenna" {
+    if key == "ant" {
       let intValue: Int = value as? Int ?? 0;
       switch intValue {
       case 1:
@@ -16,7 +16,7 @@ class GPSModule: Module {
       default:
         return value
       }
-    } else if key == "mode" {
+    } else if key == "mod" {
       let intValue: Int = value as? Int ?? 0
       switch intValue {
       case 1:
@@ -28,7 +28,7 @@ class GPSModule: Module {
       default:
         return value
       }
-    } else if key == "fixquality" {
+    } else if key == "fxq" {
       let intValue: Int = value as? Int ?? -1
       switch intValue {
       case 0:
@@ -53,8 +53,34 @@ class GPSModule: Module {
         return value
       }
     }
-
     return value
+  }
+
+  override func humanKey(key: String) -> String {
+    if key == "alt" {
+      return "Altitude"
+    } else if key == "ang" {
+      return "Heading"
+    } else if key == "ant" {
+      return "Antenna"
+    } else if key == "fxq" {
+      return "Fix quality"
+    } else if key == "mod" {
+      return "Mode"
+    } else if key == "ust" {
+      return "Used satellites"
+    } else if key == "vst" {
+      return "View satellites"
+    } else if key == "spd" {
+      return "Speed"
+    } else if key == "gh" {
+      return "Geoid height"
+    } else if key == "lat" {
+      return "Latitude"
+    } else if key == "lon" {
+      return "Longitude"
+    }
+    return key
   }
 
 }
