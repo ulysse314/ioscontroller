@@ -70,6 +70,10 @@ class ModuleDomain: Domain {
       return ArduinoModule(name: name)
     } else if name == "pi" {
       return PiModule(name: name)
+    } else if name == "mtr-l" {
+      return MotorModule(name: name)
+    } else if name == "mtr-r" {
+      return MotorModule(name: name)
     }
     return Module(name: name)
   }
