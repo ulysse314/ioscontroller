@@ -124,7 +124,7 @@ typedef enum : NSUInteger {
       break;
     case BootBoatCellIndex:
       cell.textLabel.text = @"Boot Time";
-      cell.detailTextLabel.text = [AppDelegate stringWithTimestamp:[_ulysse.allValues[@"boot_timestamp"] doubleValue]];
+      cell.detailTextLabel.text = [AppDelegate stringWithTimestamp:[_ulysse.allValues[@"bttmstmp"] doubleValue]];
       break;
     case MotorCoefBoatCellIndex:
       cell.textLabel.text = @"Motor Coef";
