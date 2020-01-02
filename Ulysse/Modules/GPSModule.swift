@@ -79,12 +79,12 @@ class GPSModule: Module {
       return "Latitude"
     } else if key == "lon" {
       return "Longitude"
-      } else if key == "pdp" {
-        return "Position DOP"
-      } else if key == "vdp" {
-        return "Vertical DOP"
-      } else if key == "hdp" {
-        return "Horizontal DOP"
+    } else if key == "pdp" {
+      return "Position DOP"
+    } else if key == "vdp" {
+      return "Vertical DOP"
+    } else if key == "hdp" {
+      return "Horizontal DOP"
     }
     return key
   }
