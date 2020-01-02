@@ -124,10 +124,14 @@
   } else if (!_camStarted && [[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
     //[self startCam];
   }
-  if (_squareView.backgroundColor == [UIColor blackColor]) {
-    _squareView.backgroundColor = [UIColor whiteColor];
+  if (_squareView.backgroundColor != UIColor.whiteColor) {
+    _squareView.backgroundColor = UIColor.whiteColor;
   } else {
-    _squareView.backgroundColor = [UIColor blackColor];
+    UIColor *color = UIColor.blackColor;
+    if ([allValues[@"record"] boolValue]) {
+      color = UIColor.redColor;
+    }
+    _squareView.backgroundColor = color;
   }
   [self.domainButtonListViewController updateDomainButtonValues];
 }
