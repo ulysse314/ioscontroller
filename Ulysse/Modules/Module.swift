@@ -15,8 +15,8 @@ class Module: NSObject {
     self.values = values
     var newSortedKeys: Array = Array(self.values.keys)
     newSortedKeys = newSortedKeys.sorted{ $0.compare($1, options: .caseInsensitive) == .orderedAscending }
-    self.sortedKeys = newSortedKeys.filter { $0 != "errors" }
-    self.values.removeValue(forKey: "errors")
+    self.sortedKeys = newSortedKeys.filter { $0 != "err" }
+    self.values.removeValue(forKey: "err")
   }
 
   func value(key: String) -> Any? {

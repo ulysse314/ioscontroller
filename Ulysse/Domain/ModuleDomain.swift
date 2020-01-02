@@ -21,7 +21,7 @@ class ModuleDomain: Domain {
       self.modules.append(module!)
       self.moduleAdded = true
     }
-    let valueErrors = values["errors"] as? Array<Array<Any>>
+    let valueErrors = values["err"] as? Array<Array<Any>>
     if valueErrors != nil {
       for jsonError in valueErrors! {
         var error: ModuleError?
