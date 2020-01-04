@@ -18,7 +18,7 @@
     @{
       @"commands": @[
         @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
-        @{ @"name": @"Update Arduino", @"command": @"arduino_update", @"alert": @{ @"question": @"Do you want to update the arduino?" }},
+        @{ @"name": @"Update Arduino", @"command": @"update_arduino", @"alert": @{ @"question": @"Do you want to update the arduino?" }},
       ],
     },
     @{
