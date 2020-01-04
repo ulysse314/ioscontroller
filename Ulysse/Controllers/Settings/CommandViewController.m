@@ -23,6 +23,7 @@
     },
     @{
       @"commands": @[
+        @{ @"name": @"Update", @"command": @"update_pi", @"alert": @{ @"question": @"Do you want to update the Raspberry Pi?" }},
         @{ @"name": @"Reboot", @"command": @"reboot", @"alert": @{ @"question": @"Do you want to reboot the Raspberry Pi?" }},
         @{ @"name": @"Shutdown", @"command": @"shutdown", @"alert": @{ @"question": @"Do you want to shutdown the Raspberry Pi?" }},
       ],
