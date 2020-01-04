@@ -40,6 +40,7 @@ class ModuleError: NSObject {
     case batteryCodeUnknown = 23
     case devNotFound = 100
     case connectionError = 101
+    case noDataError = 102
   }
 
   // GPS domain 2
@@ -185,6 +186,8 @@ class ModuleError: NSObject {
       return "Dev not found"
     case .connectionError:
       return "Connection error"
+    case .noDataError:
+      return "No data"
     }
   }
 
