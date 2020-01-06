@@ -114,7 +114,6 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (void)setValues:(NSDictionary *)values {
-  DEBUGLOG(@"%@", values);
   if (!_valuesToSend) {
     _valuesToSend = [NSMutableDictionary dictionary];
   }
@@ -153,6 +152,10 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 
 - (void)sendCommand:(NSString *)command {
   [self setValues:@{@"command": command}];
+}
+
+- (void)sendPing {
+  [self setValues:@{@"ping": @YES}];
 }
 
 - (BOOL)isConnected {
@@ -238,6 +241,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
       DEBUGLOG(@"Error decoding %@", error);
     } else if (objects) {
       [self newValues:objects];
+      [self sendPing];
     }
   }
 }
