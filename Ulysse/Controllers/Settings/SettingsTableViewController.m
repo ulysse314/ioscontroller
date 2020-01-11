@@ -127,7 +127,7 @@ typedef enum : NSUInteger {
       cell.detailTextLabel.text = [AppDelegate stringWithTimestamp:[_ulysse.allValues[@"bttmstmp"] doubleValue]];
       break;
     case MotorCoefBoatCellIndex:
-      cell.textLabel.text = @"Motor Coef";
+      cell.textLabel.text = [NSString stringWithFormat:@"Motor Coef %d%%", (int)(_ulysse.motorCoef * 100)];
       [(UISlider *)cell.accessoryView addTarget:self action:@selector(motorCoefAction:) forControlEvents:UIControlEventTouchUpInside];
       [(UISlider *)cell.accessoryView setValue:_ulysse.motorCoef];
       break;
@@ -183,6 +183,8 @@ typedef enum : NSUInteger {
   sender.value = value;
   AppDelegate *appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   appDelegate.motorCoef = value;
+  NSIndexPath *indexpath = [NSIndexPath indexPathForRow:MotorCoefBoatCellIndex inSection:BoatSection];
+  [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:NO];
 }
 
 #pragma mark - UITableViewDelegate
