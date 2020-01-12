@@ -27,6 +27,8 @@ class PiModule: Module {
       return "Temperature"
     } else if key == "uplddrt" {
       return "Upload duration"
+    } else if key == "lpdrt" {
+      return "Loop duration"
     }
     return key
   }
