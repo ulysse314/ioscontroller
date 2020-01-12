@@ -16,4 +16,7 @@ typedef enum {
 @property(nonatomic) PlayerIndexFlash playerIndexFlash;
 @property(nonatomic, readonly) BOOL isConnected;
 
+- (void)updateMotorWithGamepad;
+- (void)stopMotors;
+
 @end

@@ -46,6 +46,14 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   return YES;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [self.gamepadController updateMotorWithGamepad];
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+  [self.gamepadController stopMotors];
+}
+
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
   return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
 }

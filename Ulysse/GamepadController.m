@@ -47,6 +47,16 @@
   }
 }
 
+- (void)updateMotorWithGamepad {
+  float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
+  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
+  [self updateMotorWithXValue:xValue yValue:yValue];
+}
+
+- (void)stopMotors {
+  [self updateMotorWithXValue:0 yValue:0];
+}
+
 #pragma mark - Private
 
 - (void)updatePlayerIndex {
@@ -81,12 +91,6 @@
   self.gameController.playerIndex = GCControllerPlayerIndexUnset;
   [_timer invalidate];
   _timer = [NSTimer scheduledTimerWithTimeInterval:PLAYER_INDEX_START_FLASH_TIMER target:self selector:@selector(setPlayerIndexTimer) userInfo:nil repeats:NO];
-}
-
-- (void)updateMotorWithGamepad {
-  float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
-  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
-  [self updateMotorWithXValue:xValue yValue:yValue];
 }
 
 - (void)updateMotorWithXValue:(float)xValue yValue:(float)yValue {
@@ -184,7 +188,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:notification.object];
   self.isConnected = NO;
   self.gameController = nil;
-  [self updateMotorWithXValue:0 yValue:0];
+  [self stopMotors];
 }
 
 @end
