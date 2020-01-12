@@ -13,6 +13,8 @@
   NSTimer *_timer;
 }
 
+@property(nonatomic, readonly, weak) GCControllerDirectionPad *directionStick;
+@property(nonatomic, readonly, weak) GCControllerButtonInput *turboBoostTrigger;
 @property(nonatomic, strong) GCController *gameController;
 @property(nonatomic, readwrite) BOOL isConnected;
 
@@ -48,13 +50,21 @@
 }
 
 - (void)updateMotorWithGamepad {
-  float xValue = self.gameController.extendedGamepad.rightThumbstick.xAxis.value;
-  float yValue = self.gameController.extendedGamepad.rightThumbstick.yAxis.value;
+  float xValue = self.directionStick.xAxis.value;
+  float yValue = self.directionStick.yAxis.value;
   [self updateMotorWithXValue:xValue yValue:yValue];
 }
 
 - (void)stopMotors {
   [self updateMotorWithXValue:0 yValue:0];
+}
+
+- (GCControllerDirectionPad *)directionStick {
+  return self.gameController.extendedGamepad.leftThumbstick;
+}
+
+- (GCControllerButtonInput *)turboBoostTrigger {
+  return self.gameController.extendedGamepad.leftTrigger;
 }
 
 #pragma mark - Private
@@ -166,10 +176,10 @@
       [weakSelf smallPlayerIndexFlash];
     }
   };
-  self.gameController.extendedGamepad.rightThumbstick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
+  self.directionStick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
     [self updateMotorWithGamepad];
   };
-  self.gameController.extendedGamepad.rightTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
+  self.turboBoostTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
     self.ulysse.extraMotorCoef = value;
   };
   self.gameController.extendedGamepad.rightShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
