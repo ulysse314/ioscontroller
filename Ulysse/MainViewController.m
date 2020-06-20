@@ -6,6 +6,7 @@
 #import <WebKit/WebKit.h>
 
 #import "AppDelegate.h"
+#import "Config.h"
 #import "GamepadController.h"
 #import "SettingsTableViewController.h"
 #import "UITabBarController+HideTabBar.h"
@@ -18,7 +19,6 @@
 @interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
-  WKWebView *_webView;
   BOOL _camStarted;
 }
 
@@ -28,6 +28,7 @@
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
 @property (nonatomic, assign) BOOL verticalButtons;
+@property (nonatomic, strong) CameraViewController *cameraViewController;
 
 @property (nonatomic, strong) Domains *domains;
 
@@ -83,7 +84,6 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ulysseValuesDidChange:) name:UlysseValuesDidUpdate object:_ulysse];
 
   [self ulysseValuesDidChange:nil];
-  [self startCam];
   [self updateGamepadController];
   [self updateVerticalPreference];
 }
@@ -120,9 +120,9 @@
   [self.mapViewController updateWithValues:allValues];
   [self.statusViewController updateWithValues:allValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
-    //[self stopCam];
+    [self stopCam];
   } else if (!_camStarted && [[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
-    //[self startCam];
+    [self startCam];
   }
   if (_squareView.backgroundColor != UIColor.whiteColor) {
     _squareView.backgroundColor = UIColor.whiteColor;
@@ -137,18 +137,28 @@
 }
 
 - (void)startCam {
-  NSURL *url = [NSURL URLWithString:@""];
-  NSURLRequest *request = [NSURLRequest requestWithURL:url];
-  [_webView loadRequest:request];
-//  [_webView loadHTMLString:@"HELLO" baseURL:nil];
+  if (_camStarted) {
+    return;
+  }
+  NSString *server = [self.appDelegate.config valueForKey:@"value_relay_server"];
+  NSString *port = [self.appDelegate.config valueForKey:@"controller_stream_port"];
+  NSString *stringURL = [NSString stringWithFormat:@"http://%@:%@", server, port];
+  NSURL *url = [NSURL URLWithString:stringURL];
+  self.cameraViewController = [[CameraViewController alloc] initWithCameraURL:url];
+  UIView *cameraView = self.cameraViewController.view;
+  [self.view insertSubview:cameraView aboveSubview:self.mapViewController.view];
+  cameraView.translatesAutoresizingMaskIntoConstraints = NO;
+  [cameraView.heightAnchor constraintEqualToConstant:200/4 * 3].active = YES;
+  [cameraView.widthAnchor constraintEqualToConstant:200].active = YES;
+  [self.view.bottomAnchor constraintEqualToAnchor:cameraView.bottomAnchor constant:8].active = YES;
+  [self.view.trailingAnchor constraintEqualToAnchor:cameraView.trailingAnchor constant:8].active = YES;
   _camStarted = YES;
 }
 
 - (void)stopCam {
-    NSURL *url = [NSURL URLWithString:@""];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [_webView loadRequest:request];
-    _camStarted = NO;
+  [self.cameraViewController.view removeFromSuperview];
+  self.cameraViewController = nil;
+  _camStarted = NO;
 }
 
 - (void)removePresentedViewController {

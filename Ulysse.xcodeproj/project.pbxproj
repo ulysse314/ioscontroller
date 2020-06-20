@@ -37,6 +37,7 @@
 		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
 		026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ModuleButton.swift */; };
 		026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* TabButtonListView.swift */; };
+		02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02918E5C249E2D7400359C9A /* CameraViewController.swift */; };
 		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
 		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
 		029931151D3180FC00C03033 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931141D3180FC00C03033 /* MainViewController.m */; };
@@ -113,6 +114,7 @@
 		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		026DD12A21FCA383006B18B7 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
 		026DD12C21FCB4D9006B18B7 /* TabButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonListView.swift; sourceTree = "<group>"; };
+		02918E5C249E2D7400359C9A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		0299310A1D3180FC00C03033 /* Ulysse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulysse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0299310E1D3180FC00C03033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		029931101D3180FC00C03033 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				0244F5B6234169D700440189 /* MapViewController.swift */,
 				0244F5B82342ADC200440189 /* StatusViewController.swift */,
 				022C0E2B2346AB5100F4DAA6 /* DomainButtonListViewController.swift */,
+				02918E5C249E2D7400359C9A /* CameraViewController.swift */,
 				02F4008C204718CC00016004 /* Settings */,
 			);
 			path = Controllers;
@@ -501,6 +504,7 @@
 				022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */,
 				02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */,
+				02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
 				029931151D3180FC00C03033 /* MainViewController.m in Sources */,
