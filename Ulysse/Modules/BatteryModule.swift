@@ -17,6 +17,8 @@ class BatteryModule: Module {
       return "Balancer 2"
     } else if key == "volt" {
       return "Volt"
+    } else if key == "ah" {
+      return "Consumption"
     }
     return key
   }
