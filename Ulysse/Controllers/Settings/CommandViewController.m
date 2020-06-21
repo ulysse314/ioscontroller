@@ -17,6 +17,7 @@
   _commandsAndSections = @[
     @{
       @"commands": @[
+        @{ @"name": @"Reset Current Consumption", @"command": @"reset_current_consumption"},
         @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
         @{ @"name": @"Update Arduino", @"command": @"update_arduino", @"alert": @{ @"question": @"Do you want to update the arduino?" }},
       ],
