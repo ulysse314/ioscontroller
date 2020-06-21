@@ -60,7 +60,7 @@ class CameraViewController: UIViewController, WKNavigationDelegate {
   }
 
   func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-    NSLog("didCommit"
+    NSLog("didCommit")
   }
 
  func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
