@@ -12,10 +12,21 @@
 
 @implementation CommandViewController
 
++ (UIColor*)backgroundColor {
+  return [UIColor colorWithRed:239./255. green:239./255. blue:244./255. alpha:1.0];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.tableView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+  self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+  self.tableView.estimatedSectionHeaderHeight = 36;
+  self.tableView.backgroundColor = [[self class] backgroundColor];
+  self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+  self.tableView.tableFooterView.backgroundColor = [[self class] backgroundColor];
   _commandsAndSections = @[
     @{
+      @"header": @"Arduino",
       @"commands": @[
         @{ @"name": @"Reset Current Consumption", @"command": @"reset_current_consumption"},
         @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
@@ -23,6 +34,7 @@
       ],
     },
     @{
+      @"header": @"Pi",
       @"commands": @[
         @{ @"name": @"Update", @"command": @"update_pi", @"alert": @{ @"question": @"Do you want to update the Raspberry Pi?" }},
         @{ @"name": @"Reboot", @"command": @"reboot", @"alert": @{ @"question": @"Do you want to reboot the Raspberry Pi?" }},
@@ -30,6 +42,10 @@
       ],
     },
   ];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -42,6 +58,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return _commandsAndSections.count;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+  view.backgroundColor = [[self class] backgroundColor];
+  UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 100, 100)];
+  [view addSubview:label];
+  NSDictionary *commands = _commandsAndSections[section];
+  label.text = commands[@"header"];
+  label.translatesAutoresizingMaskIntoConstraints = NO;
+  [view addConstraints:[NSLayoutConstraint
+                        constraintsWithVisualFormat:@"H:|-(8)-[label]-(>=8)-|"
+                        options:NSLayoutFormatAlignAllCenterY
+                        metrics:0
+                        views:@{@"label":label}]];
+  [view addConstraints:[NSLayoutConstraint
+                        constraintsWithVisualFormat:@"V:|-(12)-[label]-(8)-|"
+                        options:NSLayoutFormatAlignAllCenterY
+                        metrics:0
+                        views:@{@"label":label}]];
+  return view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

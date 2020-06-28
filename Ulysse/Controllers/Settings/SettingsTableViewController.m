@@ -52,11 +52,6 @@ typedef enum : NSUInteger {
   self.tableView.tableFooterView.backgroundColor = [[self class] backgroundColor];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
   [self.tableView reloadData];
 }
@@ -232,7 +227,7 @@ typedef enum : NSUInteger {
       NSAssert(NO, @"Unknown section %ld", section);
       break;
   }
-  label.translatesAutoresizingMaskIntoConstraints = false;
+  label.translatesAutoresizingMaskIntoConstraints = NO;
   [view addConstraints:[NSLayoutConstraint
                         constraintsWithVisualFormat:@"H:|-(8)-[label]-(>=8)-|"
                         options:NSLayoutFormatAlignAllCenterY
