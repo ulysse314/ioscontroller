@@ -11,6 +11,7 @@
 		020BA00C2354C841005BA152 /* GPSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00B2354C841005BA152 /* GPSModule.swift */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
+		021DF77A249FFFED007AA655 /* MainViewLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DF779249FFFED007AA655 /* MainViewLayoutController.swift */; };
 		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
 		022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */; };
 		022BAD5721FDDF7900624EFA /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Domain.swift */; };
@@ -82,6 +83,7 @@
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		021DF779249FFFED007AA655 /* MainViewLayoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewLayoutController.swift; sourceTree = "<group>"; };
 		021E06E11D3717DD002A7BD3 /* Trackpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackpad.h; sourceTree = "<group>"; };
 		021E06E21D3717DD002A7BD3 /* Trackpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trackpad.m; sourceTree = "<group>"; };
 		021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ulysse-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				02FA6B0120A1BE680002CB00 /* GamepadController.m */,
 				029931131D3180FC00C03033 /* MainViewController.h */,
 				029931141D3180FC00C03033 /* MainViewController.m */,
+				021DF779249FFFED007AA655 /* MainViewLayoutController.swift */,
 				021565FB1FF6EC3E00D9BC98 /* Config.h */,
 				021565FC1FF6EC3E00D9BC98 /* Config.m */,
 				029931191D3180FC00C03033 /* Main.storyboard */,
@@ -504,6 +507,7 @@
 				022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */,
 				02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */,
+				021DF77A249FFFED007AA655 /* MainViewLayoutController.swift in Sources */,
 				02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,

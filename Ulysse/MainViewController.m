@@ -15,6 +15,7 @@
 #import "Ulysse-Swift.h"
 
 #define kVerticalButtonsPReference   @"vertical_buttons"
+#define MAX_BATTERY_AH               15
 
 @interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
@@ -29,6 +30,8 @@
 @property (nonatomic, strong) UIButton *backgroundExitButton;
 @property (nonatomic, assign) BOOL verticalButtons;
 @property (nonatomic, strong) CameraViewController *cameraViewController;
+@property (nonatomic, strong) UIProgressView *currentConsumptionProgressView;
+@property (nonatomic, strong) MainViewLayoutController *layoutController;
 
 @property (nonatomic, strong) Domains *domains;
 
@@ -43,38 +46,30 @@
   [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:kVerticalButtonsPReference options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   self.domains = self.appDelegate.domains;
+  self.layoutController = [[MainViewLayoutController alloc] initWithMainView:self.view];
 
   // Add view controllers.
   self.mapViewController = [[MapViewController alloc] init];
   [self addChildViewController:self.mapViewController];
-  [self.view insertSubview:self.mapViewController.view atIndex:0];
+  self.layoutController.mapView = self.mapViewController.view;
   [self.mapViewController didMoveToParentViewController:self];
 
   self.statusViewController = [[StatusViewController alloc] init];
   [self addChildViewController:self.statusViewController];
-  [self.view addSubview:self.statusViewController.view];
+  self.layoutController.statusView = self.statusViewController.view;
   [self.statusViewController didMoveToParentViewController:self];
 
   self.domainButtonListViewController = [[DomainButtonListViewController alloc] initWithDomains:self.domains];
-  [self addChildViewController:self.domainButtonListViewController];
-  [self.view addSubview:self.domainButtonListViewController.view];
-  [self.domainButtonListViewController didMoveToParentViewController:self];
-  
-  self.statusViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.statusViewController.view.trailingAnchor constant:10].active = YES;
-  [self.statusViewController.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:10].active = YES;
-  [self.statusViewController.view.heightAnchor constraintEqualToConstant:24].active = YES;
-
-  // Configure views.
-  self.mapViewController.view.frame = self.view.bounds;
-
   self.domainButtonListViewController.delegate = self;
   self.domainButtonListViewController.verticalButtons = self.verticalButtons;
-  self.domainButtonListViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-    [self.domainButtonListViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
-    [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.bottomAnchor constant:10],
-  ]];
+  [self addChildViewController:self.domainButtonListViewController];
+  self.layoutController.domainButtonListView = self.domainButtonListViewController.view;
+  [self.domainButtonListViewController didMoveToParentViewController:self];
+
+  self.currentConsumptionProgressView = [[UIProgressView alloc] init];
+  self.layoutController.currentConsumptionProgressView = self.currentConsumptionProgressView;
+
+  [self.layoutController setupLayouts];
 
   // Rest of config.
   [self.appDelegate.gamepadController addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
@@ -134,6 +129,11 @@
     _squareView.backgroundColor = color;
   }
   [self.domainButtonListViewController updateDomainButtonValues];
+  NSNumber *currentConsumption = [allValues[@"batt"] objectForKey:@"ah"];
+  if (currentConsumption) {
+    double value = currentConsumption.doubleValue;
+    self.currentConsumptionProgressView.progress = (MAX_BATTERY_AH - value) / MAX_BATTERY_AH;
+  }
 }
 
 - (void)startCam {
@@ -145,19 +145,16 @@
   NSString *stringURL = [NSString stringWithFormat:@"http://%@:%@", server, port];
   NSURL *url = [NSURL URLWithString:stringURL];
   self.cameraViewController = [[CameraViewController alloc] initWithCameraURL:url];
-  UIView *cameraView = self.cameraViewController.view;
-  [self.view insertSubview:cameraView aboveSubview:self.mapViewController.view];
-  cameraView.translatesAutoresizingMaskIntoConstraints = NO;
-  [cameraView.heightAnchor constraintEqualToConstant:200/4 * 3].active = YES;
-  [cameraView.widthAnchor constraintEqualToConstant:200].active = YES;
-  [self.view.bottomAnchor constraintEqualToAnchor:cameraView.bottomAnchor constant:8].active = YES;
-  [self.view.trailingAnchor constraintEqualToAnchor:cameraView.trailingAnchor constant:8].active = YES;
+  [self addChildViewController:self.cameraViewController];
+  self.layoutController.cameraView = self.cameraViewController.view;
+  [self.cameraViewController didMoveToParentViewController:self];
   _camStarted = YES;
 }
 
 - (void)stopCam {
   [self.cameraViewController.view removeFromSuperview];
   self.cameraViewController = nil;
+  self.layoutController.cameraView = nil;
   _camStarted = NO;
 }
 
