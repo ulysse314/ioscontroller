@@ -50,9 +50,6 @@ class MainViewLayoutController: NSObject {
         self.mainView.insertSubview(self.cameraView!, aboveSubview: self.mapView)
         self.layout(miniView: self.cameraView!, centerConstraints: &self.cameraViewCenterConstraints)
         self.layout(miniView: self.cameraView!, sizeConstraints: &self.cameraViewSizeConstraints)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-          self.switchToCamera()
-        }
       } else {
         self.switchToMap()
       }
@@ -94,9 +91,6 @@ class MainViewLayoutController: NSObject {
       self.layout(bigView: self.cameraView!, sizeConstraints: &self.cameraViewSizeConstraints)
       self.layout(bigView: self.cameraView!, centerConstraints: &self.cameraViewCenterConstraints)
       self.mainView.layoutIfNeeded()
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
-        self.switchToMap()
-      }
     }
   }
 
