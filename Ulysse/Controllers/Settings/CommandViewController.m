@@ -29,8 +29,9 @@
       @"header": @"Arduino",
       @"commands": @[
         @{ @"name": @"Reset Current Consumption", @"command": @"reset_current_consumption"},
-        @{ @"name": @"Get Arduino Info", @"command": @"arduino_info"},
-        @{ @"name": @"Update Arduino", @"command": @"update_arduino", @"alert": @{ @"question": @"Do you want to update the arduino?" }},
+        @{ @"name": @"Get Info", @"command": @"arduino_info"},
+        @{ @"name": @"Update", @"command": @"update_arduino", @"alert": @{ @"question": @"Do you want to update the Arduino?" }},
+        @{ @"name": @"Restart", @"command": @"restart_arduino", @"alert": @{ @"question": @"Do you want to reset the Arduion?" }},
       ],
     },
     @{
