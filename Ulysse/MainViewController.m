@@ -152,7 +152,9 @@
 }
 
 - (void)stopCam {
+  [self.cameraViewController willMoveToParentViewController:nil];
   [self.cameraViewController.view removeFromSuperview];
+  [self.cameraViewController removeFromParentViewController];
   self.cameraViewController = nil;
   self.layoutController.cameraView = nil;
   _camStarted = NO;
