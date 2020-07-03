@@ -130,7 +130,7 @@
   }
   [self.domainButtonListViewController updateDomainButtonValues];
   NSNumber *currentConsumption = [allValues[@"batt"] objectForKey:@"ah"];
-  if (currentConsumption) {
+  if (currentConsumption && [currentConsumption isKindOfClass:[NSNumber class]]) {
     double value = currentConsumption.doubleValue;
     self.currentConsumptionProgressView.progress = (MAX_BATTERY_AH - value) / MAX_BATTERY_AH;
   }
