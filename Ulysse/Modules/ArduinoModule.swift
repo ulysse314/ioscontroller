@@ -27,8 +27,28 @@ class ArduinoModule: Module {
       return "Timestamp"
     } else if key == "vrs" {
       return "Version"
+    } else if key == "rst" {
+      return "Last reset reason"
     }
     return key
+  }
+
+  override func humanValue(key: String, short: Bool) -> Any? {
+    let value = super.humanValue(key: key, short: short)
+    if key == "rst" {
+      let intValue: Int = value as? Int ?? -1
+      switch intValue {
+      case 1:
+        return "Power lost"
+      case 32:
+        return "Watchdog reset"
+      case 64:
+        return "Software update"
+      default:
+        return value
+      }
+    }
+    return value
   }
 
 }
