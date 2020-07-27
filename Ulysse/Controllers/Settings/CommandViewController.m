@@ -46,10 +46,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
   [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
   if (self.navigationController.topViewController == self) {
     [self.navigationController popViewControllerAnimated:NO];
   }

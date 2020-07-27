@@ -106,6 +106,7 @@
 }
 
 - (void)viewDidUnload {
+  [super viewDidUnload];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UlysseValuesDidUpdate object:_ulysse];
 }
 
