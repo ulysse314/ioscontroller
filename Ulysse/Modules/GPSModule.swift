@@ -59,7 +59,7 @@ class GPSModule: Module {
   override func humanKey(key: String) -> String {
     if key == "alt" {
       return "Altitude"
-    } else if key == "ang" {
+    } else if key == "head" {
       return "Heading"
     } else if key == "ant" {
       return "Antenna"
