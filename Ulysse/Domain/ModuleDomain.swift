@@ -24,11 +24,15 @@ class ModuleDomain: Domain {
     let valueErrors = values["err"] as? Array<Array<Any>>
     if valueErrors != nil {
       for jsonError in valueErrors! {
+        // jsonError[0]: Domain
+        // jsonError[1]: Error code
+        // jsonError[2]: Persistant
+        // jsonError[3]: Message
         var error: ModuleError?
-        if jsonError.count == 2 {
+        if jsonError.count >= 4 {
+          error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: jsonError[3])
+        } else if jsonError.count >= 2 {
           error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: nil)
-        } else if jsonError.count >= 3 {
-          error = ModuleError.createError(domainValue: jsonError[0], codeValue: jsonError[1], messageValue: jsonError[2])
         }
         if error != nil {
           self.errors.append(error!)
