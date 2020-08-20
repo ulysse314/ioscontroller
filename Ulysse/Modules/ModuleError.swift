@@ -127,7 +127,9 @@ class ModuleError: NSObject {
     case temperatureWarning = 4
     case temperatureCritical = 5
     case temperatureInvalid = 6
-  }
+    case bno055Error = 7
+    case bno055SystemStatus = 8
+}
 
   class func arduinoErrorMessage(errorCode: ArduinoError?) -> String {
     if errorCode == nil {
@@ -360,6 +362,10 @@ class ModuleError: NSObject {
       return "[critical] Temperature" + (message != nil ? (", " + message!) : "")
     case .temperatureInvalid:
       return "[critical] Temperature Invalid" + (message != nil ? (", " + message!) : "")
+    case .bno055Error:
+      return "[critical] BNO055 error" + (message != nil ? (", " + message!) : "")
+    case .bno055SystemStatus:
+      return "[critical] BNO055 system status" + (message != nil ? (", " + message!) : "")
     }
   }
 
