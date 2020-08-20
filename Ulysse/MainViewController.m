@@ -15,7 +15,7 @@
 #import "Ulysse-Swift.h"
 
 #define kVerticalButtonsPReference   @"vertical_buttons"
-#define MAX_BATTERY_AH               15
+#define MAX_BATTERY_AH               17
 
 @interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
