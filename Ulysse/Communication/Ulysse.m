@@ -381,6 +381,9 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   if (_waitingCounter == 2) {
     _waitingTooLong = YES;
   }
+  if (_waitingCounter != 0 && _waitingCounter % 5 == 0) {
+    [self sendPing];
+  }
   if (previousWaitingTooLong != _waitingTooLong) {
     [[NSNotificationCenter defaultCenter] postNotificationName:UlysseWaitedTooLong object:self];
   }
