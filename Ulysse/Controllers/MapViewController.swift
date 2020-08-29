@@ -62,9 +62,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
       self.didChangeValue(forKey: "coordinate")
       self.needsMapViewUpdate = true
     }
-    let dof: Dictionary<String, Any>? = values["dof"] as? Dictionary
-    if (dof != nil && dof?["heading"] != nil) {
-      self.heading = getDouble(value: dof!["heading"])
+    let hullValues: Dictionary<String, Any>? = values["hll"] as? Dictionary
+    if (hullValues != nil && hullValues?["headav"] != nil) {
+      self.heading = getDouble(value: hullValues!["headav"])
       self.needsMapViewUpdate = true
     }
     if (self.needsMapViewUpdate) {
