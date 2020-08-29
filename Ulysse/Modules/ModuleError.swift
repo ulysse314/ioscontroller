@@ -129,7 +129,12 @@ class ModuleError: NSObject {
     case temperatureInvalid = 6
     case bno055Error = 7
     case bno055SystemStatus = 8
-}
+    case bno055SelfTest = 9
+    case bno055AccelCalibration = 10
+    case bno055GyroCalibration = 11
+    case bno055MagCalibration = 12
+    case bno055SysCalibration = 13
+  }
 
   class func arduinoErrorMessage(errorCode: ArduinoError?) -> String {
     if errorCode == nil {
@@ -366,6 +371,16 @@ class ModuleError: NSObject {
       return "[critical] BNO055 error" + (message != nil ? (", " + message!) : "")
     case .bno055SystemStatus:
       return "[critical] BNO055 system status" + (message != nil ? (", " + message!) : "")
+    case .bno055SelfTest:
+      return "[warning] BNO055 self test error" + (message != nil ? (", " + message!) : "")
+    case .bno055AccelCalibration:
+      return "[warning] BNO055 accelerometer calibration" + (message != nil ? (", " + message!) : "")
+    case .bno055GyroCalibration:
+      return "[warning] BNO055 gyroscope calibration" + (message != nil ? (", " + message!) : "")
+    case .bno055MagCalibration:
+      return "[warning] BNO055 magnetometer calibration" + (message != nil ? (", " + message!) : "")
+    case .bno055SysCalibration:
+      return "[warning] BNO055 system calibration" + (message != nil ? (", " + message!) : "")
     }
   }
 
