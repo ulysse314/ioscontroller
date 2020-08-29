@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#if 1
+#if TARGET_OS_SIMULATOR
 #define DEBUGLOG NSLog
 #else
 #define DEBUGLOG(x,...)
