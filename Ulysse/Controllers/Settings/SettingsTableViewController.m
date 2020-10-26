@@ -18,8 +18,7 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {
   ChooserBoatCellIndex,
-  RightLedBoatCellIndex,
-  LeftLedBoatCellIndex,
+  LightBoatCellIndex,
   CameraBoatCellIndex,
   RecordTripBoatCellIndex,
   MotorCoefBoatCellIndex,
@@ -63,8 +62,7 @@ typedef enum : NSUInteger {
       switch ((BoatCellIndex)indexPath.row) {
         case ChooserBoatCellIndex:
           return @"DisclosureIndicatorCell";
-        case RightLedBoatCellIndex:
-        case LeftLedBoatCellIndex:
+        case LightBoatCellIndex:
         case CameraBoatCellIndex:
         case RecordTripBoatCellIndex:
           return @"DefaultCell";
@@ -102,13 +100,9 @@ typedef enum : NSUInteger {
     case ChooserBoatCellIndex:
       cell.textLabel.text = _config.boatName;
       break;
-    case RightLedBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(rightLedAction:) value:[_ulysse.allValues[@"led"][@"right%"] boolValue]];
-      cell.textLabel.text = @"Right Led";
-      break;
-    case LeftLedBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(leftLedAction:) value:[_ulysse.allValues[@"led"][@"left%"] boolValue]];
-      cell.textLabel.text = @"Left Led";
+    case LightBoatCellIndex:
+      cell.accessoryView = [self switchWithAction:@selector(lightAction:) value:[_ulysse.allValues[@"led"][@"right%"] boolValue]];
+      cell.textLabel.text = @"Light";
       break;
     case CameraBoatCellIndex:
       cell.accessoryView = [self switchWithAction:@selector(cameraAction:) value:[_ulysse.allValues[@"camera"][@"state"] boolValue]];
@@ -157,12 +151,12 @@ typedef enum : NSUInteger {
 
 #pragma mark - Action
 
-- (void)rightLedAction:(UISwitch *)sender {
-  [_ulysse setValues: @{ @"led": @{ @"right%": sender.on ? @(100) : @(0) }}];
-}
-
-- (void)leftLedAction:(UISwitch *)sender {
-  [_ulysse setValues: @{ @"led": @{ @"left%": sender.on ? @(100) : @(0) }}];
+- (void)lightAction:(UISwitch *)sender {
+  if (sender.on) {
+    [_ulysse setValues: @{ @"light": @(2) }];
+  } else {
+    [_ulysse setValues: @{ @"stop light": @(0) }];
+  }
 }
 
 - (void)cameraAction:(UISwitch *)sender {
@@ -192,8 +186,7 @@ typedef enum : NSUInteger {
         case ChooserBoatCellIndex:
         case CommandBoatCellIndex:
           return YES;
-        case RightLedBoatCellIndex:
-        case LeftLedBoatCellIndex:
+        case LightBoatCellIndex:
         case CameraBoatCellIndex:
         case RecordTripBoatCellIndex:
         case BootBoatCellIndex:
@@ -286,8 +279,7 @@ typedef enum : NSUInteger {
     case CommandBoatCellIndex:
       [self performSegueWithIdentifier:@"Command" sender:self];
       break;
-    case RightLedBoatCellIndex:
-    case LeftLedBoatCellIndex:
+    case LightBoatCellIndex:
     case CameraBoatCellIndex:
     case RecordTripBoatCellIndex:
     case BootBoatCellIndex:
