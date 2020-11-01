@@ -11,7 +11,6 @@
 #define BUFFER_SIZE 2048
 
 NSString *UlysseValuesDidUpdate = @"UlysseValuesDidUpdate";
-NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
 @interface PListCommunication ()<ConnectionControllerDelegate> {
   NSMutableDictionary<NSString *, id> *_allValues;
@@ -33,10 +32,7 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
 @implementation PListCommunication
 
-@synthesize allValues = _allValues;
-@synthesize motorCoef = _motorCoef;
-@synthesize extraMotorCoef = _extraMotorCoef;
-@synthesize arduinoInfo = _arduinoInfo;
+@synthesize state = _state;
 
 - (instancetype)initWithConnectionController:(ConnectionController *)connectionController boat:(Boat*)boat {
   self = [super init];
@@ -54,18 +50,6 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 - (void)dealloc {
   [_connectionController removeObserver:self forKeyPath:@"state"];
   free(_tmpBuffer);
-}
-
-- (void)open {
-  DEBUGLOG(@"Opening streams.");
-  self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:DelayTrigger target:self selector:@selector(pingTimer:) userInfo:nil repeats:YES];
-  [self internalOpen];
-}
-
-- (void)close {
-  [self.pingTimer invalidate];
-  self.pingTimer = nil;
-  [self internalClose];
 }
 
 - (void)setValues:(NSDictionary *)values {
@@ -101,10 +85,6 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
   [self updateMotors];
 }
 
-- (float)extraMotorCoef {
-  return _extraMotorCoef;
-}
-
 - (void)sendCommand:(NSString *)command {
   [self setValues:@{@"command": command}];
 }
@@ -122,6 +102,20 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
     case ConnectionControllerStateOpened:
       return YES;
   }
+}
+
+#pragma mark - Communication
+
+- (void)open {
+  DEBUGLOG(@"Opening streams.");
+  self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:DelayTrigger target:self selector:@selector(pingTimer:) userInfo:nil repeats:YES];
+  [self internalOpen];
+}
+
+- (void)close {
+  [self.pingTimer invalidate];
+  self.pingTimer = nil;
+  [self internalClose];
 }
 
 #pragma mark - Private

@@ -37,6 +37,7 @@ class ConnectionController : NSObject, ConnectionDelegate {
   private let reconnectDelayInSeconds: Double = 5
 
   @objc init(config: Config) {
+    self.state = .Stopped
     self.config = config
     self.socketConnection = SocketConnection.init()
     self.state = .Stopped
