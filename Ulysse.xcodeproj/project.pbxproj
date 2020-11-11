@@ -10,9 +10,11 @@
 		020BA00823512A72005BA152 /* CellularModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00723512A72005BA152 /* CellularModule.swift */; };
 		020BA00C2354C841005BA152 /* GPSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00B2354C841005BA152 /* GPSModule.swift */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
+		0214F7F325583432004A0B24 /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0214F7F225583432004A0B24 /* SocketConnection.swift */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
 		021DF77A249FFFED007AA655 /* MainViewLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021DF779249FFFED007AA655 /* MainViewLayoutController.swift */; };
 		021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E06E21D3717DD002A7BD3 /* Trackpad.m */; };
+		0229F6AB255B549100C50A08 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229F6AA255B549100C50A08 /* Connection.swift */; };
 		022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */; };
 		022BAD5721FDDF7900624EFA /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Domain.swift */; };
 		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
@@ -81,12 +83,14 @@
 		020BA00723512A72005BA152 /* CellularModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularModule.swift; sourceTree = "<group>"; };
 		020BA00B2354C841005BA152 /* GPSModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSModule.swift; sourceTree = "<group>"; };
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
+		0214F7F225583432004A0B24 /* SocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		021565FC1FF6EC3E00D9BC98 /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
 		021DF779249FFFED007AA655 /* MainViewLayoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewLayoutController.swift; sourceTree = "<group>"; };
 		021E06E11D3717DD002A7BD3 /* Trackpad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackpad.h; sourceTree = "<group>"; };
 		021E06E21D3717DD002A7BD3 /* Trackpad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trackpad.m; sourceTree = "<group>"; };
 		021E06E41D39C4D9002A7BD3 /* Ulysse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ulysse-Bridging-Header.h"; sourceTree = "<group>"; };
+		0229F6AA255B549100C50A08 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterView.swift; sourceTree = "<group>"; };
 		022BAD5621FDDF7900624EFA /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
 		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 			children = (
 				029931431D3195DB00C03033 /* Ulysse.h */,
 				029931441D3195DB00C03033 /* Ulysse.m */,
+				0214F7F225583432004A0B24 /* SocketConnection.swift */,
+				0229F6AA255B549100C50A08 /* Connection.swift */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -507,12 +513,14 @@
 				022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */,
 				026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */,
 				02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */,
+				0229F6AB255B549100C50A08 /* Connection.swift in Sources */,
 				021DF77A249FFFED007AA655 /* MainViewLayoutController.swift in Sources */,
 				02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
 				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
 				029931151D3180FC00C03033 /* MainViewController.m in Sources */,
 				020BA00823512A72005BA152 /* CellularModule.swift in Sources */,
+				0214F7F325583432004A0B24 /* SocketConnection.swift in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				023C9F6D234BDB420003F0FA /* Module.swift in Sources */,
 				022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */,
