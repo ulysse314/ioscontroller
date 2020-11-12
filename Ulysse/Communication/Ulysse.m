@@ -13,55 +13,9 @@
 NSString *UlysseValuesDidUpdate = @"UlysseValuesDidUpdate";
 NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
-NSString *StreamStatusString(NSStreamStatus status) {
-  switch (status) {
-    case NSStreamStatusNotOpen:
-      return @"NSStreamStatusNotOpen";
-    case NSStreamStatusOpening:
-      return @"NSStreamStatusOpening";
-    case NSStreamStatusOpen:
-      return @"NSStreamStatusOpen";
-    case NSStreamStatusReading:
-      return @"NSStreamStatusReading";
-    case NSStreamStatusWriting:
-      return @"NSStreamStatusWriting";
-    case NSStreamStatusAtEnd:
-      return @"NSStreamStatusAtEnd";
-    case NSStreamStatusClosed:
-      return @"NSStreamStatusClosed";
-    case NSStreamStatusError:
-      return @"NSStreamStatusError";
-  }
-  return @"Unknown NSStreamStatus";
-}
-
-NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
-  NSMutableArray<NSString *>* array = [NSMutableArray array];
-  if (event & NSStreamEventOpenCompleted) {
-    [array addObject:@"OpenCompleted"];
-  }
-  if (event & NSStreamEventHasBytesAvailable) {
-    [array addObject:@"HasBytesAvailable"];
-  }
-  if (event & NSStreamEventHasSpaceAvailable) {
-    [array addObject:@"SpaceAvailable"];
-  }
-  if (event & NSStreamEventEndEncountered) {
-    [array addObject:@"EndEncountered"];
-  }
-  if (event & NSStreamEventErrorOccurred) {
-    [array addObject:@"ErrorOccurred"];
-  }
-  return array;
-}
-
-@interface Ulysse ()<NSStreamDelegate> {
-  Config *_config;
+@interface Ulysse ()<ConnectionControllerDelegate> {
   NSMutableDictionary<NSString *, id> *_allValues;
-  NSInputStream *_inputStream;
-  NSOutputStream *_outputStream;
   NSMutableDictionary *_valuesToSend;
-  NSTimer *_pingTimer;
   BOOL _shouldOpen;
   NSInteger _waitingCounter;
   float _leftMotor;
@@ -73,6 +27,7 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 
 @property(nonatomic, strong) Domains *domains;
 @property(nonatomic, readwrite) UlysseConnectionState state;
+@property(nonatomic, strong) ConnectionController *connectionController;
 
 @end
 
@@ -83,32 +38,32 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 @synthesize extraMotorCoef = _extraMotorCoef;
 @synthesize arduinoInfo = _arduinoInfo;
 
-- (instancetype)initWithConfig:(Config *)config domains:(Domains*)domains {
+- (instancetype)initWithConnectionController:(ConnectionController *)connectionController domains:(Domains*)domains {
   self = [super init];
   if (self) {
-    _config = config;
-    [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
+    _connectionController = connectionController;
+    _connectionController.delegate = self;
     _motorCoef = 0.5;
     _tmpBuffer = malloc(BUFFER_SIZE);
     self.domains = domains;
+    [_connectionController addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return self;
 }
 
 - (void)dealloc {
+  [_connectionController removeObserver:self forKeyPath:@"state"];
   free(_tmpBuffer);
 }
 
 - (void)open {
   DEBUGLOG(@"Opening streams.");
-  _pingTimer = [NSTimer scheduledTimerWithTimeInterval:DelayTrigger target:self selector:@selector(pingTimer:) userInfo:nil repeats:YES];
+  self.state = UlysseConnectionStateOpening;
   _shouldOpen = YES;
-  [self openInternal];
+  [self.connectionController start];
 }
 
 - (void)close {
-  [_pingTimer invalidate];
-  _pingTimer = nil;
   _shouldOpen = NO;
   [self closeInternal];
 }
@@ -159,91 +114,21 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
 }
 
 - (BOOL)isConnected {
-  switch (self.state) {
-    case UlysseConnectionStateClosed:
-    case UlysseConnectionStateOpening:
+  switch (self.connectionController.state) {
+    case ConnectionControllerStateStopped:
+    case ConnectionControllerStateConnecting:
+    case ConnectionControllerStateHandshake:
       return NO;
-    case UlysseConnectionStateWaitingForData:
-    case UlysseConnectionStateData:
+    case ConnectionControllerStateOpened:
       return YES;
   }
 }
 
 #pragma mark - Private
 
-- (void)openInternal {
-  self.state = UlysseConnectionStateOpening;
-  CFReadStreamRef readStream;
-  CFWriteStreamRef writeStream;
-  NSString *server = [_config valueForKey:@"value_relay_server"];
-  UInt32 port = (UInt32)[[_config valueForKey:@"controller_port"] integerValue];
-  DEBUGLOG(@"Connected to %@:%d", server, port);
-  CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (__bridge CFStringRef)server, port, &readStream, &writeStream);
-  _inputStream = (__bridge_transfer NSInputStream *)readStream;
-  _outputStream = (__bridge_transfer NSOutputStream *)writeStream;
-  
-  _inputStream.delegate = self;
-  _outputStream.delegate = self;
-  
-  [_inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-  [_outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-  
-  [_inputStream open];
-  [_outputStream open];
-}
-
 - (void)closeInternal {
   DEBUGLOG(@"Closing streams.");
-  
-  [_inputStream close];
-  [_outputStream close];
-  
-  [_inputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-  [_outputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-  
-  _inputStream.delegate = nil;
-  _outputStream.delegate = nil;
   self.state = UlysseConnectionStateClosed;
-}
-
-- (void)inputStreamHandleEvent:(NSStreamEvent)eventCode {
-  if (eventCode & NSStreamEventHasBytesAvailable) {
-//    DEBUGLOG(@"Reading data %@...", _inputStream.hasBytesAvailable ? @"YES" : @"NO");
-    NSError *error = nil;
-    id objects = nil;
-    NSInteger dataRead = [_inputStream read:_tmpBuffer maxLength:BUFFER_SIZE];
-//    DEBUGLOG(@"  %ld", dataRead);
-    if (!_incompleteDataReceived) {
-      _incompleteDataReceived = [NSMutableData data];
-    }
-    if (dataRead > 0) {
-      [_incompleteDataReceived appendBytes:_tmpBuffer length:dataRead];
-      NSInteger ii = 0;
-      for (ii = 0; ii < dataRead; ii++) {
-        if (_tmpBuffer[ii] == '\n' || _tmpBuffer[ii] == '\r') {
-          break;
-        }
-      }
-      if (ii < dataRead) {
-        NSData *line = [_incompleteDataReceived subdataWithRange:NSMakeRange(0, _incompleteDataReceived.length - (dataRead - ii))];
-//        DEBUGLOG(@"line %@", [[NSString alloc] initWithData:line encoding:NSUTF8StringEncoding]);
-        objects = [NSJSONSerialization JSONObjectWithData:line options:0 error:&error];
-        NSUInteger length = line.length + 1;
-        ii++;
-        while (ii < dataRead && (_tmpBuffer[ii] == '\n' || _tmpBuffer[ii] == '\r')) {
-          ii++;
-          length++;
-        }
-        [_incompleteDataReceived replaceBytesInRange:NSMakeRange(0, length) withBytes:NULL length:0];
-      }
-    }
-    if (error) {
-      DEBUGLOG(@"Error decoding %@", error);
-    } else if (objects) {
-      [self newValues:objects];
-      [self sendPing];
-    }
-  }
 }
 
 - (void)newValues:(NSDictionary *)values {
@@ -290,36 +175,68 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   [self resetWaitingCount];
 }
 
-- (void)outputStreamHandleEvent:(NSStreamEvent)eventCode {
-  if ((eventCode & NSStreamEventHasSpaceAvailable) && self.state == UlysseConnectionStateOpening) {
-    [self sendValidToken];
-  }
-}
-
 - (void)updateMotors {
   float realMotorCoef = _motorCoef + (_extraMotorCoef * (1 - _motorCoef));
   [self setValues:@{ @"motor": @{@"right%": @((int)(_rightMotor * realMotorCoef * 100)), @"left%": @((int)(_leftMotor * realMotorCoef * 100)) }}];
 }
 
-#pragma mark - NSStreamDelegate
-
-- (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)eventCode {
-//  DEBUGLOG(@"Stream: %@, Status: %@, Event: %@", (stream == _inputStream) ? @"Input" : @"Output", StreamStatusString(stream.streamStatus), StreamEvent(eventCode));
-  if (eventCode & NSStreamEventErrorOccurred) {
-    DEBUGLOG(@"Error %@", stream.streamError);
-    [self closeInternal];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+  NSLog(@"-[%@ %@]", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
+  if ([keyPath isEqualToString:@"state"] && object == self.connectionController) {
+    switch (self.connectionController.state) {
+      case ConnectionControllerStateStopped:
+        switch (self.state) {
+          case UlysseConnectionStateOpened:
+            self.state = UlysseConnectionStateOpening;
+            [self.connectionController start];
+            break;
+          case UlysseConnectionStateOpening:
+            [self.connectionController start];
+            break;
+          case UlysseConnectionStateClosed:
+            break;
+        }
+        break;
+      case ConnectionControllerStateConnecting:
+        switch (self.state) {
+          case UlysseConnectionStateOpened:
+            self.state = UlysseConnectionStateOpening;
+            break;
+          case UlysseConnectionStateOpening:
+            break;
+          case UlysseConnectionStateClosed:
+            [self.connectionController stop];
+            break;
+        }
+        break;
+      case ConnectionControllerStateHandshake:
+        switch (self.state) {
+          case UlysseConnectionStateOpened:
+            self.state = UlysseConnectionStateOpening;
+            break;
+          case UlysseConnectionStateOpening:
+            break;
+          case UlysseConnectionStateClosed:
+            [self.connectionController stop];
+            break;
+        }
+        break;
+      case ConnectionControllerStateOpened:
+        switch (self.state) {
+          case UlysseConnectionStateOpened:
+            break;
+          case UlysseConnectionStateOpening:
+            self.state = UlysseConnectionStateOpened;
+            break;
+          case UlysseConnectionStateClosed:
+            [self.connectionController stop];
+            break;
+        }
+        break;
+    }
     return;
   }
-  if (eventCode & NSStreamEventEndEncountered) {
-    DEBUGLOG(@"End");
-    [self closeInternal];
-    return;
-  }
-  if (stream == _inputStream) {
-    [self inputStreamHandleEvent:eventCode];
-  } else if (stream == _outputStream) {
-    [self outputStreamHandleEvent:eventCode];
-  }
+  [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 - (void)pingTimer:(NSTimer *)timer {
@@ -328,38 +245,25 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
     case UlysseConnectionStateClosed:
       [self increaseWaitingCount];
       if (_shouldOpen) {
-        [self openInternal];
+//        [self openInternal];
       }
       break;
     case UlysseConnectionStateOpening:
-    case UlysseConnectionStateWaitingForData:
-    case UlysseConnectionStateData:
+    case UlysseConnectionStateOpened:
       [self increaseWaitingCount];
       break;
   }
 }
 
-- (void)sendValidToken {
-  NSString *token = [_config valueForKey:@"controller_key"];
-  NSData *data = [token dataUsingEncoding:NSUTF8StringEncoding];
-  NSInteger count = [_outputStream write:[data bytes] maxLength:[data length]];
-  DEBUGLOG(@"sent %ld %ld", count, [data length]);
-  [_outputStream write:(const uint8_t *)"\n" maxLength:1];
-#pragma unused(count)
-  self.state = UlysseConnectionStateWaitingForData;
-  DEBUGLOG(@"Token sent");
-}
-
 - (void)sendValues {
-  if (_outputStream.hasSpaceAvailable && _valuesToSend) {
+  if (self.connectionController.hasSpaceAvailable && _valuesToSend) {
     NSError *error = nil;
-    NSInteger count = [NSJSONSerialization writeJSONObject:_valuesToSend toStream:_outputStream options:0 error:&error];
+    NSInteger count = [NSJSONSerialization writeJSONObject:_valuesToSend toStream:self.connectionController.outputStream options:0 error:&error];
     _valuesToSend = nil;
     if (error) {
       DEBUGLOG(@"Error sending %@", error);
     } else {
-//      DEBUGLOG(@"Sending command %ld", count);
-      [_outputStream write:(const uint8_t *)"\n" maxLength:1];
+      count = [self.connectionController write:(const uint8_t *)"\n" maxLength:1];
 #pragma unused(count)
     }
   } else {
@@ -398,15 +302,44 @@ NSArray<NSString *>* StreamEvent(NSStreamEvent event) {
   }
 }
 
-#pragma mark - NSKeyValueObserving
+#pragma mark - ConnectionControllerDelegate
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  if (object == _config && [keyPath isEqualToString:@"boatName"]) {
-    if (_shouldOpen) {
-      [self close];
-      [self open];
+- (void)inputAvailableWithConnectionController:(ConnectionController * _Nonnull)connectionController {
+  NSError *error = nil;
+  id objects = nil;
+  NSInteger dataRead = [self.connectionController read:_tmpBuffer maxLength:BUFFER_SIZE];
+    if (!_incompleteDataReceived) {
+    _incompleteDataReceived = [NSMutableData data];
+  }
+  if (dataRead > 0) {
+    [_incompleteDataReceived appendBytes:_tmpBuffer length:dataRead];
+    NSInteger ii = 0;
+    for (ii = 0; ii < dataRead; ii++) {
+      if (_tmpBuffer[ii] == '\n' || _tmpBuffer[ii] == '\r') {
+        break;
+      }
+    }
+    if (ii < dataRead) {
+      NSData *line = [_incompleteDataReceived subdataWithRange:NSMakeRange(0, _incompleteDataReceived.length - (dataRead - ii))];
+      objects = [NSJSONSerialization JSONObjectWithData:line options:0 error:&error];
+      NSUInteger length = line.length + 1;
+      ii++;
+      while (ii < dataRead && (_tmpBuffer[ii] == '\n' || _tmpBuffer[ii] == '\r')) {
+        ii++;
+        length++;
+      }
+      [_incompleteDataReceived replaceBytesInRange:NSMakeRange(0, length) withBytes:NULL length:0];
     }
   }
+  if (error) {
+    DEBUGLOG(@"Error decoding %@", error);
+  } else if (objects) {
+    [self newValues:objects];
+    [self sendPing];
+  }
+}
+
+- (void)outputReadyWithConnectionController:(ConnectionController * _Nonnull)connectionController {
 }
 
 @end

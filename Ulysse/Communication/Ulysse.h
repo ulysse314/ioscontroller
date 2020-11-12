@@ -12,11 +12,12 @@ extern NSString *UlysseWaitedTooLong;
 @class Config;
 @class Domains;
 
+@class ConnectionController;
+
 typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
   UlysseConnectionStateClosed,
   UlysseConnectionStateOpening,
-  UlysseConnectionStateWaitingForData,
-  UlysseConnectionStateData,
+  UlysseConnectionStateOpened,
 };
 
 @interface Ulysse : NSObject
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
 @property(nonatomic, readonly) BOOL isConnected;
 @property(nonatomic, readonly) UlysseConnectionState state;
 
-- (instancetype)initWithConfig:(Config *)config domains:(Domains*)domains;
+- (instancetype)initWithConnectionController:(ConnectionController *)connectionController domains:(Domains*)domains;
 
 - (void)open;
 - (void)close;

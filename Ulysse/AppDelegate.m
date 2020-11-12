@@ -19,6 +19,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 @property(nonatomic, strong, readwrite) Ulysse *ulysse;
 @property(nonatomic, strong, readwrite) GamepadController *gamepadController;
 @property(nonatomic, strong, readwrite) Domains *domains;
+@property(nonatomic, strong) ConnectionController *connectionController;
 
 @end
 
@@ -40,7 +41,8 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   self.config = [Config sharedInstance];
   [self.config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
   self.domains = [[Domains alloc] init];
-  self.ulysse = [[Ulysse alloc] initWithConfig:self.config domains:self.domains];
+  self.connectionController = [[ConnectionController alloc] initWithConfig:self.config];
+  self.ulysse = [[Ulysse alloc] initWithConnectionController:self.connectionController domains:self.domains];
   [self loadPreferences];
   // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;
