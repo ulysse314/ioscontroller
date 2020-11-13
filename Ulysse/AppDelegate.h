@@ -29,14 +29,13 @@ typedef NS_ENUM(NSUInteger, AlertLevel) {
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property(nonatomic) Config *config;
-@property(nonatomic) Ulysse *ulysse;
-@property(nonatomic) UIWindow *window;
+@property(nonatomic, strong, readonly) Config *config;
+@property(nonatomic, strong, readonly) Ulysse *ulysse;
+@property(nonatomic, strong) UIWindow *window;
 @property(nonatomic) float motorCoef;
 @property(nonatomic, readonly) Alert alert;
-@property(nonatomic, strong) GamepadController *gamepadController;
-
-@property (nonatomic, strong) Domains *domains;
+@property(nonatomic, strong, readonly) GamepadController *gamepadController;
+@property(nonatomic, strong, readonly) Domains *domains;
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp;
 + (NSString *)stringWithDate:(NSDate *)date;

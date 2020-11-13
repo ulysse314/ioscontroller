@@ -13,11 +13,16 @@
 static NSString *kBoatNameKey = @"BoatName";
 static NSString *kMotorCoefKey = @"MotorCoef";
 
-@implementation AppDelegate
+@interface AppDelegate ()
 
-@synthesize config = _config;
-@synthesize gamepadController = _gamepadController;
-@synthesize ulysse = _ulysse;
+@property(nonatomic, strong, readwrite) Config *config;
+@property(nonatomic, strong, readwrite) Ulysse *ulysse;
+@property(nonatomic, strong, readwrite) GamepadController *gamepadController;
+@property(nonatomic, strong, readwrite) Domains *domains;
+
+@end
+
+@implementation AppDelegate
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp {
   return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:timestamp]];
@@ -32,10 +37,10 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [UIDevice currentDevice].batteryMonitoringEnabled = YES;
-  _config = [Config sharedInstance];
-  [_config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
+  self.config = [Config sharedInstance];
+  [self.config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
   self.domains = [[Domains alloc] init];
-  self.ulysse = [[Ulysse alloc] initWithConfig:_config domains:self.domains];
+  self.ulysse = [[Ulysse alloc] initWithConfig:self.config domains:self.domains];
   [self loadPreferences];
   // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;
@@ -58,18 +63,14 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
 }
 
-- (Config *)config {
-  return _config;
-}
-
 - (void)setMotorCoef:(float)motorCoef {
   [NSUserDefaults.standardUserDefaults setFloat:motorCoef forKey:kMotorCoefKey];
   [NSUserDefaults.standardUserDefaults synchronize];
-  [_ulysse setMotorCoef:motorCoef];
+  [self.ulysse setMotorCoef:motorCoef];
 }
 
 - (float)motorCoef {
-  return _ulysse.motorCoef;
+  return self.ulysse.motorCoef;
 }
 
 - (void)addAlert:(Alert)alert {
@@ -86,24 +87,24 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   NSUserDefaults *standardUserDefaults = NSUserDefaults.standardUserDefaults;
   NSString *boatName = [standardUserDefaults objectForKey:kBoatNameKey];
   if (boatName) {
-    _config.boatName = boatName;
+    self.config.boatName = boatName;
   }
   float motorCoef = [standardUserDefaults floatForKey:kMotorCoefKey];
   if (motorCoef <= 0 || motorCoef > 1.0) {
     motorCoef = 0.5;
   }
-  _ulysse.motorCoef = motorCoef;
+  self.ulysse.motorCoef = motorCoef;
 }
 
 - (void)updateBoat {
-  [[NSUserDefaults standardUserDefaults] setObject:_config.boatName forKey:kBoatNameKey];
+  [[NSUserDefaults standardUserDefaults] setObject:self.config.boatName forKey:kBoatNameKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - NSKeyValueObserving
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  if (object == _config) {
+  if (object == self.config) {
     [self updateBoat];
   }
 }
