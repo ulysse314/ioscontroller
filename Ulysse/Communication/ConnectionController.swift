@@ -24,7 +24,7 @@ class ConnectionController : NSObject, ConnectionDelegate {
       return self.socketConnection.hasSpaceAvailable
     }
   }
-  @objc public private(set) var state: ConnectionControllerState
+  @objc dynamic public private(set) var state: ConnectionControllerState
   @objc var delegate: ConnectionControllerDelegate?
   @objc public var outputStream: OutputStream? {
     get {

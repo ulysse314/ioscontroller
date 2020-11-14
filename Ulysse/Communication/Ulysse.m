@@ -16,8 +16,6 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 @interface Ulysse ()<ConnectionControllerDelegate> {
   NSMutableDictionary<NSString *, id> *_allValues;
   NSMutableDictionary *_valuesToSend;
-  BOOL _shouldOpen;
-  NSInteger _waitingCounter;
   float _leftMotor;
   float _rightMotor;
   float _motorCoef;
@@ -26,8 +24,10 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 }
 
 @property(nonatomic, strong) Domains *domains;
-@property(nonatomic, readwrite) UlysseConnectionState state;
+@property(nonatomic, assign, readwrite) UlysseConnectionState state;
 @property(nonatomic, strong) ConnectionController *connectionController;
+@property(nonatomic, strong) NSTimer *pingTimer;
+@property(nonatomic, assign) NSInteger waitingCounter;
 
 @end
 
@@ -58,14 +58,14 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
 - (void)open {
   DEBUGLOG(@"Opening streams.");
-  self.state = UlysseConnectionStateOpening;
-  _shouldOpen = YES;
-  [self.connectionController start];
+  self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:DelayTrigger target:self selector:@selector(pingTimer:) userInfo:nil repeats:YES];
+  [self internalOpen];
 }
 
 - (void)close {
-  _shouldOpen = NO;
-  [self closeInternal];
+  [self.pingTimer invalidate];
+  self.pingTimer = nil;
+  [self internalClose];
 }
 
 - (void)setValues:(NSDictionary *)values {
@@ -126,9 +126,14 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
 #pragma mark - Private
 
-- (void)closeInternal {
-  DEBUGLOG(@"Closing streams.");
+- (void)internalOpen {
+  self.state = UlysseConnectionStateOpening;
+  [self.connectionController start];
+}
+
+- (void)internalClose {
   self.state = UlysseConnectionStateClosed;
+  [self.connectionController stop];
 }
 
 - (void)newValues:(NSDictionary *)values {
@@ -181,7 +186,6 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-  NSLog(@"-[%@ %@]", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
   if ([keyPath isEqualToString:@"state"] && object == self.connectionController) {
     switch (self.connectionController.state) {
       case ConnectionControllerStateStopped:
@@ -243,12 +247,8 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 //  DEBUGLOG(@"ping %lu", (unsigned long)self.state);
   switch (self.state) {
     case UlysseConnectionStateClosed:
-      [self increaseWaitingCount];
-      if (_shouldOpen) {
-//        [self openInternal];
-      }
-      break;
     case UlysseConnectionStateOpening:
+      break;
     case UlysseConnectionStateOpened:
       [self increaseWaitingCount];
       break;
@@ -266,40 +266,27 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
       count = [self.connectionController write:(const uint8_t *)"\n" maxLength:1];
 #pragma unused(count)
     }
-  } else {
-    [self increaseWaitingCount];
   }
 }
 
 - (void)increaseWaitingCount {
-  if (!_shouldOpen) {
+  if (self.state != UlysseConnectionStateOpened) {
     return;
   }
-  if (!self.isConnected) {
-    _waitingCounter = 2;
-  } else {
-    _waitingCounter++;
-  }
-//  DEBUGLOG(@"increase waiting count %ld", _waitingCounter);
-  BOOL previousWaitingTooLong = _waitingTooLong;
-  if (_waitingCounter == 2) {
-    _waitingTooLong = YES;
-  }
-  if (_waitingCounter != 0 && _waitingCounter % 5 == 0) {
-    [self sendPing];
-  }
-  if (previousWaitingTooLong != _waitingTooLong) {
+  self.waitingCounter++;
+//  DEBUGLOG(@"increase waiting count %ld", self.waitingCounter);
+  if (self.waitingCounter == 2) {
+    [self.connectionController stop];
+    [self internalOpen];
     [[NSNotificationCenter defaultCenter] postNotificationName:UlysseWaitedTooLong object:self];
+  }
+  if (self.waitingCounter != 0 && self.waitingCounter % 5 == 0) {
+    [self sendPing];
   }
 }
 
 - (void)resetWaitingCount {
-  BOOL previousWaitingTooLong = _waitingTooLong;
-  _waitingCounter = 0;
-  _waitingTooLong = NO;
-  if (previousWaitingTooLong != _waitingTooLong) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:UlysseWaitedTooLong object:self];
-  }
+  self.waitingCounter = 0;
 }
 
 #pragma mark - ConnectionControllerDelegate
