@@ -1,8 +1,8 @@
 #import "CommandViewController.h"
 
-#import "Config.h"
 #import "AppDelegate.h"
-#import "Ulysse.h"
+#import "Config.h"
+#import "PListCommunication.h"
 
 @interface CommandViewController () {
   NSArray *_commandsAndSections;

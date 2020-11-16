@@ -2,11 +2,11 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <GameController/GameController.h>
-#include <math.h>
+#import <math.h>
 
 #import "Config.h"
-#import "Ulysse.h"
 #import "GamepadController.h"
+#import "PListCommunication.h"
 
 #import "Ulysse-Swift.h"
 

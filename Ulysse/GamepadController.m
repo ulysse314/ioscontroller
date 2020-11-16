@@ -2,8 +2,8 @@
 
 #import <GameController/GameController.h>
 
-#include "Config.h"
-#include "Ulysse.h"
+#import "Config.h"
+#import "PListCommunication.h"
 
 #define PLAYER_INDEX_START_FLASH_TIMER 0.25
 #define PLAYER_INDEX_SLOW_FLASH_TIMER 1.

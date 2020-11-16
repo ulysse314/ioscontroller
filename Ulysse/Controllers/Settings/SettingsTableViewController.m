@@ -2,7 +2,7 @@
 
 #import "AppDelegate.h"
 #import "Config.h"
-#import "Ulysse.h"
+#import "PListCommunication.h"
 
 @interface SettingsTableViewController () {
   Config *_config;

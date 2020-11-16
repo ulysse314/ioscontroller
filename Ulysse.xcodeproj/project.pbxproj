@@ -50,7 +50,7 @@
 		029931201D3180FC00C03033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0299311E1D3180FC00C03033 /* LaunchScreen.storyboard */; };
 		0299312B1D3180FC00C03033 /* UlysseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299312A1D3180FC00C03033 /* UlysseTests.m */; };
 		029931361D3180FC00C03033 /* UlysseUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931351D3180FC00C03033 /* UlysseUITests.m */; };
-		029931451D3195DB00C03033 /* Ulysse.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931441D3195DB00C03033 /* Ulysse.m */; };
+		029931451D3195DB00C03033 /* PListCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931441D3195DB00C03033 /* PListCommunication.m */; };
 		02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */; };
 		02D6ED0923AEFD830041E183 /* BatteryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0823AEFD830041E183 /* BatteryModule.swift */; };
 		02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0A23B9B1660041E183 /* HullDomain.swift */; };
@@ -139,8 +139,8 @@
 		029931311D3180FC00C03033 /* UlysseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UlysseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		029931351D3180FC00C03033 /* UlysseUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UlysseUITests.m; sourceTree = "<group>"; };
 		029931371D3180FC00C03033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		029931431D3195DB00C03033 /* Ulysse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ulysse.h; sourceTree = "<group>"; };
-		029931441D3195DB00C03033 /* Ulysse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ulysse.m; sourceTree = "<group>"; };
+		029931431D3195DB00C03033 /* PListCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListCommunication.h; sourceTree = "<group>"; };
+		029931441D3195DB00C03033 /* PListCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListCommunication.m; sourceTree = "<group>"; };
 		02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickaction_icon_location@2x.png"; sourceTree = "<group>"; };
 		02D6ED0823AEFD830041E183 /* BatteryModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryModule.swift; sourceTree = "<group>"; };
 		02D6ED0A23B9B1660041E183 /* HullDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullDomain.swift; sourceTree = "<group>"; };
@@ -237,11 +237,9 @@
 		023961BC2168F05B0086D511 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
-				029931431D3195DB00C03033 /* Ulysse.h */,
-				029931441D3195DB00C03033 /* Ulysse.m */,
-				0214F7F225583432004A0B24 /* SocketConnection.swift */,
-				0229F6AA255B549100C50A08 /* Connection.swift */,
-				0229F6AF255C484700C50A08 /* ConnectionController.swift */,
+				029931431D3195DB00C03033 /* PListCommunication.h */,
+				029931441D3195DB00C03033 /* PListCommunication.m */,
+				02D6F8BC2563315F00591B3E /* Connection */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -339,6 +337,16 @@
 				029931371D3180FC00C03033 /* Info.plist */,
 			);
 			path = UlysseUITests;
+			sourceTree = "<group>";
+		};
+		02D6F8BC2563315F00591B3E /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				0214F7F225583432004A0B24 /* SocketConnection.swift */,
+				0229F6AA255B549100C50A08 /* Connection.swift */,
+				0229F6AF255C484700C50A08 /* ConnectionController.swift */,
+			);
+			path = Connection;
 			sourceTree = "<group>";
 		};
 		02F4008C204718CC00016004 /* Settings */ = {
@@ -527,7 +535,7 @@
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
 				023C9F6D234BDB420003F0FA /* Module.swift in Sources */,
 				022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */,
-				029931451D3195DB00C03033 /* Ulysse.m in Sources */,
+				029931451D3195DB00C03033 /* PListCommunication.m in Sources */,
 				0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */,
 				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,
 				0229F6B0255C484700C50A08 /* ConnectionController.swift in Sources */,
