@@ -237,9 +237,9 @@
 		023961BC2168F05B0086D511 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
+				02D6F8BC2563315F00591B3E /* Connection */,
 				029931431D3195DB00C03033 /* PListCommunication.h */,
 				029931441D3195DB00C03033 /* PListCommunication.m */,
-				02D6F8BC2563315F00591B3E /* Connection */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
