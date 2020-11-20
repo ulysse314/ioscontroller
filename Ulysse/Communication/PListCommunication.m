@@ -13,7 +13,7 @@
 NSString *UlysseValuesDidUpdate = @"UlysseValuesDidUpdate";
 NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
-@interface Ulysse ()<ConnectionControllerDelegate> {
+@interface PListCommunication ()<ConnectionControllerDelegate> {
   NSMutableDictionary<NSString *, id> *_allValues;
   NSMutableDictionary *_valuesToSend;
   float _leftMotor;
@@ -24,14 +24,14 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 }
 
 @property(nonatomic, strong) Domains *domains;
-@property(nonatomic, assign, readwrite) UlysseConnectionState state;
+@property(nonatomic, assign, readwrite) CommunicationState state;
 @property(nonatomic, strong) ConnectionController *connectionController;
 @property(nonatomic, strong) NSTimer *pingTimer;
 @property(nonatomic, assign) NSInteger waitingCounter;
 
 @end
 
-@implementation Ulysse
+@implementation PListCommunication
 
 @synthesize allValues = _allValues;
 @synthesize motorCoef = _motorCoef;
@@ -127,12 +127,12 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 #pragma mark - Private
 
 - (void)internalOpen {
-  self.state = UlysseConnectionStateOpening;
+  self.state = CommunicationStateOpening;
   [self.connectionController start];
 }
 
 - (void)internalClose {
-  self.state = UlysseConnectionStateClosed;
+  self.state = CommunicationStateClosed;
   [self.connectionController stop];
 }
 
@@ -190,49 +190,49 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
     switch (self.connectionController.state) {
       case ConnectionControllerStateStopped:
         switch (self.state) {
-          case UlysseConnectionStateOpened:
-            self.state = UlysseConnectionStateOpening;
+          case CommunicationStateOpened:
+            self.state = CommunicationStateOpening;
             [self.connectionController start];
             break;
-          case UlysseConnectionStateOpening:
+          case CommunicationStateOpening:
             [self.connectionController start];
             break;
-          case UlysseConnectionStateClosed:
+          case CommunicationStateClosed:
             break;
         }
         break;
       case ConnectionControllerStateConnecting:
         switch (self.state) {
-          case UlysseConnectionStateOpened:
-            self.state = UlysseConnectionStateOpening;
+          case CommunicationStateOpened:
+            self.state = CommunicationStateOpening;
             break;
-          case UlysseConnectionStateOpening:
+          case CommunicationStateOpening:
             break;
-          case UlysseConnectionStateClosed:
+          case CommunicationStateClosed:
             [self.connectionController stop];
             break;
         }
         break;
       case ConnectionControllerStateHandshake:
         switch (self.state) {
-          case UlysseConnectionStateOpened:
-            self.state = UlysseConnectionStateOpening;
+          case CommunicationStateOpened:
+            self.state = CommunicationStateOpening;
             break;
-          case UlysseConnectionStateOpening:
+          case CommunicationStateOpening:
             break;
-          case UlysseConnectionStateClosed:
+          case CommunicationStateClosed:
             [self.connectionController stop];
             break;
         }
         break;
       case ConnectionControllerStateOpened:
         switch (self.state) {
-          case UlysseConnectionStateOpened:
+          case CommunicationStateOpened:
             break;
-          case UlysseConnectionStateOpening:
-            self.state = UlysseConnectionStateOpened;
+          case CommunicationStateOpening:
+            self.state = CommunicationStateOpened;
             break;
-          case UlysseConnectionStateClosed:
+          case CommunicationStateClosed:
             [self.connectionController stop];
             break;
         }
@@ -246,10 +246,10 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 - (void)pingTimer:(NSTimer *)timer {
 //  DEBUGLOG(@"ping %lu", (unsigned long)self.state);
   switch (self.state) {
-    case UlysseConnectionStateClosed:
-    case UlysseConnectionStateOpening:
+    case CommunicationStateClosed:
+    case CommunicationStateOpening:
       break;
-    case UlysseConnectionStateOpened:
+    case CommunicationStateOpened:
       [self increaseWaitingCount];
       break;
   }
@@ -270,7 +270,7 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 }
 
 - (void)increaseWaitingCount {
-  if (self.state != UlysseConnectionStateOpened) {
+  if (self.state != CommunicationStateOpened) {
     return;
   }
   self.waitingCounter++;

@@ -3,7 +3,7 @@
 @class Config;
 @class GamepadController;
 @class MainViewLayoutController;
-@class Ulysse;
+@class PListCommunication;
 
 typedef enum {
   StillPlayerIndexFlash,
@@ -23,7 +23,7 @@ typedef enum {
 @interface GamepadController : NSObject
 
 @property(nonatomic, weak) Config *config;
-@property(nonatomic, weak) Ulysse *ulysse;
+@property(nonatomic, weak) PListCommunication *communication;
 @property(nonatomic) PlayerIndexFlash playerIndexFlash;
 @property(nonatomic, readonly) BOOL isConnected;
 @property(nonatomic, weak) id<GamepadControllerDelegate> delegate;

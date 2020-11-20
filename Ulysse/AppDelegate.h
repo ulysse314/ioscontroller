@@ -1,9 +1,9 @@
 #import <UIKit/UIKit.h>
 
 @class Config;
-@class GamepadController;
 @class Domains;
-@class Ulysse;
+@class GamepadController;
+@class PListCommunication;
 
 typedef NS_OPTIONS(NSUInteger, Alert) {
   WaterAlert = 1 << 0,
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, AlertLevel) {
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property(nonatomic, strong, readonly) Config *config;
-@property(nonatomic, strong, readonly) Ulysse *ulysse;
+@property(nonatomic, strong, readonly) PListCommunication *communication;
 @property(nonatomic, strong) UIWindow *window;
 @property(nonatomic) float motorCoef;
 @property(nonatomic, readonly) Alert alert;

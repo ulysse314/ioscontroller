@@ -26,7 +26,7 @@
 
 @synthesize config = _config;
 @synthesize gameController = _gameController;
-@synthesize ulysse = _ulysse;
+@synthesize communication = _communication;
 @synthesize playerIndexFlash = _playerIndexFlash;
 
 - (instancetype)init {
@@ -161,7 +161,7 @@
   }
   leftMotor *= power;
   rightMotor *= power;
-  [self.ulysse setLeftMotor:leftMotor rightMotor:rightMotor];
+  [self.communication setLeftMotor:leftMotor rightMotor:rightMotor];
 }
 
 #pragma mark - NSKeyValueObserving
@@ -192,7 +192,7 @@
     [weakSelf updateMotorWithGamepad];
   };
   self.turboBoostTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    weakSelf.ulysse.extraMotorCoef = value;
+    weakSelf.communication.extraMotorCoef = value;
   };
   self.gameController.extendedGamepad.rightShoulder.pressedChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
     [weakSelf.delegate gamepadControllerTurnOnLEDs:weakSelf];

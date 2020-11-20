@@ -106,7 +106,7 @@
   NSArray *commands = [_commandsAndSections[indexPath.section] objectForKey:@"commands"];
   NSDictionary *command = commands[indexPath.row];
   dispatch_block_t executeCommand = ^{
-    [appDelegate.ulysse sendCommand:command[@"command"]];
+    [appDelegate.communication sendCommand:command[@"command"]];
     [self.navigationController popViewControllerAnimated:YES];
   };
   if (!command[@"alert"]) {

@@ -18,7 +18,7 @@
 #define MAX_BATTERY_AH               17
 
 @interface MainViewController ()<CameraViewControllerDelegate, DomainButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
-  Ulysse *_ulysse;
+  PListCommunication *_communication;
   IBOutlet __weak UIView *_squareView;
   BOOL _camStarted;
 }
@@ -72,10 +72,10 @@
   [self.layoutController setupLayouts];
 
   self.appDelegate.gamepadController.delegate = self;
-  _ulysse = self.appDelegate.ulysse;
+  _communication = self.appDelegate.communication;
   self.view.autoresizesSubviews = NO;
   // Do any additional setup after loading the view, typically from a nib.
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ulysseValuesDidChange:) name:UlysseValuesDidUpdate object:_ulysse];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ulysseValuesDidChange:) name:UlysseValuesDidUpdate object:_communication];
 
   [self ulysseValuesDidChange:nil];
   [self updateGamepadController];
@@ -104,12 +104,12 @@
 
 - (void)viewDidUnload {
   [super viewDidUnload];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:UlysseValuesDidUpdate object:_ulysse];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UlysseValuesDidUpdate object:_communication];
 }
 
 - (void)ulysseValuesDidChange:(NSNotification *)notification {
-  Ulysse *ulysse = _ulysse;
-  NSDictionary *allValues = ulysse.allValues;
+  PListCommunication *communication = _communication;
+  NSDictionary *allValues = communication.allValues;
   [self.mapViewController updateWithValues:allValues];
   [self.statusViewController updateWithValues:allValues];
   if (_camStarted && ![[allValues[@"camera"] objectForKey:@"state"] boolValue]) {
@@ -262,11 +262,11 @@
 }
 
 - (void)gamepadControllerTurnOnLEDs:(GamepadController *)gamepadController {
-  [_ulysse setValues: @{ @"light": @(2) }];
+  [_communication setValues: @{ @"light": @(2) }];
 }
 
 - (void)gamepadControllerTurnOffLEDs:(GamepadController *)gamepadController {
-  [_ulysse setValues: @{ @"stop light": @(0) }];
+  [_communication setValues: @{ @"stop light": @(0) }];
 }
 
 @end

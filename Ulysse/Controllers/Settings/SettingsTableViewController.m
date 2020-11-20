@@ -6,7 +6,7 @@
 
 @interface SettingsTableViewController () {
   Config *_config;
-  Ulysse *_ulysse;
+  PListCommunication *_communication;
 }
 @end
 
@@ -42,7 +42,7 @@ typedef enum : NSUInteger {
   [super viewDidLoad];
   AppDelegate *appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
   _config = appDelegate.config;
-  _ulysse = appDelegate.ulysse;
+  _communication = appDelegate.communication;
   self.tableView.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
   self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
   self.tableView.estimatedSectionHeaderHeight = 36;
@@ -101,25 +101,25 @@ typedef enum : NSUInteger {
       cell.textLabel.text = _config.boatName;
       break;
     case LightBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(lightAction:) value:[_ulysse.allValues[@"led"][@"right%"] boolValue]];
+      cell.accessoryView = [self switchWithAction:@selector(lightAction:) value:[_communication.allValues[@"led"][@"right%"] boolValue]];
       cell.textLabel.text = @"Light";
       break;
     case CameraBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(cameraAction:) value:[_ulysse.allValues[@"camera"][@"state"] boolValue]];
+      cell.accessoryView = [self switchWithAction:@selector(cameraAction:) value:[_communication.allValues[@"camera"][@"state"] boolValue]];
       cell.textLabel.text = @"Camera";
       break;
     case RecordTripBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(recordTripAction:) value:[_ulysse.allValues[@"record"] boolValue]];
+      cell.accessoryView = [self switchWithAction:@selector(recordTripAction:) value:[_communication.allValues[@"record"] boolValue]];
       cell.textLabel.text = @"Record Trip";
       break;
     case BootBoatCellIndex:
       cell.textLabel.text = @"Boot Time";
-      cell.detailTextLabel.text = [AppDelegate stringWithTimestamp:[_ulysse.allValues[@"bttmstmp"] doubleValue]];
+      cell.detailTextLabel.text = [AppDelegate stringWithTimestamp:[_communication.allValues[@"bttmstmp"] doubleValue]];
       break;
     case MotorCoefBoatCellIndex:
-      cell.textLabel.text = [NSString stringWithFormat:@"Motor Coef %d%%", (int)(_ulysse.motorCoef * 100)];
+      cell.textLabel.text = [NSString stringWithFormat:@"Motor Coef %d%%", (int)(_communication.motorCoef * 100)];
       [(UISlider *)cell.accessoryView addTarget:self action:@selector(motorCoefAction:) forControlEvents:UIControlEventTouchUpInside];
-      [(UISlider *)cell.accessoryView setValue:_ulysse.motorCoef];
+      [(UISlider *)cell.accessoryView setValue:_communication.motorCoef];
       break;
     case CommandBoatCellIndex:
       cell.textLabel.text = @"Commands";
@@ -153,18 +153,18 @@ typedef enum : NSUInteger {
 
 - (void)lightAction:(UISwitch *)sender {
   if (sender.on) {
-    [_ulysse setValues: @{ @"light": @(2) }];
+    [_communication setValues: @{ @"light": @(2) }];
   } else {
-    [_ulysse setValues: @{ @"stop light": @(0) }];
+    [_communication setValues: @{ @"stop light": @(0) }];
   }
 }
 
 - (void)cameraAction:(UISwitch *)sender {
-  [_ulysse setValues: @{ @"camera": @{ @"state": @(sender.on), @"live_stream_name": @"twitch" } }];
+  [_communication setValues: @{ @"camera": @{ @"state": @(sender.on), @"live_stream_name": @"twitch" } }];
 }
 
 - (void)recordTripAction:(UISwitch *)sender {
-  [_ulysse setValues: @{ @"record": @(sender.on) }];
+  [_communication setValues: @{ @"record": @(sender.on) }];
 }
 
 - (void)motorCoefAction:(UISlider *)sender {

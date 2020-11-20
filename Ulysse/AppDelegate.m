@@ -16,7 +16,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 @interface AppDelegate ()
 
 @property(nonatomic, strong, readwrite) Config *config;
-@property(nonatomic, strong, readwrite) Ulysse *ulysse;
+@property(nonatomic, strong, readwrite) PListCommunication *communication;
 @property(nonatomic, strong, readwrite) GamepadController *gamepadController;
 @property(nonatomic, strong, readwrite) Domains *domains;
 @property(nonatomic, strong) ConnectionController *connectionController;
@@ -42,13 +42,13 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   [self.config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
   self.domains = [[Domains alloc] init];
   self.connectionController = [[ConnectionController alloc] initWithConfig:self.config];
-  self.ulysse = [[Ulysse alloc] initWithConnectionController:self.connectionController domains:self.domains];
+  self.communication = [[PListCommunication alloc] initWithConnectionController:self.connectionController domains:self.domains];
   [self loadPreferences];
   // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;
-  [self.ulysse open];
+  [self.communication open];
   self.gamepadController = [[GamepadController alloc] init];
-  self.gamepadController.ulysse = self.ulysse;
+  self.gamepadController.communication = self.communication;
   self.gamepadController.config = self.config;
   return YES;
 }
@@ -68,11 +68,11 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 - (void)setMotorCoef:(float)motorCoef {
   [NSUserDefaults.standardUserDefaults setFloat:motorCoef forKey:kMotorCoefKey];
   [NSUserDefaults.standardUserDefaults synchronize];
-  [self.ulysse setMotorCoef:motorCoef];
+  [self.communication setMotorCoef:motorCoef];
 }
 
 - (float)motorCoef {
-  return self.ulysse.motorCoef;
+  return self.communication.motorCoef;
 }
 
 - (void)addAlert:(Alert)alert {
@@ -95,7 +95,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   if (motorCoef <= 0 || motorCoef > 1.0) {
     motorCoef = 0.5;
   }
-  self.ulysse.motorCoef = motorCoef;
+  self.communication.motorCoef = motorCoef;
 }
 
 - (void)updateBoat {

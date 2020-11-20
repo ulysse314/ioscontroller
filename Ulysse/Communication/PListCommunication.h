@@ -14,13 +14,13 @@ extern NSString *UlysseWaitedTooLong;
 
 @class ConnectionController;
 
-typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
-  UlysseConnectionStateClosed,
-  UlysseConnectionStateOpening,
-  UlysseConnectionStateOpened,
+typedef NS_ENUM(NSUInteger, CommunicationState) {
+  CommunicationStateClosed,
+  CommunicationStateOpening,
+  CommunicationStateOpened,
 };
 
-@interface Ulysse : NSObject
+@interface PListCommunication : NSObject
 
 @property(nonatomic, readonly) NSDictionary<NSString *, id> *allValues;
 @property(nonatomic, readonly) NSDictionary<NSString *, id> *arduinoInfo;
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, UlysseConnectionState) {
 @property(nonatomic) float motorCoef;
 @property(nonatomic) float extraMotorCoef;
 @property(nonatomic, readonly) BOOL isConnected;
-@property(nonatomic, readonly) UlysseConnectionState state;
+@property(nonatomic, readonly) CommunicationState state;
 
 - (instancetype)initWithConnectionController:(ConnectionController *)connectionController domains:(Domains*)domains;
 
