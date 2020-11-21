@@ -1,6 +1,6 @@
 import Foundation
 
-class MotorModule: Module {
+class MotorBoatComponent: BoatComponent {
 
   override func humanKey(key: String) -> String {
     if key == "pwr" {

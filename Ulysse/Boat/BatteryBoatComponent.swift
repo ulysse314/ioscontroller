@@ -1,6 +1,10 @@
 import Foundation
 
-class BatteryModule: Module {
+class BatteryBoatComponent: BoatComponent {
+
+  init() {
+    super.init(name: "Battery", identifier: .Battery)
+  }
 
   override func humanKey(key: String) -> String {
     if key == "batT" {

@@ -1,7 +1,11 @@
 import Foundation
 
-class CellularModule: Module {
-  
+class CellularBoatComponent: BoatComponent {
+
+  init() {
+    super.init(name: "Cellular", identifier: .Cellular)
+  }
+
   class func connectionStatusString(status: Int) -> String {
     if status == 2 || status == 3 || status == 5 || status == 8 || status == 20 || status == 21 || status == 23 || status == 27 || status == 28 || status == 29 || status == 30 || status == 31 || status == 32 || status == 33 {
       return "Connection failed, the profile is invalid"

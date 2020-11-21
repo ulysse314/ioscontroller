@@ -17,7 +17,7 @@
 #define kVerticalButtonsPReference   @"vertical_buttons"
 #define MAX_BATTERY_AH               17
 
-@interface MainViewController ()<CameraViewControllerDelegate, DomainButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
+@interface MainViewController ()<CameraViewControllerDelegate, ButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
   PListCommunication *_communication;
   IBOutlet __weak UIView *_squareView;
   BOOL _camStarted;
@@ -25,15 +25,16 @@
 
 @property (nonatomic, strong) MapViewController *mapViewController;
 @property (nonatomic, strong) StatusViewController *statusViewController;
-@property (nonatomic, strong) DomainButtonListViewController *domainButtonListViewController;
+@property (nonatomic, strong) ButtonListViewController *buttonListViewController;
 @property (nonatomic, strong) ViewControllerPresenterViewController *viewControllerPresenterViewController;
 @property (nonatomic, strong) UIButton *backgroundExitButton;
 @property (nonatomic, assign) BOOL verticalButtons;
 @property (nonatomic, strong) CameraViewController *cameraViewController;
 @property (nonatomic, strong) UIProgressView *currentConsumptionProgressView;
 @property (nonatomic, strong) MainViewLayoutController *layoutController;
+@property (nonatomic, strong) NSArray<ButtonItem *> *buttonItems;
 
-@property (nonatomic, strong) Domains *domains;
+@property (nonatomic, strong) Boat *boat;
 
 @property (nonatomic, weak) AppDelegate *appDelegate;
 
@@ -45,7 +46,7 @@
   [super viewDidLoad];
   [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:kVerticalButtonsPReference options:NSKeyValueObservingOptionNew context:nil];
   self.appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-  self.domains = self.appDelegate.domains;
+  self.boat = self.appDelegate.boat;
   self.layoutController = [[MainViewLayoutController alloc] initWithMainView:self.view];
 
   // Add view controllers.
@@ -59,12 +60,12 @@
   self.layoutController.statusView = self.statusViewController.view;
   [self.statusViewController didMoveToParentViewController:self];
 
-  self.domainButtonListViewController = [[DomainButtonListViewController alloc] initWithDomains:self.domains];
-  self.domainButtonListViewController.delegate = self;
-  self.domainButtonListViewController.verticalButtons = self.verticalButtons;
-  [self addChildViewController:self.domainButtonListViewController];
-  self.layoutController.domainButtonListView = self.domainButtonListViewController.view;
-  [self.domainButtonListViewController didMoveToParentViewController:self];
+  self.buttonListViewController = [[ButtonListViewController alloc] initWithButtonItems:self.buttonItems];
+  self.buttonListViewController.delegate = self;
+  self.buttonListViewController.verticalButtons = self.verticalButtons;
+  [self addChildViewController:self.buttonListViewController];
+  self.layoutController.buttonListView = self.buttonListViewController.view;
+  [self.buttonListViewController didMoveToParentViewController:self];
 
   self.currentConsumptionProgressView = [[UIProgressView alloc] init];
   self.layoutController.currentConsumptionProgressView = self.currentConsumptionProgressView;
@@ -94,7 +95,7 @@
   } else {
     self.verticalButtons = YES;
   }
-  self.domainButtonListViewController.verticalButtons = self.verticalButtons;
+  self.buttonListViewController.verticalButtons = self.verticalButtons;
   self.viewControllerPresenterViewController.verticalButtons = self.verticalButtons;
 }
 
@@ -126,7 +127,7 @@
     }
     _squareView.backgroundColor = color;
   }
-  [self.domainButtonListViewController updateDomainButtonValues];
+  [self.buttonListViewController updateButtonValues];
   NSNumber *currentConsumption = [allValues[@"batt"] objectForKey:@"ah"];
   if (currentConsumption && [currentConsumption isKindOfClass:[NSNumber class]]) {
     double value = currentConsumption.doubleValue;
@@ -168,17 +169,35 @@
 }
 
 - (void)backgroundExitButtonAction:(id)sender {
-  [self.domainButtonListViewController unselectCurrentButton];
+  [self.buttonListViewController unselectCurrentButton];
 }
 
-- (UIViewController *)viewControllerWithDomain:(Domain *)domain {
-  if (domain.identifier == DomainIdentifierSettings) {
+- (UIViewController *)viewControllerWithButtonItem:(ButtonItem *)buttonItem {
+  if (buttonItem.identifier == ButtonItemIdentifierSettings) {
     UIStoryboard * storyBoard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
     UIViewController *viewController = [storyBoard instantiateInitialViewController];
-    viewController.title = domain.name;
+    viewController.title = buttonItem.name;
     return viewController;
   }
-  return [[DetailDomainViewController alloc] initWithModuleDomain:(ModuleDomain *)domain];
+  return [[DetailDomainViewController alloc] initWithBoatComponentButtonItem:(BoatComponentButtonItem *)buttonItem];
+}
+
+#pragma mark - Properties
+
+- (NSArray<ButtonItem *> *)buttonItems {
+  if (!_buttonItems) {
+    _buttonItems = @[
+      [[BatteryComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.batteryBoatComponent ] ],
+      [[CellularComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.cellularBoatComponent ] ],
+      [[GPSComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.gpsBoatComponent ] ],
+      [[MotorComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.leftMotorBoatComponent, self.boat.rightMotorBoatComponent ] ],
+      [[HullComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.hullBoatComponent ] ],
+      [[BoatComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.arduinoBoatComponent ] name:@"Arduino" identifier:ButtonItemIdentifierArduino image:[UIImage imageNamed:@"arduino"]],
+      [[RaspberryPiComponentButtonItem alloc] initWithBoatComponents:@[ self.boat.raspberryPiBoatComponent ] ],
+      [[ButtonItem alloc] initWithName:@"Settings" identifier:ButtonItemIdentifierSettings image:[UIImage imageNamed:@"settings"]],
+    ];
+  }
+  return _buttonItems;
 }
 
 #pragma mark - WKNavigationDelegate
@@ -205,14 +224,14 @@
   [self.layoutController swithcMainView];
 }
 
-#pragma mark - DomainButtonListViewControllerDelegate
+#pragma mark - ButtonListViewControllerDelegate
 
-- (void)domainButtonWasSelectedWithDomain:(Domain * _Nonnull)domain buttonFrame:(CGRect)buttonFrame {
+- (void)buttonWasSelectedWithItem:(ButtonItem * _Nonnull)buttonItem buttonFrame:(CGRect)buttonFrame {
   if (!self.viewControllerPresenterViewController) {
     self.backgroundExitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backgroundExitButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.backgroundExitButton addTarget:self action:@selector(backgroundExitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:self.backgroundExitButton belowSubview:self.domainButtonListViewController.view];
+    [self.view insertSubview:self.backgroundExitButton belowSubview:self.buttonListViewController.view];
     [NSLayoutConstraint activateConstraints:@[
       [self.backgroundExitButton.topAnchor constraintEqualToAnchor:self.view.topAnchor],
       [self.backgroundExitButton.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
@@ -226,28 +245,28 @@
     [self.backgroundExitButton addSubview:self.viewControllerPresenterViewController.view];
     if (self.verticalButtons) {
       [NSLayoutConstraint activateConstraints:@[
-        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.trailingAnchor],
+        [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.buttonListViewController.view.trailingAnchor],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10],
-        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.domainButtonListViewController.view.bottomAnchor],
+        [self.viewControllerPresenterViewController.view.bottomAnchor constraintEqualToAnchor:self.buttonListViewController.view.bottomAnchor],
       ]];
     } else {
       [NSLayoutConstraint activateConstraints:@[
         [self.viewControllerPresenterViewController.view.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10],
         [self.view.safeAreaLayoutGuide.trailingAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.trailingAnchor constant:10],
         [self.viewControllerPresenterViewController.view.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [self.domainButtonListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
+        [self.buttonListViewController.view.topAnchor constraintEqualToAnchor:self.viewControllerPresenterViewController.view.bottomAnchor],
       ]];
     }
   }
   UINavigationController *navigationController = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
   self.viewControllerPresenterViewController.viewController = navigationController;
-  UIViewController *viewController = [self viewControllerWithDomain:domain];
+  UIViewController *viewController = [self viewControllerWithButtonItem:buttonItem];
   [navigationController pushViewController:viewController animated:NO];
   [self.viewControllerPresenterViewController openViewControllerWithPosition:self.verticalButtons ? (buttonFrame.origin.y + buttonFrame.size.height / 2) : (buttonFrame.origin.x + buttonFrame.size.width / 2)];
 }
 
-- (void)domainButtonWasUnselectedWithDomain:(Domain* _Nonnull)domain {
+- (void)buttonWasUnselectedWithItem:(ButtonItem* _Nonnull)buttonItem {
   [self removePresentedViewController];
 }
 
@@ -262,11 +281,11 @@
 }
 
 - (void)gamepadControllerTurnOnLEDs:(GamepadController *)gamepadController {
-  [_communication setValues: @{ @"light": @(2) }];
+//  [self.boat setValues: @{ @"light": @(2) }];
 }
 
 - (void)gamepadControllerTurnOffLEDs:(GamepadController *)gamepadController {
-  [_communication setValues: @{ @"stop light": @(0) }];
+//  [self.boat setValues: @{ @"stop light": @(0) }];
 }
 
 @end

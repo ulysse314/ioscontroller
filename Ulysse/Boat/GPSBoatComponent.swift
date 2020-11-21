@@ -1,6 +1,10 @@
 import Foundation
 
-class GPSModule: Module {
+class GPSBoatComponent: BoatComponent {
+
+  init() {
+    super.init(name: "GPS", identifier: .GPS)
+  }
 
   override func humanValue(key: String, short: Bool) -> Any? {
     let value = super.humanValue(key: key, short: short)

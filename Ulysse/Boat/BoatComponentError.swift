@@ -1,6 +1,6 @@
 import UIKit
 
-class ModuleError: NSObject {
+class BoatComponentError: NSObject {
   enum Domain : Int {
     case none = 0
     case arduino = 1
@@ -388,7 +388,7 @@ class ModuleError: NSObject {
   var errorCode: Int
   var message: String
 
-  class func createError(domainValue: Any, codeValue: Any, messageValue: Any?) -> ModuleError? {
+  class func createError(domainValue: Any, codeValue: Any, messageValue: Any?) -> BoatComponentError? {
     var domain: Domain?
     if domainValue is Int {
       domain = Domain(rawValue: domainValue as! Int)
@@ -396,7 +396,7 @@ class ModuleError: NSObject {
     let code: Int? = codeValue as? Int
     let message: String? = messageValue as? String
     if domain != nil && code != nil {
-      return ModuleError(domain: domain!, errorCode: code!, message: message)
+      return BoatComponentError(domain: domain!, errorCode: code!, message: message)
     }
     return nil
   }
@@ -408,19 +408,19 @@ class ModuleError: NSObject {
     case .none:
       self.message = "No domain"
     case .arduino:
-      self.message = ModuleError.arduinoErrorMessage(errorCode: ArduinoError(rawValue: errorCode))
+      self.message = BoatComponentError.arduinoErrorMessage(errorCode: ArduinoError(rawValue: errorCode))
     case .gps:
-      self.message = ModuleError.gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
+      self.message = BoatComponentError.gpsErrorMessage(errorCode: GPSError(rawValue: errorCode))
     case .motor:
-      self.message = ModuleError.motorErrorMessage(errorCode: MotorError(rawValue: errorCode), message: message)
+      self.message = BoatComponentError.motorErrorMessage(errorCode: MotorError(rawValue: errorCode), message: message)
     case .battery:
-      self.message = ModuleError.batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
+      self.message = BoatComponentError.batteryErrorMessage(errorCode: BatteryError(rawValue: errorCode))
     case .cellular:
-      self.message = ModuleError.cellularErrorMessage(errorCode: CellularError(rawValue: errorCode), message: message)
+      self.message = BoatComponentError.cellularErrorMessage(errorCode: CellularError(rawValue: errorCode), message: message)
     case .pi:
-      self.message = ModuleError.piErrorMessage(errorCode: PiError(rawValue: errorCode), message: message)
+      self.message = BoatComponentError.piErrorMessage(errorCode: PiError(rawValue: errorCode), message: message)
     case .hull:
-      self.message = ModuleError.hullErrorMessage(errorCode: HullError(rawValue: errorCode), message: message)
+      self.message = BoatComponentError.hullErrorMessage(errorCode: HullError(rawValue: errorCode), message: message)
     }
   }
 }

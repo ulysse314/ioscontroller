@@ -1,9 +1,9 @@
 import UIKit
 
-class DomainButtonListView: UIView {
+class ButtonListView: UIView {
 
   var stackView: UIStackView = UIStackView()
-  var moduleButtons: Array<ModuleSumupView> = [ModuleSumupView]()
+  var buttonViewes: Array<ButtonView> = [ButtonView]()
   var focusedButtonIndex: Int?
   @objc var verticalButtons = false {
     didSet {
@@ -30,16 +30,16 @@ class DomainButtonListView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func addModuleSumupView(moduleSumupView: ModuleSumupView) {
-    moduleSumupView.verticalLabel = !self.verticalButtons
-    self.moduleButtons.append(moduleSumupView)
-    self.stackView.addArrangedSubview(moduleSumupView)
+  func addButtonView(buttonView: ButtonView) {
+    buttonView.verticalLabel = !self.verticalButtons
+    self.buttonViewes.append(buttonView)
+    self.stackView.addArrangedSubview(buttonView)
   }
 
   func updateView() {
     self.stackView.axis = self.verticalButtons ? .vertical : .horizontal
-    for moduleSumupView in self.moduleButtons {
-      moduleSumupView.verticalLabel = !self.verticalButtons
+    for buttonView in self.buttonViewes {
+      buttonView.verticalLabel = !self.verticalButtons
     }
   }
 

@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
+@class Boat;
 @class Config;
-@class Domains;
 @class GamepadController;
 @class PListCommunication;
 
@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, AlertLevel) {
 @property(nonatomic) float motorCoef;
 @property(nonatomic, readonly) Alert alert;
 @property(nonatomic, strong, readonly) GamepadController *gamepadController;
-@property(nonatomic, strong, readonly) Domains *domains;
+@property(nonatomic, strong, readonly) Boat *boat;
 
 + (NSString *)stringWithTimestamp:(NSTimeInterval)timestamp;
 + (NSString *)stringWithDate:(NSDate *)date;

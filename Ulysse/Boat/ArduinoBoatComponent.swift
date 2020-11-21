@@ -1,6 +1,10 @@
 import Foundation
 
-class ArduinoModule: Module {
+class ArduinoBoatComponent: BoatComponent {
+
+  init() {
+    super.init(name: "Arduino", identifier: .Arduino)
+  }
 
   override func humanKey(key: String) -> String {
     if key == "ccldrt" {

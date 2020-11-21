@@ -18,7 +18,7 @@ static NSString *kMotorCoefKey = @"MotorCoef";
 @property(nonatomic, strong, readwrite) Config *config;
 @property(nonatomic, strong, readwrite) PListCommunication *communication;
 @property(nonatomic, strong, readwrite) GamepadController *gamepadController;
-@property(nonatomic, strong, readwrite) Domains *domains;
+@property(nonatomic, strong, readwrite) Boat *boat;
 @property(nonatomic, strong) ConnectionController *connectionController;
 
 @end
@@ -40,9 +40,9 @@ static NSString *kMotorCoefKey = @"MotorCoef";
   [UIDevice currentDevice].batteryMonitoringEnabled = YES;
   self.config = [Config sharedInstance];
   [self.config addObserver:self forKeyPath:@"boatName" options:NSKeyValueObservingOptionNew context:nil];
-  self.domains = [[Domains alloc] init];
+  self.boat = [[Boat alloc] init];
   self.connectionController = [[ConnectionController alloc] initWithConfig:self.config];
-  self.communication = [[PListCommunication alloc] initWithConnectionController:self.connectionController domains:self.domains];
+  self.communication = [[PListCommunication alloc] initWithConnectionController:self.connectionController boat:self.boat];
   [self loadPreferences];
   // Blocking iOS to go to sleep.
   UIApplication.sharedApplication.idleTimerDisabled = YES;

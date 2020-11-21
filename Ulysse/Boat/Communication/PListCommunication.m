@@ -23,7 +23,7 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
   uint8_t *_tmpBuffer;
 }
 
-@property(nonatomic, strong) Domains *domains;
+@property(nonatomic, strong) Boat *boat;
 @property(nonatomic, assign, readwrite) CommunicationState state;
 @property(nonatomic, strong) ConnectionController *connectionController;
 @property(nonatomic, strong) NSTimer *pingTimer;
@@ -38,14 +38,14 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 @synthesize extraMotorCoef = _extraMotorCoef;
 @synthesize arduinoInfo = _arduinoInfo;
 
-- (instancetype)initWithConnectionController:(ConnectionController *)connectionController domains:(Domains*)domains {
+- (instancetype)initWithConnectionController:(ConnectionController *)connectionController boat:(Boat*)boat {
   self = [super init];
   if (self) {
     _connectionController = connectionController;
     _connectionController.delegate = self;
     _motorCoef = 0.5;
     _tmpBuffer = malloc(BUFFER_SIZE);
-    self.domains = domains;
+    self.boat = boat;
     [_connectionController addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return self;
@@ -138,44 +138,36 @@ NSString *UlysseWaitedTooLong = @"UlysseWaitedTooLong";
 
 - (void)newValues:(NSDictionary *)values {
   _allValues = [values mutableCopy];
-  [self.domains.arduinoDomain valueUpdateStart];
+  [self.boat valueUpdateStart];
   if (_allValues[@"ard"]) {
     _arduinoInfo = _allValues[@"ard"];
-    [self.domains.arduinoDomain addValuesWithModuleName:@"arduino" values:_allValues[@"ard"]];
+    [self.boat.arduinoBoatComponent setAllValues:_allValues[@"ard"]];
   }
-  [self.domains.arduinoDomain valueUpdateDone];
-  [self.domains.batteryDomain valueUpdateStart];
   if (_allValues[@"batt"]) {
-    [self.domains.batteryDomain addValuesWithModuleName:@"battery" values:_allValues[@"batt"]];
+    [self.boat.batteryBoatComponent setAllValues:_allValues[@"batt"]];
   }
-  [self.domains.batteryDomain valueUpdateDone];
-  [self.domains.gpsDomain valueUpdateStart];
   if (_allValues[@"gps"]) {
-    [self.domains.gpsDomain addValuesWithModuleName:@"gps" values:_allValues[@"gps"]];
+    [self.boat.gpsBoatComponent setAllValues:_allValues[@"gps"]];
   }
-  [self.domains.gpsDomain valueUpdateDone];
-  [self.domains.cellularDomain valueUpdateStart];
   if (_allValues[@"cell"]) {
-    [self.domains.cellularDomain addValuesWithModuleName:@"cellular" values:_allValues[@"cell"]];
+    [self.boat.cellularBoatComponent setAllValues:_allValues[@"cell"]];
   }
-  [self.domains.cellularDomain valueUpdateDone];
-  [self.domains.raspberryPiDomain valueUpdateStart];
   if (_allValues[@"pi"]) {
-    [self.domains.raspberryPiDomain addValuesWithModuleName:@"pi" values:_allValues[@"pi"]];
+    [self.boat.raspberryPiBoatComponent setAllValues:_allValues[@"pi"]];
   }
-  [self.domains.raspberryPiDomain valueUpdateDone];
-  [self.domains.hullDomain valueUpdateStart];
   if (_allValues[@"hll"]) {
-    [self.domains.hullDomain addValuesWithModuleName:@"hull" values:_allValues[@"hll"]];
+    [self.boat.hullBoatComponent setAllValues:_allValues[@"hll"]];
   }
-  [self.domains.hullDomain valueUpdateDone];
-  [self.domains.motorsDomain valueUpdateStart];
-  for (NSString *key in _allValues.allKeys) {
-    if ([key hasPrefix:@"mtr-"]) {
-      [self.domains.motorsDomain addValuesWithModuleName:key values:_allValues[key]];
-    }
+  if (_allValues[@"hll"]) {
+    [self.boat.hullBoatComponent setAllValues:_allValues[@"hll"]];
   }
-  [self.domains.motorsDomain valueUpdateDone];
+  if (_allValues[@"mtr-l"]) {
+    [self.boat.leftMotorBoatComponent setAllValues:_allValues[@"mtr-l"]];
+  }
+  if (_allValues[@"mtr-r"]) {
+    [self.boat.rightMotorBoatComponent setAllValues:_allValues[@"mtr-r"]];
+  }
+  [self.boat valueUpdateDone];
   [[NSNotificationCenter defaultCenter] postNotificationName:UlysseValuesDidUpdate object:self];
   [self resetWaitingCount];
 }

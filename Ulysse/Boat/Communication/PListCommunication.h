@@ -9,8 +9,8 @@
 extern NSString *UlysseValuesDidUpdate;
 extern NSString *UlysseWaitedTooLong;
 
+@class Boat;
 @class Config;
-@class Domains;
 
 @class ConnectionController;
 
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, CommunicationState) {
 @property(nonatomic, readonly) BOOL isConnected;
 @property(nonatomic, readonly) CommunicationState state;
 
-- (instancetype)initWithConnectionController:(ConnectionController *)connectionController domains:(Domains*)domains;
+- (instancetype)initWithConnectionController:(ConnectionController *)connectionController boat:(Boat*)boat;
 
 - (void)open;
 - (void)close;

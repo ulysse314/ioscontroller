@@ -1,6 +1,10 @@
 import Foundation
 
-class PiModule: Module {
+class RaspberryPiBoatComponent: BoatComponent {
+
+  init() {
+    super.init(name: "Raspberry Pi", identifier: .RaspberryPi)
+  }
 
   override func humanKey(key: String) -> String {
     if key == "cpu%" {

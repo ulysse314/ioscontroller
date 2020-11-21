@@ -1,7 +1,7 @@
 import UIKit
 
-class ModuleSumupView: UIView {
-  let moduleButton: ModuleButton
+class ButtonView: UIView {
+  let buttonImageView: ButtonImageView
   let label: UILabel = UILabel()
   var verticalConstraints: Array<NSLayoutConstraint> = [NSLayoutConstraint]()
   var horizontalConstraints: Array<NSLayoutConstraint> = [NSLayoutConstraint]()
@@ -11,33 +11,33 @@ class ModuleSumupView: UIView {
     }
   }
 
-  init(image: UIImage?, callback: ((_ button: ModuleButton)->())?) {
-    self.moduleButton = ModuleButton(image: image, callback: callback)
+  init(image: UIImage?, callback: ((_ buttonImageView: ButtonImageView)->())?) {
+    self.buttonImageView = ButtonImageView(image: image, callback: callback)
     super.init(frame: CGRect.zero)
-    self.addSubview(self.moduleButton)
+    self.addSubview(self.buttonImageView)
     self.addSubview(self.label)
-    self.moduleButton.translatesAutoresizingMaskIntoConstraints = false
+    self.buttonImageView.translatesAutoresizingMaskIntoConstraints = false
     self.label.translatesAutoresizingMaskIntoConstraints = false
     self.horizontalConstraints = [
-      self.moduleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      self.label.leadingAnchor.constraint(equalTo: self.moduleButton.trailingAnchor, constant: 4),
+      self.buttonImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      self.label.leadingAnchor.constraint(equalTo: self.buttonImageView.trailingAnchor, constant: 4),
       self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
       self.label.widthAnchor.constraint(equalToConstant: 35),
 
-      self.moduleButton.topAnchor.constraint(equalTo: self.topAnchor),
-      self.moduleButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+      self.buttonImageView.topAnchor.constraint(equalTo: self.topAnchor),
+      self.buttonImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       self.label.topAnchor.constraint(equalTo: self.topAnchor),
       self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
     ]
     self.verticalConstraints = [
-      self.moduleButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-      self.moduleButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+      self.buttonImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+      self.buttonImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
       self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
       self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 
       self.label.topAnchor.constraint(equalTo: self.topAnchor),
-      self.label.bottomAnchor.constraint(equalTo: self.moduleButton.topAnchor, constant: -4),
-      self.moduleButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+      self.label.bottomAnchor.constraint(equalTo: self.buttonImageView.topAnchor, constant: -4),
+      self.buttonImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
     ]
     self.label.numberOfLines = 0
     self.label.isUserInteractionEnabled = false

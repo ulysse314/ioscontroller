@@ -23,10 +23,10 @@ class MainViewLayoutController: NSObject {
       self.mainView.addSubview(self.statusView!)
     }
   }
-  @objc var domainButtonListView: UIView! {
+  @objc var buttonListView: UIView! {
     didSet {
-      self.domainButtonListView.translatesAutoresizingMaskIntoConstraints = false
-      self.mainView.addSubview(self.domainButtonListView)
+      self.buttonListView.translatesAutoresizingMaskIntoConstraints = false
+      self.mainView.addSubview(self.buttonListView)
     }
   }
   @objc var currentConsumptionProgressView: UIView! {
@@ -69,8 +69,8 @@ class MainViewLayoutController: NSObject {
     self.layout(bigView: self.mapView, sizeConstraints: &self.mapViewViewSizeConstraints)
     self.layout(bigView: self.mapView, centerConstraints: &self.mapViewViewCenterConstraints)
     NSLayoutConstraint.activate([
-      self.domainButtonListView.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor, constant: 10),
-      self.mainView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.domainButtonListView.bottomAnchor, constant: 10),
+      self.buttonListView.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor, constant: 10),
+      self.mainView.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.buttonListView.bottomAnchor, constant: 10),
       self.mainView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor, constant: 10),
       self.statusView.topAnchor.constraint(equalTo: self.mainView.topAnchor, constant: 10),
       self.statusView.heightAnchor.constraint(equalToConstant: 24),

@@ -1,6 +1,6 @@
 import UIKit
 
-class ModuleButton: UIControl {
+class ButtonImageView: UIControl {
 
   var imageView: UIImageView = UIImageView(frame: CGRect.zero)
   var errorLabelContainer: UIView = UIImageView(frame: CGRect.zero)
@@ -12,7 +12,7 @@ class ModuleButton: UIControl {
       self.errorLabel.text = String(self.errorCount)
     }
   }
-  var callback: ((_ button: ModuleButton)->())?
+  var callback: ((_ buttonImageView: ButtonImageView)->())?
 
   override var isSelected: Bool {
     didSet {
@@ -24,7 +24,7 @@ class ModuleButton: UIControl {
     }
   }
 
-  init(image: UIImage?, callback: ((_ button: ModuleButton)->())?) {
+  init(image: UIImage?, callback: ((_ buttonImageView: ButtonImageView)->())?) {
     super.init(frame: CGRect.zero)
     self.imageView.translatesAutoresizingMaskIntoConstraints = false
     self.errorLabelContainer.isUserInteractionEnabled = false

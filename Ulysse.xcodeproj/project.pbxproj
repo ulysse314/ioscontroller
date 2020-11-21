@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		020BA00823512A72005BA152 /* CellularModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00723512A72005BA152 /* CellularModule.swift */; };
-		020BA00C2354C841005BA152 /* GPSModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00B2354C841005BA152 /* GPSModule.swift */; };
+		020BA00823512A72005BA152 /* CellularBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00723512A72005BA152 /* CellularBoatComponent.swift */; };
+		020BA00C2354C841005BA152 /* GPSBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020BA00B2354C841005BA152 /* GPSBoatComponent.swift */; };
 		020F333D1FE629FC0014A228 /* ulysse314.json in Resources */ = {isa = PBXBuildFile; fileRef = 020F333C1FE629FC0014A228 /* ulysse314.json */; };
 		0214F7F325583432004A0B24 /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0214F7F225583432004A0B24 /* SocketConnection.swift */; };
 		021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 021565FC1FF6EC3E00D9BC98 /* Config.m */; };
@@ -17,30 +17,29 @@
 		0229F6AB255B549100C50A08 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229F6AA255B549100C50A08 /* Connection.swift */; };
 		0229F6B0255C484700C50A08 /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0229F6AF255C484700C50A08 /* ConnectionController.swift */; };
 		022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */; };
-		022BAD5721FDDF7900624EFA /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* Domain.swift */; };
+		022BAD5721FDDF7900624EFA /* ButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD5621FDDF7900624EFA /* ButtonItem.swift */; };
 		022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022BAD582200F05400624EFA /* ModulePresenterViewController.swift */; };
-		022C0E2C2346AB5100F4DAA6 /* DomainButtonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E2B2346AB5100F4DAA6 /* DomainButtonListViewController.swift */; };
+		022C0E2C2346AB5100F4DAA6 /* ButtonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E2B2346AB5100F4DAA6 /* ButtonListViewController.swift */; };
 		022C0E302347E0C800F4DAA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 022C0E2F2347E0C800F4DAA6 /* Settings.bundle */; };
-		022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E312348086300F4DAA6 /* ModuleDataView.swift */; };
-		022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */; };
-		022C0E36234907BE00F4DAA6 /* BatteryDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E35234907BE00F4DAA6 /* BatteryDomain.swift */; };
-		022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E372349215C00F4DAA6 /* GPSDomain.swift */; };
-		022C0E3A23492E3E00F4DAA6 /* MotorModuleDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3923492E3E00F4DAA6 /* MotorModuleDomain.swift */; };
-		022C0E3C23492F8800F4DAA6 /* RaspberryPiModuleDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3B23492F8800F4DAA6 /* RaspberryPiModuleDomain.swift */; };
+		022C0E34234808EB00F4DAA6 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E33234808EB00F4DAA6 /* ButtonView.swift */; };
+		022C0E36234907BE00F4DAA6 /* BatteryComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E35234907BE00F4DAA6 /* BatteryComponentButtonItem.swift */; };
+		022C0E382349215C00F4DAA6 /* GPSComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E372349215C00F4DAA6 /* GPSComponentButtonItem.swift */; };
+		022C0E3A23492E3E00F4DAA6 /* MotorComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3923492E3E00F4DAA6 /* MotorComponentButtonItem.swift */; };
+		022C0E3C23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C0E3B23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift */; };
 		0234CC3722025FC100738CC0 /* DetailTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3622025FC100738CC0 /* DetailTabViewController.swift */; };
 		0234CC3A2202F32300738CC0 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0234CC382202F32300738CC0 /* Settings.storyboard */; };
-		0234CC4022061ED200738CC0 /* Domains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC3F22061ED200738CC0 /* Domains.swift */; };
-		0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC4122064B5D00738CC0 /* ModuleError.swift */; };
+		0234CC4222064B5D00738CC0 /* BoatComponentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0234CC4122064B5D00738CC0 /* BoatComponentError.swift */; };
 		023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023BD9172044994000188A35 /* BoatChooserViewController.m */; };
-		023C9F6D234BDB420003F0FA /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C9F6C234BDB420003F0FA /* Module.swift */; };
-		023C9F6F234E69A00003F0FA /* ModuleDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C9F6E234E69A00003F0FA /* ModuleDomain.swift */; };
+		023C9F6D234BDB420003F0FA /* BoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C9F6C234BDB420003F0FA /* BoatComponent.swift */; };
+		023C9F6F234E69A00003F0FA /* BoatComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023C9F6E234E69A00003F0FA /* BoatComponentButtonItem.swift */; };
 		0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF29205458D100B1D6F5 /* MotorPowerView.m */; };
 		0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */; };
 		0244F5B7234169D700440189 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F5B6234169D700440189 /* MapViewController.swift */; };
 		0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0244F5B82342ADC200440189 /* StatusViewController.swift */; };
+		0250FA1B25693F5A0051E515 /* Boat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0250FA1A25693F5A0051E515 /* Boat.swift */; };
 		0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0265709E2034CEFE006187A8 /* SettingsTableViewController.m */; };
-		026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ModuleButton.swift */; };
-		026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* TabButtonListView.swift */; };
+		026DD12B21FCA383006B18B7 /* ButtonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ButtonImageView.swift */; };
+		026DD12D21FCB4D9006B18B7 /* ButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ButtonListView.swift */; };
 		02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02918E5C249E2D7400359C9A /* CameraViewController.swift */; };
 		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
 		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
@@ -52,13 +51,13 @@
 		029931361D3180FC00C03033 /* UlysseUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931351D3180FC00C03033 /* UlysseUITests.m */; };
 		029931451D3195DB00C03033 /* PListCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931441D3195DB00C03033 /* PListCommunication.m */; };
 		02A879811F5B89B10031D23B /* quickaction_icon_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */; };
-		02D6ED0923AEFD830041E183 /* BatteryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0823AEFD830041E183 /* BatteryModule.swift */; };
-		02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0A23B9B1660041E183 /* HullDomain.swift */; };
-		02D6ED0D23BDE3E90041E183 /* HullModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0C23BDE3E90041E183 /* HullModule.swift */; };
-		02D6ED0F23BDE9FA0041E183 /* ArduinoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */; };
-		02D6ED1123BEAE980041E183 /* PiModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED1023BEAE980041E183 /* PiModule.swift */; };
-		02D6ED1323BEB0A20041E183 /* MotorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED1223BEB0A20041E183 /* MotorModule.swift */; };
-		02E549F0223EF0940080B353 /* CellularDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E549EF223EF0940080B353 /* CellularDomain.swift */; };
+		02D6ED0923AEFD830041E183 /* BatteryBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0823AEFD830041E183 /* BatteryBoatComponent.swift */; };
+		02D6ED0B23B9B1660041E183 /* HullComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0A23B9B1660041E183 /* HullComponentButtonItem.swift */; };
+		02D6ED0D23BDE3E90041E183 /* HullBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0C23BDE3E90041E183 /* HullBoatComponent.swift */; };
+		02D6ED0F23BDE9FA0041E183 /* ArduinoBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED0E23BDE9FA0041E183 /* ArduinoBoatComponent.swift */; };
+		02D6ED1123BEAE980041E183 /* RaspberryPiBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED1023BEAE980041E183 /* RaspberryPiBoatComponent.swift */; };
+		02D6ED1323BEB0A20041E183 /* MotorBoatComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D6ED1223BEB0A20041E183 /* MotorBoatComponent.swift */; };
+		02E549F0223EF0940080B353 /* CellularComponentButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E549EF223EF0940080B353 /* CellularComponentButtonItem.swift */; };
 		02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0120A1BE680002CB00 /* GamepadController.m */; };
 		02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FA6B0420A6C2A50002CB00 /* CommandViewController.m */; };
 /* End PBXBuildFile section */
@@ -81,8 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		020BA00723512A72005BA152 /* CellularModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularModule.swift; sourceTree = "<group>"; };
-		020BA00B2354C841005BA152 /* GPSModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSModule.swift; sourceTree = "<group>"; };
+		020BA00723512A72005BA152 /* CellularBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularBoatComponent.swift; sourceTree = "<group>"; };
+		020BA00B2354C841005BA152 /* GPSBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSBoatComponent.swift; sourceTree = "<group>"; };
 		020F333C1FE629FC0014A228 /* ulysse314.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ulysse314.json; sourceTree = "<group>"; };
 		0214F7F225583432004A0B24 /* SocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
 		021565FB1FF6EC3E00D9BC98 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -94,34 +93,33 @@
 		0229F6AA255B549100C50A08 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		0229F6AF255C484700C50A08 /* ConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterView.swift; sourceTree = "<group>"; };
-		022BAD5621FDDF7900624EFA /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		022BAD5621FDDF7900624EFA /* ButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonItem.swift; sourceTree = "<group>"; };
 		022BAD582200F05400624EFA /* ModulePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulePresenterViewController.swift; sourceTree = "<group>"; };
-		022C0E2B2346AB5100F4DAA6 /* DomainButtonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainButtonListViewController.swift; sourceTree = "<group>"; };
+		022C0E2B2346AB5100F4DAA6 /* ButtonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonListViewController.swift; sourceTree = "<group>"; };
 		022C0E2F2347E0C800F4DAA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		022C0E312348086300F4DAA6 /* ModuleDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDataView.swift; sourceTree = "<group>"; };
-		022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSumupView.swift; sourceTree = "<group>"; };
-		022C0E35234907BE00F4DAA6 /* BatteryDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDomain.swift; sourceTree = "<group>"; };
-		022C0E372349215C00F4DAA6 /* GPSDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDomain.swift; sourceTree = "<group>"; };
-		022C0E3923492E3E00F4DAA6 /* MotorModuleDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorModuleDomain.swift; sourceTree = "<group>"; };
-		022C0E3B23492F8800F4DAA6 /* RaspberryPiModuleDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaspberryPiModuleDomain.swift; sourceTree = "<group>"; };
+		022C0E33234808EB00F4DAA6 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		022C0E35234907BE00F4DAA6 /* BatteryComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryComponentButtonItem.swift; sourceTree = "<group>"; };
+		022C0E372349215C00F4DAA6 /* GPSComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSComponentButtonItem.swift; sourceTree = "<group>"; };
+		022C0E3923492E3E00F4DAA6 /* MotorComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorComponentButtonItem.swift; sourceTree = "<group>"; };
+		022C0E3B23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaspberryPiComponentButtonItem.swift; sourceTree = "<group>"; };
 		0234CC3622025FC100738CC0 /* DetailTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTabViewController.swift; sourceTree = "<group>"; };
 		0234CC392202F32300738CC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
-		0234CC3F22061ED200738CC0 /* Domains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domains.swift; sourceTree = "<group>"; };
-		0234CC4122064B5D00738CC0 /* ModuleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleError.swift; sourceTree = "<group>"; };
+		0234CC4122064B5D00738CC0 /* BoatComponentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoatComponentError.swift; sourceTree = "<group>"; };
 		023BD9162044994000188A35 /* BoatChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoatChooserViewController.h; sourceTree = "<group>"; };
 		023BD9172044994000188A35 /* BoatChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoatChooserViewController.m; sourceTree = "<group>"; };
-		023C9F6C234BDB420003F0FA /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
-		023C9F6E234E69A00003F0FA /* ModuleDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleDomain.swift; sourceTree = "<group>"; };
+		023C9F6C234BDB420003F0FA /* BoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoatComponent.swift; sourceTree = "<group>"; };
+		023C9F6E234E69A00003F0FA /* BoatComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoatComponentButtonItem.swift; sourceTree = "<group>"; };
 		0244BF28205458D100B1D6F5 /* MotorPowerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MotorPowerView.h; sourceTree = "<group>"; };
 		0244BF29205458D100B1D6F5 /* MotorPowerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MotorPowerView.m; sourceTree = "<group>"; };
 		0244BF2C20546E0700B1D6F5 /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
 		0244BF2D20546E0700B1D6F5 /* UITabBarController+HideTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HideTabBar.m"; sourceTree = "<group>"; };
 		0244F5B6234169D700440189 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0244F5B82342ADC200440189 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
+		0250FA1A25693F5A0051E515 /* Boat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boat.swift; sourceTree = "<group>"; };
 		0265709D2034CEFE006187A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		0265709E2034CEFE006187A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
-		026DD12A21FCA383006B18B7 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
-		026DD12C21FCB4D9006B18B7 /* TabButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButtonListView.swift; sourceTree = "<group>"; };
+		026DD12A21FCA383006B18B7 /* ButtonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonImageView.swift; sourceTree = "<group>"; };
+		026DD12C21FCB4D9006B18B7 /* ButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonListView.swift; sourceTree = "<group>"; };
 		02918E5C249E2D7400359C9A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		0299310A1D3180FC00C03033 /* Ulysse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulysse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0299310E1D3180FC00C03033 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -142,13 +140,13 @@
 		029931431D3195DB00C03033 /* PListCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PListCommunication.h; sourceTree = "<group>"; };
 		029931441D3195DB00C03033 /* PListCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PListCommunication.m; sourceTree = "<group>"; };
 		02A879801F5B89B10031D23B /* quickaction_icon_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickaction_icon_location@2x.png"; sourceTree = "<group>"; };
-		02D6ED0823AEFD830041E183 /* BatteryModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryModule.swift; sourceTree = "<group>"; };
-		02D6ED0A23B9B1660041E183 /* HullDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullDomain.swift; sourceTree = "<group>"; };
-		02D6ED0C23BDE3E90041E183 /* HullModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullModule.swift; sourceTree = "<group>"; };
-		02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArduinoModule.swift; sourceTree = "<group>"; };
-		02D6ED1023BEAE980041E183 /* PiModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiModule.swift; sourceTree = "<group>"; };
-		02D6ED1223BEB0A20041E183 /* MotorModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorModule.swift; sourceTree = "<group>"; };
-		02E549EF223EF0940080B353 /* CellularDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularDomain.swift; sourceTree = "<group>"; };
+		02D6ED0823AEFD830041E183 /* BatteryBoatComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryBoatComponent.swift; sourceTree = "<group>"; };
+		02D6ED0A23B9B1660041E183 /* HullComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullComponentButtonItem.swift; sourceTree = "<group>"; };
+		02D6ED0C23BDE3E90041E183 /* HullBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HullBoatComponent.swift; sourceTree = "<group>"; };
+		02D6ED0E23BDE9FA0041E183 /* ArduinoBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArduinoBoatComponent.swift; sourceTree = "<group>"; };
+		02D6ED1023BEAE980041E183 /* RaspberryPiBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaspberryPiBoatComponent.swift; sourceTree = "<group>"; };
+		02D6ED1223BEB0A20041E183 /* MotorBoatComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotorBoatComponent.swift; sourceTree = "<group>"; };
+		02E549EF223EF0940080B353 /* CellularComponentButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellularComponentButtonItem.swift; sourceTree = "<group>"; };
 		02FA6B0020A1BE680002CB00 /* GamepadController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamepadController.h; sourceTree = "<group>"; };
 		02FA6B0120A1BE680002CB00 /* GamepadController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamepadController.m; sourceTree = "<group>"; };
 		02FA6B0320A6C2A40002CB00 /* CommandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandViewController.h; sourceTree = "<group>"; };
@@ -180,51 +178,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02083FB721E54A4500808DC9 /* Modules */ = {
+		02083FB721E54A4500808DC9 /* Boat */ = {
 			isa = PBXGroup;
 			children = (
-				023C9F6C234BDB420003F0FA /* Module.swift */,
-				02D6ED1023BEAE980041E183 /* PiModule.swift */,
-				02D6ED1223BEB0A20041E183 /* MotorModule.swift */,
-				02D6ED0E23BDE9FA0041E183 /* ArduinoModule.swift */,
-				020BA00723512A72005BA152 /* CellularModule.swift */,
-				020BA00B2354C841005BA152 /* GPSModule.swift */,
-				02D6ED0C23BDE3E90041E183 /* HullModule.swift */,
-				0234CC4122064B5D00738CC0 /* ModuleError.swift */,
-				02D6ED0823AEFD830041E183 /* BatteryModule.swift */,
+				023961BC2168F05B0086D511 /* Communication */,
+				0250FA1A25693F5A0051E515 /* Boat.swift */,
+				023C9F6C234BDB420003F0FA /* BoatComponent.swift */,
+				0234CC4122064B5D00738CC0 /* BoatComponentError.swift */,
+				02D6ED0E23BDE9FA0041E183 /* ArduinoBoatComponent.swift */,
+				02D6ED0823AEFD830041E183 /* BatteryBoatComponent.swift */,
+				020BA00723512A72005BA152 /* CellularBoatComponent.swift */,
+				020BA00B2354C841005BA152 /* GPSBoatComponent.swift */,
+				02D6ED0C23BDE3E90041E183 /* HullBoatComponent.swift */,
+				02D6ED1223BEB0A20041E183 /* MotorBoatComponent.swift */,
+				02D6ED1023BEAE980041E183 /* RaspberryPiBoatComponent.swift */,
 			);
-			path = Modules;
+			path = Boat;
 			sourceTree = "<group>";
 		};
 		02083FBE21F2FCA800808DC9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				022BAD5421FDA50B00624EFA /* ModulePresenterView.swift */,
-				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
 				0234CC3622025FC100738CC0 /* DetailTabViewController.swift */,
 				0244F5B6234169D700440189 /* MapViewController.swift */,
 				0244F5B82342ADC200440189 /* StatusViewController.swift */,
-				022C0E2B2346AB5100F4DAA6 /* DomainButtonListViewController.swift */,
 				02918E5C249E2D7400359C9A /* CameraViewController.swift */,
 				02F4008C204718CC00016004 /* Settings */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		020BA00A235134CC005BA152 /* Domain */ = {
+		020BA00A235134CC005BA152 /* ButtonItem */ = {
 			isa = PBXGroup;
 			children = (
-				022BAD5621FDDF7900624EFA /* Domain.swift */,
-				023C9F6E234E69A00003F0FA /* ModuleDomain.swift */,
-				022C0E35234907BE00F4DAA6 /* BatteryDomain.swift */,
-				02E549EF223EF0940080B353 /* CellularDomain.swift */,
-				022C0E372349215C00F4DAA6 /* GPSDomain.swift */,
-				02D6ED0A23B9B1660041E183 /* HullDomain.swift */,
-				022C0E3923492E3E00F4DAA6 /* MotorModuleDomain.swift */,
-				022C0E3B23492F8800F4DAA6 /* RaspberryPiModuleDomain.swift */,
-				0234CC3F22061ED200738CC0 /* Domains.swift */,
+				022BAD5621FDDF7900624EFA /* ButtonItem.swift */,
+				023C9F6E234E69A00003F0FA /* BoatComponentButtonItem.swift */,
+				022C0E35234907BE00F4DAA6 /* BatteryComponentButtonItem.swift */,
+				02E549EF223EF0940080B353 /* CellularComponentButtonItem.swift */,
+				022C0E372349215C00F4DAA6 /* GPSComponentButtonItem.swift */,
+				02D6ED0A23B9B1660041E183 /* HullComponentButtonItem.swift */,
+				022C0E3923492E3E00F4DAA6 /* MotorComponentButtonItem.swift */,
+				022C0E3B23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift */,
 			);
-			path = Domain;
+			path = ButtonItem;
 			sourceTree = "<group>";
 		};
 		023961B92168EF320086D511 /* Frameworks */ = {
@@ -251,12 +248,21 @@
 				021E06E21D3717DD002A7BD3 /* Trackpad.m */,
 				0244BF28205458D100B1D6F5 /* MotorPowerView.h */,
 				0244BF29205458D100B1D6F5 /* MotorPowerView.m */,
-				026DD12A21FCA383006B18B7 /* ModuleButton.swift */,
-				022C0E312348086300F4DAA6 /* ModuleDataView.swift */,
-				026DD12C21FCB4D9006B18B7 /* TabButtonListView.swift */,
-				022C0E33234808EB00F4DAA6 /* ModuleSumupView.swift */,
 			);
 			path = "Custom View";
+			sourceTree = "<group>";
+		};
+		02745E1D25852E8F000B94F5 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				020BA00A235134CC005BA152 /* ButtonItem */,
+				022C0E2B2346AB5100F4DAA6 /* ButtonListViewController.swift */,
+				026DD12C21FCB4D9006B18B7 /* ButtonListView.swift */,
+				026DD12A21FCA383006B18B7 /* ButtonImageView.swift */,
+				022C0E33234808EB00F4DAA6 /* ButtonView.swift */,
+				022BAD582200F05400624EFA /* ModulePresenterViewController.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		029931011D3180FC00C03033 = {
@@ -283,10 +289,9 @@
 		0299310C1D3180FC00C03033 /* Ulysse */ = {
 			isa = PBXGroup;
 			children = (
-				020BA00A235134CC005BA152 /* Domain */,
+				02745E1D25852E8F000B94F5 /* Buttons */,
 				02083FBE21F2FCA800808DC9 /* Controllers */,
-				02083FB721E54A4500808DC9 /* Modules */,
-				023961BC2168F05B0086D511 /* Communication */,
+				02083FB721E54A4500808DC9 /* Boat */,
 				029931101D3180FC00C03033 /* AppDelegate.h */,
 				029931111D3180FC00C03033 /* AppDelegate.m */,
 				02FA6B0020A1BE680002CB00 /* GamepadController.h */,
@@ -503,49 +508,48 @@
 			files = (
 				02FA6B0520A6C2A50002CB00 /* CommandViewController.m in Sources */,
 				022BAD592200F05400624EFA /* ModulePresenterViewController.swift in Sources */,
-				022C0E322348086300F4DAA6 /* ModuleDataView.swift in Sources */,
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
-				022C0E3A23492E3E00F4DAA6 /* MotorModuleDomain.swift in Sources */,
-				022C0E3C23492F8800F4DAA6 /* RaspberryPiModuleDomain.swift in Sources */,
-				0234CC4022061ED200738CC0 /* Domains.swift in Sources */,
-				023C9F6F234E69A00003F0FA /* ModuleDomain.swift in Sources */,
-				022BAD5721FDDF7900624EFA /* Domain.swift in Sources */,
+				022C0E3A23492E3E00F4DAA6 /* MotorComponentButtonItem.swift in Sources */,
+				022C0E3C23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift in Sources */,
+				023C9F6F234E69A00003F0FA /* BoatComponentButtonItem.swift in Sources */,
+				022BAD5721FDDF7900624EFA /* ButtonItem.swift in Sources */,
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,
 				0234CC3722025FC100738CC0 /* DetailTabViewController.swift in Sources */,
 				023BD9182044994000188A35 /* BoatChooserViewController.m in Sources */,
 				021E06E31D3717DD002A7BD3 /* Trackpad.m in Sources */,
 				029931121D3180FC00C03033 /* AppDelegate.m in Sources */,
-				02D6ED0D23BDE3E90041E183 /* HullModule.swift in Sources */,
-				022C0E2C2346AB5100F4DAA6 /* DomainButtonListViewController.swift in Sources */,
-				02E549F0223EF0940080B353 /* CellularDomain.swift in Sources */,
-				020BA00C2354C841005BA152 /* GPSModule.swift in Sources */,
+				02D6ED0D23BDE3E90041E183 /* HullBoatComponent.swift in Sources */,
+				022C0E2C2346AB5100F4DAA6 /* ButtonListViewController.swift in Sources */,
+				02E549F0223EF0940080B353 /* CellularComponentButtonItem.swift in Sources */,
+				020BA00C2354C841005BA152 /* GPSBoatComponent.swift in Sources */,
 				0244F5B7234169D700440189 /* MapViewController.swift in Sources */,
-				02D6ED1323BEB0A20041E183 /* MotorModule.swift in Sources */,
-				022C0E382349215C00F4DAA6 /* GPSDomain.swift in Sources */,
-				026DD12D21FCB4D9006B18B7 /* TabButtonListView.swift in Sources */,
-				02D6ED0B23B9B1660041E183 /* HullDomain.swift in Sources */,
+				02D6ED1323BEB0A20041E183 /* MotorBoatComponent.swift in Sources */,
+				022C0E382349215C00F4DAA6 /* GPSComponentButtonItem.swift in Sources */,
+				026DD12D21FCB4D9006B18B7 /* ButtonListView.swift in Sources */,
+				02D6ED0B23B9B1660041E183 /* HullComponentButtonItem.swift in Sources */,
+				0250FA1B25693F5A0051E515 /* Boat.swift in Sources */,
 				0229F6AB255B549100C50A08 /* Connection.swift in Sources */,
 				021DF77A249FFFED007AA655 /* MainViewLayoutController.swift in Sources */,
 				02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */,
 				0244BF2A205458D100B1D6F5 /* MotorPowerView.m in Sources */,
-				0234CC4222064B5D00738CC0 /* ModuleError.swift in Sources */,
+				0234CC4222064B5D00738CC0 /* BoatComponentError.swift in Sources */,
 				029931151D3180FC00C03033 /* MainViewController.m in Sources */,
-				020BA00823512A72005BA152 /* CellularModule.swift in Sources */,
+				020BA00823512A72005BA152 /* CellularBoatComponent.swift in Sources */,
 				0214F7F325583432004A0B24 /* SocketConnection.swift in Sources */,
 				0299310F1D3180FC00C03033 /* main.m in Sources */,
-				023C9F6D234BDB420003F0FA /* Module.swift in Sources */,
-				022C0E34234808EB00F4DAA6 /* ModuleSumupView.swift in Sources */,
+				023C9F6D234BDB420003F0FA /* BoatComponent.swift in Sources */,
+				022C0E34234808EB00F4DAA6 /* ButtonView.swift in Sources */,
 				029931451D3195DB00C03033 /* PListCommunication.m in Sources */,
 				0244F5B92342ADC200440189 /* StatusViewController.swift in Sources */,
 				022BAD5521FDA50B00624EFA /* ModulePresenterView.swift in Sources */,
 				0229F6B0255C484700C50A08 /* ConnectionController.swift in Sources */,
 				0244BF2E20546E0700B1D6F5 /* UITabBarController+HideTabBar.m in Sources */,
 				02FA6B0220A1BE680002CB00 /* GamepadController.m in Sources */,
-				02D6ED1123BEAE980041E183 /* PiModule.swift in Sources */,
-				02D6ED0F23BDE9FA0041E183 /* ArduinoModule.swift in Sources */,
-				02D6ED0923AEFD830041E183 /* BatteryModule.swift in Sources */,
-				026DD12B21FCA383006B18B7 /* ModuleButton.swift in Sources */,
-				022C0E36234907BE00F4DAA6 /* BatteryDomain.swift in Sources */,
+				02D6ED1123BEAE980041E183 /* RaspberryPiBoatComponent.swift in Sources */,
+				02D6ED0F23BDE9FA0041E183 /* ArduinoBoatComponent.swift in Sources */,
+				02D6ED0923AEFD830041E183 /* BatteryBoatComponent.swift in Sources */,
+				026DD12B21FCA383006B18B7 /* ButtonImageView.swift in Sources */,
+				022C0E36234907BE00F4DAA6 /* BatteryComponentButtonItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
