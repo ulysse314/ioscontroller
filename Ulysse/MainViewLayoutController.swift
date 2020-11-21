@@ -1,12 +1,12 @@
 import UIKit
 
 class MainViewLayoutController: NSObject {
-  enum FullScreenView: Int {
+  @objc enum FullScreenView: Int {
     case mapView
     case cameraView
   }
 
-  var fullScreenView: FullScreenView = .mapView {
+  @objc var fullScreenView: FullScreenView = .mapView {
     didSet {
     }
   }
@@ -81,9 +81,10 @@ class MainViewLayoutController: NSObject {
   }
 
   @objc func switchToCamera() {
-    if self.cameraView == nil {
+    if self.cameraView == nil || self.fullScreenView == .cameraView {
       return
     }
+    self.fullScreenView = .cameraView
     UIView .animate(withDuration: 0.25) {
       self.mainView.sendSubviewToBack(self.cameraView!)
       self.layout(miniView: self.mapView, sizeConstraints: &self.mapViewViewSizeConstraints)
@@ -95,6 +96,10 @@ class MainViewLayoutController: NSObject {
   }
 
   @objc func switchToMap() {
+    if self.fullScreenView == .mapView {
+      return
+    }
+    self.fullScreenView = .mapView
     UIView .animate(withDuration: 0.25) {
       if self.cameraView != nil {
         self.layout(miniView: self.cameraView!, sizeConstraints: &self.cameraViewSizeConstraints)

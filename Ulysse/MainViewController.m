@@ -17,7 +17,7 @@
 #define kVerticalButtonsPReference   @"vertical_buttons"
 #define MAX_BATTERY_AH               17
 
-@interface MainViewController ()<DomainButtonListViewControllerDelegate, WKNavigationDelegate> {
+@interface MainViewController ()<DomainButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
   BOOL _camStarted;
@@ -71,8 +71,7 @@
 
   [self.layoutController setupLayouts];
 
-  // Rest of config.
-  [self.appDelegate.gamepadController addObserver:self forKeyPath:@"isConnected" options:NSKeyValueObservingOptionNew context:nil];
+  self.appDelegate.gamepadController.delegate = self;
   _ulysse = self.appDelegate.ulysse;
   self.view.autoresizesSubviews = NO;
   // Do any additional setup after loading the view, typically from a nib.
@@ -86,8 +85,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
   if (object == NSUserDefaults.standardUserDefaults) {
     [self updateVerticalPreference];
-  } else if (object == self.appDelegate.gamepadController) {
-    [self updateGamepadController];
   }
 }
 
@@ -245,6 +242,28 @@
 
 - (void)domainButtonWasUnselectedWithDomain:(Domain* _Nonnull)domain {
   [self removePresentedViewController];
+}
+
+#pragma mark - GamepadControllerDelegate
+
+- (void)gamepadController:(GamepadController *)gamepadController isConnected:(BOOL)isConnected {
+  [self updateGamepadController];
+}
+
+- (void)gamepadControllerMapButtonPressed:(GamepadController *)gamepadController {
+  if (self.layoutController.fullScreenView == FullScreenViewCameraView) {
+    [self.layoutController switchToMap];
+  } else {
+    [self.layoutController switchToCamera];
+  }
+}
+
+- (void)gamepadControllerTurnOnLEDs:(GamepadController *)gamepadController {
+  [_ulysse setValues: @{ @"light": @(2) }];
+}
+
+- (void)gamepadControllerTurnOffLEDs:(GamepadController *)gamepadController {
+  [_ulysse setValues: @{ @"stop light": @(0) }];
 }
 
 @end

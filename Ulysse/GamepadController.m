@@ -5,6 +5,8 @@
 #import "Config.h"
 #import "PListCommunication.h"
 
+#import "Ulysse-Swift.h"
+
 #define PLAYER_INDEX_START_FLASH_TIMER 0.25
 #define PLAYER_INDEX_SLOW_FLASH_TIMER 1.
 #define PLAYER_INDEX_FAST_FLASH_TIMER .5
@@ -65,6 +67,16 @@
 
 - (GCControllerButtonInput *)turboBoostTrigger {
   return self.gameController.extendedGamepad.leftTrigger;
+}
+
+#pragma mark - Properties
+
+- (void)setIsConnected:(BOOL)isConnected {
+  if (_isConnected == isConnected) {
+    return;
+  }
+  _isConnected = isConnected;
+  [self.delegate gamepadController:self isConnected:self.isConnected];
 }
 
 #pragma mark - Private
@@ -177,16 +189,22 @@
     }
   };
   self.directionStick.valueChangedHandler = ^(GCControllerDirectionPad * _Nonnull dpad, float xValue, float yValue) {
-    [self updateMotorWithGamepad];
+    [weakSelf updateMotorWithGamepad];
   };
   self.turboBoostTrigger.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    self.ulysse.extraMotorCoef = value;
+    weakSelf.ulysse.extraMotorCoef = value;
   };
-  self.gameController.extendedGamepad.rightShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    [self.ulysse setValues: @{ @"led": @{ @"right%": pressed ? @(100) : @(0) }}];
+  self.gameController.extendedGamepad.rightShoulder.pressedChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
+    [weakSelf.delegate gamepadControllerTurnOnLEDs:weakSelf];
   };
-  self.gameController.extendedGamepad.leftShoulder.valueChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
-    [self.ulysse setValues: @{ @"led": @{ @"left%": pressed ? @(100) : @(0) }}];
+  self.gameController.extendedGamepad.leftShoulder.pressedChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
+    [weakSelf.delegate gamepadControllerTurnOffLEDs:weakSelf];
+  };
+  self.gameController.microGamepad.buttonA.pressedChangedHandler = ^(GCControllerButtonInput * _Nonnull button, float value, BOOL pressed) {
+    if (!pressed) {
+      return;
+    }
+    [weakSelf.delegate gamepadControllerMapButtonPressed:weakSelf];
   };
   [self updateMotorWithGamepad];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnected:) name:GCControllerDidDisconnectNotification object:self.gameController];
