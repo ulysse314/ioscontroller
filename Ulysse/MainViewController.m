@@ -17,7 +17,7 @@
 #define kVerticalButtonsPReference   @"vertical_buttons"
 #define MAX_BATTERY_AH               17
 
-@interface MainViewController ()<DomainButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
+@interface MainViewController ()<CameraViewControllerDelegate, DomainButtonListViewControllerDelegate, GamepadControllerDelegate, WKNavigationDelegate> {
   Ulysse *_ulysse;
   IBOutlet __weak UIView *_squareView;
   BOOL _camStarted;
@@ -146,6 +146,7 @@
   [self addChildViewController:self.cameraViewController];
   self.layoutController.cameraView = self.cameraViewController.view;
   [self.cameraViewController didMoveToParentViewController:self];
+  self.cameraViewController.delegate = self;
   _camStarted = YES;
 }
 
@@ -196,6 +197,12 @@
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
   DEBUGLOG(@"webViewWebContentProcessDidTerminate");
+}
+
+#pragma mark - CameraViewControllerDelegate
+
+- (void)cameraViewControllerWasTapped:(CameraViewController *)cameraViewController {
+  [self.layoutController switchToCamera];
 }
 
 #pragma mark - DomainButtonListViewControllerDelegate

@@ -1,11 +1,20 @@
 import UIKit
 import WebKit
 
+@objc protocol CameraViewControllerDelegate {
+
+  func cameraViewControllerWasTapped(_ cameraViewController: CameraViewController)
+
+}
+
 class CameraViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
-  var webView: WKWebView
-  var cameraURL: URL
   let ConnectionLostMessageName: String = "connectionLost"
+  let ImageClickMessageName: String = "imageClick"
+
+  let webView: WKWebView
+  let cameraURL: URL
+  @objc var delegate: CameraViewControllerDelegate?
 
   @objc init(cameraURL: URL) {
     self.cameraURL = cameraURL
@@ -14,6 +23,7 @@ class CameraViewController: UIViewController, WKNavigationDelegate, WKScriptMess
     super.init(nibName: nil, bundle: nil)
     self.webView.navigationDelegate = self
     configuration.userContentController.add(self, name: self.ConnectionLostMessageName)
+    configuration.userContentController.add(self, name: self.ImageClickMessageName)
   }
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -47,6 +57,10 @@ class CameraViewController: UIViewController, WKNavigationDelegate, WKScriptMess
 window.onload = function() {
   window.webkit.messageHandlers.\(self.ConnectionLostMessageName).postMessage({});
 };
+image = document.getElementById("image");
+image.onclick = function() {
+  window.webkit.messageHandlers.\(self.ImageClickMessageName).postMessage({});
+};
 </script>
 </html>
 """
@@ -68,6 +82,8 @@ window.onload = function() {
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     if (message.name == self.ConnectionLostMessageName) {
       self.reloadHTML()
+    } else if (message.name == self.ImageClickMessageName) {
+      self.delegate?.cameraViewControllerWasTapped(self)
     }
   }
 
