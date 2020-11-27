@@ -202,7 +202,7 @@
 #pragma mark - CameraViewControllerDelegate
 
 - (void)cameraViewControllerWasTapped:(CameraViewController *)cameraViewController {
-  [self.layoutController switchToCamera];
+  [self.layoutController swithcMainView];
 }
 
 #pragma mark - DomainButtonListViewControllerDelegate
@@ -258,11 +258,7 @@
 }
 
 - (void)gamepadControllerMapButtonPressed:(GamepadController *)gamepadController {
-  if (self.layoutController.fullScreenView == FullScreenViewCameraView) {
-    [self.layoutController switchToMap];
-  } else {
-    [self.layoutController switchToCamera];
-  }
+  [self.layoutController swithcMainView];
 }
 
 - (void)gamepadControllerTurnOnLEDs:(GamepadController *)gamepadController {

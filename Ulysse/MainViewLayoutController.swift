@@ -80,6 +80,14 @@ class MainViewLayoutController: NSObject {
     ])
   }
 
+  @objc func swithcMainView() {
+    if self.fullScreenView == .cameraView {
+      self.switchToMap();
+    } else {
+      self.switchToCamera();
+    }
+  }
+
   @objc func switchToCamera() {
     if self.cameraView == nil || self.fullScreenView == .cameraView {
       return
