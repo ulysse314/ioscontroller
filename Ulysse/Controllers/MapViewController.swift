@@ -22,15 +22,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
   var needsMapViewUpdate: Bool
   var isMapViewUpdating: Bool
   var heading: Double
+  var locationManager: CLLocationManager = CLLocationManager()
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     self.mapView = MKMapView()
+    self.mapView.showsUserLocation = true
     self.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     self.needsMapViewUpdate = false
     self.isMapViewUpdating = false
     self.heading = 0
     self.needsAnimation = false
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.startUpdatingLocation()
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -85,6 +90,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, MKAnnotation {
 // MARK: - MKMapViewDelegate
 
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    if !(annotation is MapViewController) {
+      return nil
+    }
     let pinView: MKAnnotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "boat")
     pinView.canShowCallout = false
     pinView.image = UIImage(named: "quickaction_icon_location")
