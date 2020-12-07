@@ -160,7 +160,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)cameraAction:(UISwitch *)sender {
-  [_ulysse setValues: @{ @"camera": @{ @"state": @(sender.on) } }];
+  [_ulysse setValues: @{ @"camera": @{ @"state": @(sender.on), @"live_stream_name": @"twitch" } }];
 }
 
 - (void)recordTripAction:(UISwitch *)sender {
