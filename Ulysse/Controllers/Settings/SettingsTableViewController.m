@@ -276,7 +276,7 @@ typedef enum : NSUInteger {
       [self performSegueWithIdentifier:@"BoatChooser" sender:self];
       break;
     case CommandBoatCellIndex:
-      [self performSegueWithIdentifier:@"Command" sender:self];
+      [self performSegueWithIdentifier:@"CommandSettings" sender:self];
       break;
     case CameraBoatCellIndex:
       [self performSegueWithIdentifier:@"CameraSettings" sender:self];
