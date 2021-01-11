@@ -41,6 +41,7 @@
 		026DD12B21FCA383006B18B7 /* ButtonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12A21FCA383006B18B7 /* ButtonImageView.swift */; };
 		026DD12D21FCB4D9006B18B7 /* ButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026DD12C21FCB4D9006B18B7 /* ButtonListView.swift */; };
 		02918E5D249E2D7400359C9A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02918E5C249E2D7400359C9A /* CameraViewController.swift */; };
+		0296163425ABAACD0080B0AF /* CameraSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0296163325ABAACD0080B0AF /* CameraSettingsViewController.swift */; };
 		0296DAE62586C92F00F2A7C2 /* Communication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0296DAE52586C92F00F2A7C2 /* Communication.m */; };
 		0299310F1D3180FC00C03033 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299310E1D3180FC00C03033 /* main.m */; };
 		029931121D3180FC00C03033 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 029931111D3180FC00C03033 /* AppDelegate.m */; };
@@ -123,6 +124,7 @@
 		026DD12A21FCA383006B18B7 /* ButtonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonImageView.swift; sourceTree = "<group>"; };
 		026DD12C21FCB4D9006B18B7 /* ButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonListView.swift; sourceTree = "<group>"; };
 		02918E5C249E2D7400359C9A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		0296163325ABAACD0080B0AF /* CameraSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsViewController.swift; sourceTree = "<group>"; };
 		0296DAD925864F9F00F2A7C2 /* Communication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
 		0296DAE52586C92F00F2A7C2 /* Communication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Communication.m; sourceTree = "<group>"; };
 		0299310A1D3180FC00C03033 /* Ulysse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ulysse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -873,6 +875,7 @@
 				023BD9172044994000188A35 /* BoatChooserViewController.m */,
 				02FA6B0320A6C2A40002CB00 /* CommandViewController.h */,
 				02FA6B0420A6C2A50002CB00 /* CommandViewController.m */,
+				0296163325ABAACD0080B0AF /* CameraSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				0265709F2034CEFE006187A8 /* SettingsTableViewController.m in Sources */,
 				022C0E3A23492E3E00F4DAA6 /* MotorComponentButtonItem.swift in Sources */,
 				022C0E3C23492F8800F4DAA6 /* RaspberryPiComponentButtonItem.swift in Sources */,
+				0296163425ABAACD0080B0AF /* CameraSettingsViewController.swift in Sources */,
 				023C9F6F234E69A00003F0FA /* BoatComponentButtonItem.swift in Sources */,
 				022BAD5721FDDF7900624EFA /* ButtonItem.swift in Sources */,
 				021565FD1FF6EC3E00D9BC98 /* Config.m in Sources */,

@@ -3,3 +3,5 @@
 //
 
 #import "Config.h"
+#import "AppDelegate.h"
+#import "PListCommunication.h"

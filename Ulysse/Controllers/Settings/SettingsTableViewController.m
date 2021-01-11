@@ -61,9 +61,9 @@ typedef enum : NSUInteger {
     case BoatSection:
       switch ((BoatCellIndex)indexPath.row) {
         case ChooserBoatCellIndex:
+        case CameraBoatCellIndex:
           return @"DisclosureIndicatorCell";
         case LightBoatCellIndex:
-        case CameraBoatCellIndex:
         case RecordTripBoatCellIndex:
           return @"DefaultCell";
         case BootBoatCellIndex:
@@ -105,7 +105,6 @@ typedef enum : NSUInteger {
       cell.textLabel.text = @"Light";
       break;
     case CameraBoatCellIndex:
-      cell.accessoryView = [self switchWithAction:@selector(cameraAction:) value:[_communication.allValues[@"camera"][@"state"] boolValue]];
       cell.textLabel.text = @"Camera";
       break;
     case RecordTripBoatCellIndex:
@@ -160,7 +159,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)cameraAction:(UISwitch *)sender {
-  [_communication setValues: @{ @"camera": @{ @"state": @(sender.on), @"live_stream_name": @"twitch" } }];
+  [_communication setValues: @{ @"camera": @{ @"state": @(sender.on), @"live_stream_name": @"" } }];
 }
 
 - (void)recordTripAction:(UISwitch *)sender {
@@ -184,10 +183,10 @@ typedef enum : NSUInteger {
     case BoatSection:
       switch ((BoatCellIndex)indexPath.row) {
         case ChooserBoatCellIndex:
+        case CameraBoatCellIndex:
         case CommandBoatCellIndex:
           return YES;
         case LightBoatCellIndex:
-        case CameraBoatCellIndex:
         case RecordTripBoatCellIndex:
         case BootBoatCellIndex:
         case MotorCoefBoatCellIndex:
@@ -279,8 +278,10 @@ typedef enum : NSUInteger {
     case CommandBoatCellIndex:
       [self performSegueWithIdentifier:@"Command" sender:self];
       break;
-    case LightBoatCellIndex:
     case CameraBoatCellIndex:
+      [self performSegueWithIdentifier:@"CameraSettings" sender:self];
+      break;
+    case LightBoatCellIndex:
     case RecordTripBoatCellIndex:
     case BootBoatCellIndex:
     case MotorCoefBoatCellIndex:
