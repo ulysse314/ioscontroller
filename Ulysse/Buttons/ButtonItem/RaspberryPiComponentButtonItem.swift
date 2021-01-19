@@ -10,13 +10,13 @@ class RaspberryPiComponentButtonItem: BoatComponentButtonItem {
 
   override func value1() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .RaspberryPi)
-    let cpuTemp: Int = Int(getDouble(value: boatComponent?.value(key: "temp")))
+    let cpuTemp: Int = Int(getDouble(value: boatComponent?.value(key: "temp")).rounded())
     return "\(cpuTemp)ºC"
   }
   
   override func value2() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .RaspberryPi)
-    let cpuActivity: Int = Int(getDouble(value: boatComponent?.value(key: "cpu%")))
+    let cpuActivity: Int = Int(getDouble(value: boatComponent?.value(key: "cpu%")).rounded())
     return "\(cpuActivity)%"
   }
 

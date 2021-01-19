@@ -10,13 +10,13 @@ class MotorComponentButtonItem: BoatComponentButtonItem {
 
   override func value1() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .LeftMotor)
-    let leftTemp: Int = Int(getDouble(value: boatComponent?.value(key: "t")))
+    let leftTemp: Int = Int((getDouble(value: boatComponent?.value(key: "t"))).rounded())
     return "\(leftTemp)ºC"
   }
   
   override func value2() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .RightMotor)
-    let rightTemp: Int = Int(getDouble(value: boatComponent?.value(key: "t")))
+    let rightTemp: Int = Int((getDouble(value: boatComponent?.value(key: "t"))).rounded())
     return "\(rightTemp)ºC"
   }
 

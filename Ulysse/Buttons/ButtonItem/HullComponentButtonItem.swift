@@ -10,13 +10,13 @@ class HullComponentButtonItem: BoatComponentButtonItem {
 
   override func value1() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .Hull)
-    let temperature: Int = Int(getDouble(value: boatComponent?.value(key: "T")))
+    let temperature: Int = Int(getDouble(value: boatComponent?.value(key: "T")).rounded())
     return "\(temperature)ºC"
   }
 
   override func value2() -> String? {
     let boatComponent: BoatComponent? = self.boatComponent(identifier: .Hull)
-    let humidity: Int = Int(getDouble(value: boatComponent?.value(key: "hm")))
+    let humidity: Int = Int(getDouble(value: boatComponent?.value(key: "hm")).rounded())
     return "\(humidity)%"
   }
 
